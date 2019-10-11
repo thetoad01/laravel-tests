@@ -39,6 +39,12 @@ Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps'
 
 
 /*******************************************************************
+ * Scraped Vehicles
+ *******************************************************************/
+Route::resource('/scrape/vehicles', 'Scrape\VehicleController');
+
+
+/*******************************************************************
  * Laracasts Practical Vue Components
  *******************************************************************/
 Route::view('/vue-components/smooth-scrolling', 'practical-vue-components.smooth-scrolling');
