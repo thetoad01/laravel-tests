@@ -1,7 +1,5 @@
 /*!
  * Material Design for Bootstrap 4
- * Version: MDB Pro 4.7.6
- *
  *
  * Copyright: Material Design for Bootstrap
  * https://mdbootstrap.com/
@@ -17418,7 +17416,7 @@ $(function () {
  * easy-pie-chart
  * Lightweight plugin to render simple, animated and retina optimized pie charts
  *
- * @license 
+ * @license
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
  * @version 2.1.7
  **/
@@ -23408,7 +23406,7 @@ ClockPicker.prototype.parseInputValue = function(){
 
 var initPhotoSwipeFromDOM = function (gallerySelector) {
 
-    // parse slide data (url, title, size ...) from DOM elements 
+    // parse slide data (url, title, size ...) from DOM elements
     // (children of gallerySelector)
     var parseThumbnailElements = function (el) {
         var thumbElements = el.childNodes,
@@ -23423,7 +23421,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
 
             figureEl = thumbElements[i]; // <figure> element
 
-            // include only element nodes 
+            // include only element nodes
             if (figureEl.nodeType !== 1) {
                 continue;
             }
@@ -23568,7 +23566,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
         // PhotoSwipe opened from URL
         if (fromURL) {
             if (options.galleryPIDs) {
-                // parse real index when custom PIDs are used 
+                // parse real index when custom PIDs are used
                 // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
                 for (var j = 0; j < items.length; j++) {
                     if (items[j].pid == index) {
