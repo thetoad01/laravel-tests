@@ -1,9 +1,14 @@
 # Laravel Tests
 
 ## Sample website coming soon
-
+  
+## Setup
+1. Add your favorite relational database to the project or in the database directory create a file called database.sqlite.
+2. Add the database to the .env file.
+3. Then run ```php artisan migrate```
+  
 ## Dealership Vehicle Scraper (for CDK websites)
-Google "sitemap-inventory-cdk.xml" to get urls to add to the scriper.
+Google "sitemap-inventory-cdk.xml" to get urls to add to the scraper.  
 
 ## Built with Laravel
 
