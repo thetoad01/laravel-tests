@@ -10,12 +10,12 @@
             <div class="card-body">
                 <form action="/scrape/cdk" method="POST">
                     @csrf
-                    <div class="md-form">
-                        <input type="text" class="form-control {{ $errors->has('sitemap_url') ? 'border-danger' : '' }}" id="sitemap_url" name="sitemap_url" value="{{ old('sitemap_url') }}">
+                    <div class="form-group">
                         <label for="sitemap_url">Sitemap URL</label>
+                        <input type="text" class="form-control {{ $errors->has('sitemap_url') ? 'border-danger' : '' }}" id="sitemap_url" name="sitemap_url" value="{{ old('sitemap_url') }}" placeholder="Enter complete sitemap url">
                     </div>
 
-                    <select name="state" id="state" class="mdb-select md-form">
+                    <select name="state" id="state" class="browser-default custom-select mb-2">
                         <option value="" disabled selected>Choose State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -86,10 +86,4 @@
 @endsection
 
 @section('scripts')
-<script>
-// Material Select Initialization
-$(document).ready(function() {
-    $('.mdb-select').materialSelect();
-});
-</script>    
 @endsection
