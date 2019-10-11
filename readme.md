@@ -3,7 +3,9 @@
 ## Sample website coming soon
   
 ## Setup
-Add your favorite relational database to the project or in the database directory create a file called database.sqlite.  Then run the migrations.
+1. Add your favorite relational database to the project or in the database directory create a file called database.sqlite.
+2. Add the database to the .env file.
+3. Then run ```php artisan migrate```
   
 ## Dealership Vehicle Scraper (for CDK websites)
 Google "sitemap-inventory-cdk.xml" to get urls to add to the scraper.  
