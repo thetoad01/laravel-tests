@@ -37,6 +37,9 @@
                         <div class="col">
                             {{ $vehicle->exterior_color }}
                         </div>
+                        <div class="col">
+                            <a href="/scrape/vehicles/{{ $vehicle->id }}" class="btn btn-sm btn-primary float-right">View</a>
+                        </div>
                     </div>
                 </li>
             @endforeach
