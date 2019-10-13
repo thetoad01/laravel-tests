@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Scrape;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\MessageBag;
 
 // models
 use App\Models\Scrape\CdkSitemap;
@@ -43,7 +44,17 @@ class CdkController extends Controller
         $sitemap->sitemap_url = $validated['sitemap_url'];
         $sitemap->state = $validated[ 'state'];
         // save the data
-        $sitemap->save();
+        try {
+            $sitemap->save();
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            $errors = new MessageBag;
+            // add your error messages:
+            $errors->add('exists', 'XML Sitemap already exists!');
+
+            return back()->withErrors($errors);
+        }
+
 
         return redirect('/scrape/cdk');
     }
