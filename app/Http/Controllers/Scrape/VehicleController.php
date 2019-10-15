@@ -64,7 +64,9 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+
+        return view('scrape.vehicles.edit')->with('vehicle', $vehicle);
     }
 
     /**

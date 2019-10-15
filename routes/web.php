@@ -45,6 +45,12 @@ Route::resource('/scrape/vehicles', 'Scrape\VehicleController');
 
 
 /*******************************************************************
+ * NHTSA VIN Decode
+ *******************************************************************/
+Route::get('/nhtsa/decode/{vin}/{year}', 'Nhtsa\NhtsaController@decode');
+
+
+/*******************************************************************
  * Laracasts Practical Vue Components
  *******************************************************************/
 Route::view('/vue-components/smooth-scrolling', 'practical-vue-components.smooth-scrolling');

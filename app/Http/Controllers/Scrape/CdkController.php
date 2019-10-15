@@ -47,7 +47,6 @@ class CdkController extends Controller
         try {
             $sitemap->save();
         } catch (\Exception $e) {
-            // dd($e->getMessage());
             $errors = new MessageBag;
             // add your error messages:
             $errors->add('exists', 'XML Sitemap already exists!');
