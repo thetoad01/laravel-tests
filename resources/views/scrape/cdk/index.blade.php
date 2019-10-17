@@ -20,6 +20,9 @@
         <li class="nav-item">
             <a href="/scrape/cdk/create" class="nav-link btn btn-sm btn-info" title="add new">Add New Sitemap</a>
         </li>
+        <li class="nav-item">
+            <a href="/scrape/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">Scraped Vehicles</a>
+        </li>
     </ul>
 
     <div class="row teal lighten-5">

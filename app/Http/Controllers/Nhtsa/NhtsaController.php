@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use GuzzleHttp\Client;
+use App\Repositories\NhtsaDecodeRepository;
 
 class NhtsaController extends Controller
 {
@@ -36,6 +37,9 @@ class NhtsaController extends Controller
 
         $data = json_decode($data);
 
-        return collect($data);
+        $nhtsaData = new NhtsaDecodeRepository($data);
+
+        // return collect($data);
+        return response()->json($nhtsaData->run());
     }
 }
