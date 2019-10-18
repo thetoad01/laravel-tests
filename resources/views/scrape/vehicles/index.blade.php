@@ -9,6 +9,21 @@
 
     <h1 class="text-center mt-3">Vehicles Scraped from CDK Websites</h1>
 
+    <div class="row px-4 white">
+        <div class="col-sm-2">
+            <select id="selectYear" class="mdb-select md-form m-0">
+                <option value="" disabled selected>Filter by Year</option>
+                @foreach ($years as $year)
+                    <option value="{{ $year->year }}"{{ app('request')->input('year') == $year->year ? 'selected' : '' }}>{{ $year->year }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <div id="result" class="pt-3 text-primary"></div>
+        </div>
+    </div>
+
     {{-- Pagination links --}}
     <div class="container-fluid mt-3">
         {{ $vehicles->links() }}
@@ -56,4 +71,14 @@
 @endsection
 
 @section('scripts')
+<script>
+$(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    $('#selectYear').on('change', function(event) {
+        event.preventDefault();
+        console.log(this.value);
+        $('#result').text('Selected: ' + this.value);
+    });
+});
+</script>
 @endsection

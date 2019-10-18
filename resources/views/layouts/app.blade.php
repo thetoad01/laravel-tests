@@ -13,7 +13,6 @@
 {{-- JS --}}
 <script src="/js/app.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/mdb.min.js"></script>
 @yield('heads')
 </head>
 <body>
@@ -25,6 +24,7 @@
 
 </div>
 
+<script src="/js/mdb.min.js"></script>
 @yield('scripts')
 </body>
 </html>
