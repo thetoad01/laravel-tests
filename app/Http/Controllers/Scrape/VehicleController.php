@@ -20,11 +20,9 @@ class VehicleController extends Controller
             ->paginate(25);
 
         // get available years
-        $years = Vehicle::select('year')
-            ->whereNull('deleted_at')
-            ->groupBy('year')
+        $years = Vehicle::distinct()
             ->orderBy('year', 'desc')
-            ->get();
+            ->get('year');
 
         return view('scrape.vehicles.index')
             ->with('vehicles', $vehicles)
