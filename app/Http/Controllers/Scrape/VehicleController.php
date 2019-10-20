@@ -13,9 +13,15 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $vehicles = Vehicle::whereNull('deleted_at')
+            ->when($request->year, function($query) use ($request) {
+                $query->where('year', $request->year);
+            })
+            ->when($request->make, function($query) use ($request) {
+                $query->where('make', $request->make);
+            })
             ->orderBy('year', 'desc')
             ->paginate(25);
 
@@ -24,9 +30,18 @@ class VehicleController extends Controller
             ->orderBy('year', 'desc')
             ->get('year');
 
+        // get available makes
+        $makes = Vehicle::distinct()
+            ->when($request->year, function($query) use ($request) {
+                $query->where('year', $request->year);
+            })
+            ->orderBy('make')
+            ->get('make');
+
         return view('scrape.vehicles.index')
             ->with('vehicles', $vehicles)
-            ->with('years', $years);
+            ->with('years', $years)
+            ->with('makes', $makes);
     }
 
     /**

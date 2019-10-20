@@ -20,7 +20,16 @@
         </div>
 
         <div class="col-sm-2">
-            <div id="result" class="pt-3 text-primary"></div>
+            <select id="selectMake" class="mdb-select md-form m-0">
+                <option value="" disabled selected>Filter by Make</option>
+                @foreach ($makes as $make)
+                    <option value="{{ $make->make }}"{{ app('request')->input('make') == $make->make ? 'selected' : '' }}>{{ $make->make }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <a href="/scrape/vehicles" class="btn btn-sm btn-info">Reset</a>
         </div>
     </div>
 
@@ -73,11 +82,19 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
+    let url = window.location.href;
+
     $('.mdb-select').materialSelect();
+
     $('#selectYear').on('change', function(event) {
         event.preventDefault();
-        console.log(this.value);
-        $('#result').text('Selected: ' + this.value);
+        window.location.href = '/scrape/vehicles?filter' + '&year=' + this.value;
+    });
+
+    $('#selectMake').on('change', function(event) {
+        event.preventDefault();
+        // $('#resultMake').text('Selected: ' + this.value);
+        window.location.href = url + '&make=' + this.value;
     });
 });
 </script>
