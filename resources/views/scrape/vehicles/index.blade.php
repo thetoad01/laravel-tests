@@ -13,6 +13,7 @@
         <div class="col-sm-2">
             <select id="selectYear" class="mdb-select md-form m-0">
                 <option value="" disabled selected>Filter by Year</option>
+                <option value="">All</option>
                 @foreach ($years as $year)
                     <option value="{{ $year->year }}"{{ app('request')->input('year') == $year->year ? 'selected' : '' }}>{{ $year->year }}</option>
                 @endforeach
@@ -22,8 +23,19 @@
         <div class="col-sm-2">
             <select id="selectMake" class="mdb-select md-form m-0">
                 <option value="" disabled selected>Filter by Make</option>
+                <option value="">All</option>
                 @foreach ($makes as $make)
                     <option value="{{ $make->make }}"{{ app('request')->input('make') == $make->make ? 'selected' : '' }}>{{ $make->make }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <select id="selectModel" class="mdb-select md-form m-0">
+                <option value="" disabled selected>Filter by Model</option>
+                <option value="">All</option>
+                @foreach ($models as $model)
+                    <option value="{{ $model->model }}"{{ app('request')->input('model') == $model->model ? 'selected' : '' }}>{{ $model->model }}</option>
                 @endforeach
             </select>
         </div>
@@ -82,22 +94,30 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
-    let url = window.location.href;
-
     $('.mdb-select').materialSelect();
 
     $('#selectYear').on('change', function(event) {
         event.preventDefault();
         let make = $('#selectMake').val();
+        let model = $('#selectModel').val();
 
-        window.location.href = '/scrape/vehicles?filter' + '&year=' + this.value + (make ? '&make=' + make : '');
+        window.location.href = '/scrape/vehicles?filter' + '&year=' + this.value + (make ? '&make=' + make : '') + (model ? '&model=' + model : '');
     });
 
     $('#selectMake').on('change', function(event) {
         event.preventDefault();
         let year = $('#selectYear').val();
+        let model = $('#selectModel').val();
 
-        window.location.href = '/scrape/vehicles?' + (year ? 'year=' + year + '&' : '') + 'make=' + this.value;
+        window.location.href = '/scrape/vehicles?' + (year ? 'year=' + year + '&' : '') + 'make=' + this.value + (model ? '&model=' + model : '');
+    });
+
+    $('#selectModel').on('change', function(event) {
+        event.preventDefault();
+        let year = $('#selectYear').val();
+        let make = $('#selectMake').val();
+
+        window.location.href = '/scrape/vehicles?' + (year ? 'year=' + year + '&' : '') + (make ? '&make=' + make + '&' : '') + 'model=' + this.value;
     });
 });
 </script>

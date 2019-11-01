@@ -22,6 +22,9 @@ class VehicleController extends Controller
             ->when($request->make, function($query) use ($request) {
                 $query->where('make', $request->make);
             })
+            ->when($request->model, function($query) use ($request) {
+                $query->where('model', $request->model);
+            })
             ->orderBy('year', 'desc')
             ->paginate(25);
 
@@ -29,6 +32,9 @@ class VehicleController extends Controller
         $years = Vehicle::distinct()
             ->when($request->make, function($query) use ($request) {
                 $query->where('make', $request->make);
+            })
+            ->when($request->model, function($query) use ($request) {
+                $query->where('model', $request->model);
             })
             ->orderBy('year', 'desc')
             ->get('year');
@@ -38,13 +44,28 @@ class VehicleController extends Controller
             ->when($request->year, function($query) use ($request) {
                 $query->where('year', $request->year);
             })
+            ->when($request->model, function($query) use ($request) {
+                $query->where('model', $request->model);
+            })
             ->orderBy('make')
             ->get('make');
+
+        // get available models
+        $models = Vehicle::distinct()
+            ->when($request->year, function($query) use ($request) {
+                $query->where('year', $request->year);
+            })
+            ->when($request->make, function($query) use ($request) {
+                $query->where('make', $request->make);
+            })
+            ->orderBy('model')
+            ->get('model');
 
         return view('scrape.vehicles.index')
             ->with('vehicles', $vehicles)
             ->with('years', $years)
-            ->with('makes', $makes);
+            ->with('makes', $makes)
+            ->with('models', $models);
     }
 
     /**
