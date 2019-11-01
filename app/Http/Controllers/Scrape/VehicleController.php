@@ -27,6 +27,9 @@ class VehicleController extends Controller
 
         // get available years
         $years = Vehicle::distinct()
+            ->when($request->make, function($query) use ($request) {
+                $query->where('make', $request->make);
+            })
             ->orderBy('year', 'desc')
             ->get('year');
 

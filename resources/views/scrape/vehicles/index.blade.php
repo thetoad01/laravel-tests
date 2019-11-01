@@ -88,13 +88,16 @@ $(document).ready(function() {
 
     $('#selectYear').on('change', function(event) {
         event.preventDefault();
-        window.location.href = '/scrape/vehicles?filter' + '&year=' + this.value;
+        let make = $('#selectMake').val();
+
+        window.location.href = '/scrape/vehicles?filter' + '&year=' + this.value + (make ? '&make=' + make : '');
     });
 
     $('#selectMake').on('change', function(event) {
         event.preventDefault();
-        // $('#resultMake').text('Selected: ' + this.value);
-        window.location.href = url + '&make=' + this.value;
+        let year = $('#selectYear').val();
+
+        window.location.href = '/scrape/vehicles?' + (year ? 'year=' + year + '&' : '') + 'make=' + this.value;
     });
 });
 </script>
