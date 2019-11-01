@@ -3,6 +3,7 @@
 Built with Laravel, Bootstrap, MDBootstrap and VueJS
 
 ## Sample website coming soon
+http://a4f5.com
   
 ## Setup
 1. Add your favorite relational database to the project or in the database directory create a file called database.sqlite.
