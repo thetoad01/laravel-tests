@@ -8,8 +8,8 @@
 @section('content')
 <div class="row stylish-color-dark text-white nav">
     <nav class="nav container">
-        <a href="/home" class="text-white nav-link">Home</a>
-        <a href="/scrape/cdk" class="text-white nav-link">CDK Sitemap List</a>
+        <a href="/" class="text-white nav-link">Home</a>
+        {{-- <a href="/scrape/cdk" class="text-white nav-link">CDK Sitemap List</a> --}}
         <a href="/scrape/vehicles" class="text-white nav-link">Scraped Vehicle List</a>
     </nav>
 </div>

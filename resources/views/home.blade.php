@@ -3,6 +3,7 @@
 @section('title', 'Laravel Tests Home')
 
 @section('heads')
+<meta name="robots" content="noindex,nofollow">
 @endsection
 
 @section('content')
