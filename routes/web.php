@@ -42,6 +42,8 @@ Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps'
  * Scraped Vehicles
  *******************************************************************/
 Route::resource('/scrape/vehicles', 'Scrape\VehicleController');
+// this is a test route
+Route::get('/vehicle/check-link', 'Vehicle\ActiveLinkController@check');
 
 
 /*******************************************************************

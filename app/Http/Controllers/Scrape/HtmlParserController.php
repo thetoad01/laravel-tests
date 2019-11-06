@@ -19,6 +19,9 @@ use App\Models\Scrape\CdkSitemap;
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
 
+// jobs
+use App\Jobs\GetCdkSitemap;
+
 class HtmlParserController extends Controller
 {
     public function test()

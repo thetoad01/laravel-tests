@@ -12,16 +12,16 @@
 
     <ul class="nav mb-2">
         <li class="nav-item">
-            <a href="/scrape" class="nav-link btn btn-sm btn-success" title="add new">Scrape Details</a>
+            <a href="/scrape" class="nav-link btn btn-sm btn-success" title="add new">Run Scrape Details</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="/scrape/sitemaps/all" class="nav-link btn btn-sm btn-secondary" title="add new">Scrape Sitemaps</a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="/scrape/cdk/create" class="nav-link btn btn-sm btn-info" title="add new">Add New Sitemap</a>
         </li>
         <li class="nav-item">
-            <a href="/scrape/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">Scraped Vehicles</a>
+            <a href="/scrape/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">View Scraped Vehicles</a>
         </li>
     </ul>
 
