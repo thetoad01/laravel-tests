@@ -10,17 +10,12 @@
     <nav class="nav container">
         <a href="/" class="text-white nav-link">Home</a>
         {{-- <a href="/scrape/cdk" class="text-white nav-link">CDK Sitemap List</a> --}}
-        <a href="/scrape/vehicles" class="text-white nav-link">Scraped Vehicle List</a>
+        <a href="/vehicles" class="text-white nav-link">Scraped Vehicle List</a>
     </nav>
 </div>
 
-<div class="container">
-    <a href="{{ url()->previous() }}"><i class="fas fa-arrow-circle-left"></i> back</a>
-</div>
-
 <div class="container mt-4">
-    <h1 class="mb-0">Edit Scraped Vehicle</h1>
-    <div class="small mb-4">(Well not really edit, but pehaps sweeten the data?)</div>
+    <h1 class="mb-3">Scraped Vehicle</h1>
 
     <div class="h4">Dealership: {{ $vehicle->dealer }}</div>
 
@@ -48,7 +43,7 @@
         First seen: {{ \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() ?? '' }}
     </div>
     <div class="mt-4">
-        <a href="/nhtsa/decode/{{ $vehicle->vin }}/{{ $vehicle->year }}" class="btn btn-sm btn-success ml-0">Decode VIN Using NHTSA</a>
+        <a href="/vehicles/{{ $vehicle->id }}/edit" class="btn btn-sm btn-info ml-0">Edit Vehicle</a>
     </div>
 </div>
 @endsection

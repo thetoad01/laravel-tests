@@ -61,7 +61,7 @@ class VehicleController extends Controller
             ->orderBy('model')
             ->get('model');
 
-        return view('scrape.vehicles.index')
+        return view('vehicles.index')
             ->with('vehicles', $vehicles)
             ->with('years', $years)
             ->with('makes', $makes)
@@ -99,7 +99,7 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::find($id);
 
-        return view('scrape.vehicles.show')->with('vehicle', $vehicle);
+        return view('vehicles.show')->with('vehicle', $vehicle);
     }
 
     /**
@@ -112,7 +112,7 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::find($id);
 
-        return view('scrape.vehicles.edit')->with('vehicle', $vehicle);
+        return view('vehicles.edit')->with('vehicle', $vehicle);
     }
 
     /**
