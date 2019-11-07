@@ -21,7 +21,7 @@
             <a href="/scrape/cdk/create" class="nav-link btn btn-sm btn-info" title="add new">Add New Sitemap</a>
         </li>
         <li class="nav-item">
-            <a href="/scrape/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">View Scraped Vehicles</a>
+            <a href="/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">View Scraped Vehicles</a>
         </li>
     </ul>
 

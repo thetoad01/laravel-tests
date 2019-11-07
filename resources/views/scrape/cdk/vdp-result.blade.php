@@ -7,7 +7,7 @@
     <nav class="nav container">
         <a href="/home" class="text-white nav-link">Home</a>
         <a href="/scrape/cdk" class="text-white nav-link">CDK Sitemap List</a>
-        <a href="/scrape/vehicles" class="text-white nav-link">Scraped Vehicle List</a>
+        <a href="/vehicles" class="text-white nav-link">Scraped Vehicle List</a>
     </nav>
 </div>
 
