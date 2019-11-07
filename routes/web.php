@@ -26,9 +26,12 @@ Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@
 /*******************************************************************
  * CDK Sitemaps
  *******************************************************************/
+// protected
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
+    Route::post('/scrape/cdk', 'Scrape\CdkController@store');
+});
 Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
-Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
-Route::post('/scrape/cdk', 'Scrape\CdkController@store');
 Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
 Route::get('/scrape/cdk/{id}/edit', 'Scrape\CdkController@edit');
 Route::patch('/scrape/cdk/{id}', 'Scrape\CdkController@update');
@@ -73,3 +76,7 @@ Route::get('/security/generate-uuid', 'Security\UuidController@generate');
  * TESTS
  *******************************************************************/
 Route::view('/something.php', 'Tests.something');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
