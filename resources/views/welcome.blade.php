@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        @if (Route::has('login'))
+        {{-- @if (Route::has('login'))
             <div class="top-right links">
                 @auth
                     <a href="{{ url('/home') }}">Home</a>
@@ -34,7 +34,7 @@
                     @endif
                 @endauth
             </div>
-        @endif
+        @endif --}}
 
     <header class="masthead mb-auto">
         <div class="inner">
