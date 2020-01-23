@@ -47,6 +47,8 @@ Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps'
 Route::resource('/vehicles', 'Scrape\VehicleController');
 // this is a test route
 Route::get('/vehicle/check-link', 'Vehicle\ActiveLinkController@check');
+// deleted vehicles
+Route::get('/deleted/vehicles', 'Scrape\DeletedVehicleController@index')->name('vehicles.deleted.index');
 
 
 /*******************************************************************

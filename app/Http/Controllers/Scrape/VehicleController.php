@@ -25,7 +25,7 @@ class VehicleController extends Controller
             ->when($request->model, function($query) use ($request) {
                 $query->where('model', $request->model);
             })
-            ->orderBy('year', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate(25);
 
         // get available years

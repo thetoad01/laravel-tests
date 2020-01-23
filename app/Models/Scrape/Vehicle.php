@@ -14,8 +14,8 @@ class Vehicle extends Model
     /**
      * Get the status associated with the vehicle
      */
-    public function linkStatus()
+    public function cdkLink()
     {
-        return $this->hasOne('App\Models\VehicleLinkStatus', 'vehicle_id', 'id');
+        return $this->hasOne('App\Models\Scrape\CdkLink', 'vdp_url', 'url');
     }
 }

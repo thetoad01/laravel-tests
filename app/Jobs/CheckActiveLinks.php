@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Vehicle;
+namespace App\Jobs;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 
 use Carbon\Carbon;
 // guzzle
@@ -12,12 +15,26 @@ use GuzzleHttp\Client;
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
 
-class ActiveLinkController extends Controller
+class CheckActiveLinks implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
-     * Check status of link to see if still active
+     * Create a new job instance.
+     *
+     * @return void
      */
-    public function check()
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
     {
         $date = Carbon::now()->toDateString();
 
@@ -49,6 +66,7 @@ class ActiveLinkController extends Controller
         $link->updated_at = Carbon::now()->toDateTime();
         $link->save();
 
+        // mark vehicle deleted_at
         if($http_response_code != 200) {
             $vehicle = Vehicle::where('url', $link->vdp_url)->first();
             $vehicle->deleted_at = now()->toDateTimeString();
@@ -59,7 +77,5 @@ class ActiveLinkController extends Controller
                 'vehicle' => $vehicle,
             ]);
         }
-
-        return response()->json($link);
     }
 }

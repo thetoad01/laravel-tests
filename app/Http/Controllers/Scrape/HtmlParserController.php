@@ -122,19 +122,19 @@ class HtmlParserController extends Controller
         $client = new Client();
         // make try request and abort on exception
         try {
-            $response = $client->request('GET', $sitemap->sitemap_url);
+            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false]);
+            $status_code = $response->getStatusCode();
         } catch (GuzzleException $exception) {
-            // $responseBody = $exception->getResponse()->getBody(true);
             abort(404);
         }
 
         // write response code to the database
-        $sitemap->http_response_code = $response->getStatusCode();
+        $sitemap->http_response_code = $status_code;
         $sitemap->updated_at = $now;
         $sitemap->save();
 
         // body of response
-        if ($response->getStatusCode() == 200) {
+        if ($status_code == 200) {
             $data = $response->getBody()->getContents();
         } else {
             abort(404);

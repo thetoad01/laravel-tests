@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-	$schedule->job(new \App\Jobs\GetCdkSitemap, 'sitemaps')->everyTenMinutes();
+        $schedule->job(new \App\Jobs\GetCdkSitemap, 'sitemaps')->everyTenMinutes();
+        $schedule->job(new \App\Jobs\CheckActiveLinks, 'sitemaps')->everyMinute();
     }
 
     /**
