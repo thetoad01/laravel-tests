@@ -57,4 +57,31 @@ class CdkController extends Controller
 
         return redirect('/scrape/cdk');
     }
+
+    /**
+     * Edit the sitemap
+     */
+    public function edit($id)
+    {
+        $data = CdkSitemap::find($id);
+
+        return view('scrape.cdk.edit-sitemap', [
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * Modify the sitemap
+     */
+    public function update($id)
+    {
+        $sitemap = CdkSitemap::find($id);
+
+        $sitemap->sitemap_url = request()->sitemap_url;
+        $sitemap->state = request()->state;
+        $sitemap->http_response_code = 200;
+        $sitemap->save();
+
+        return redirect()->route('scrape.cdk');
+    }
 }

@@ -23,6 +23,9 @@
         <li class="nav-item">
             <a href="/vehicles" class="nav-link btn btn-sm btn-primary" title="add new">View Scraped Vehicles</a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('vehicles.deleted.index') }}" class="nav-link btn btn-sm btn-warning" title="add new">View Deleted Vehicles</a>
+        </li>
     </ul>
 
     <div class="row teal lighten-5">
@@ -49,7 +52,9 @@
                             <td class="text-center">{{ $sitemap->state }}</td>
                             <td class="text-center">{{ $sitemap->updated_at }}</td>
                             <td class="text-center">{{ $sitemap->http_response_code }}</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('sitemap.cdk.edit', $sitemap->id) }}">edit</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

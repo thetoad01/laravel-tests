@@ -30,6 +30,8 @@ Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
     Route::post('/scrape/cdk', 'Scrape\CdkController@store');
+    Route::get('/sitemap/cdk/{id}', 'Scrape\CdkController@edit')->name('sitemap.cdk.edit');
+    Route::put('/sitemap/cdk/{id}', 'Scrape\CdkController@update')->name('sitemap.cdk.update');
 });
 Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
 Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
