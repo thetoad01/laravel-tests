@@ -68,7 +68,7 @@ class CheckActiveLinks implements ShouldQueue
 
         // mark vehicle deleted_at
         if($http_response_code != 200) {
-            $vehicle = Vehicle::where('url', $link->vdp_url)->first();
+            $vehicle = Vehicle::where('url', $link->vdp_url)->firstOrFail();
             $vehicle->deleted_at = now()->toDateTimeString();
             $vehicle->save();
 
