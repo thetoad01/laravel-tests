@@ -113,7 +113,10 @@ class DealerInspireVdpController extends Controller
             ]
         );
 
-        return response()->json($result);
+        // return response()->json($result);
+        return view('scrape.dealer-inspire.vdps.show', [
+            'vehicle' => $result,
+        ]);
     }
 
     /**

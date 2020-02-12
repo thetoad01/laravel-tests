@@ -37,7 +37,7 @@
                     <td class="text-right">{{ $vdp->http_response_code ?? '' }}</td>
                     <td class="text-right">{{ $vdp->updated_at ?? '' }}</td>
                     <td class="text-right">
-                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="#" class="btn btn-sm btn-warning disabled">Edit</a>
                     </td>
                 </tr>
             @endforeach
