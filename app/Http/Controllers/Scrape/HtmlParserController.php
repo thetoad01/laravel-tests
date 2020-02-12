@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 
 // models
 use App\Models\Scrape\CdkSitemap;
@@ -122,9 +123,9 @@ class HtmlParserController extends Controller
         $client = new Client();
         // make try request and abort on exception
         try {
-            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false]);
+            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
             $status_code = $response->getStatusCode();
-        } catch (GuzzleException $exception) {
+        } catch (GuzzleException $e) {
             abort(404);
         }
 

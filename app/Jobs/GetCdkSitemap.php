@@ -50,7 +50,7 @@ class GetCdkSitemap implements ShouldQueue
         $client = new Client();
         // make try request and abort on exception
         try {
-            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false]);
+            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
             $status_code = $response->getStatusCode();
         } catch (GuzzleException $exception) {
             abort(404);
