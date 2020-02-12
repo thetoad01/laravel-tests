@@ -13,7 +13,7 @@ class CreateProcessproInventoryTable extends Migration
      */
     public function up()
     {
-        Schema::connection('pgsql')->create('processpro_inventory', function (Blueprint $table) {
+        Schema::create('processpro_inventory', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('newtech_store_number');
             $table->string('vin')->nullable();
@@ -33,6 +33,6 @@ class CreateProcessproInventoryTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql')->dropIfExists('processpro_inventory');
+        Schema::dropIfExists('processpro_inventory');
     }
 }

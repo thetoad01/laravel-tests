@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Scrape;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\MessageBag;
+
 // models
 use App\Models\DealerInspireSitemap;
 use App\Models\DealerInspireVdp;
@@ -21,7 +23,13 @@ class DealerInspireSitemapController extends Controller
      */
     public function index()
     {
-        //
+        $sitemaps = DealerInspireSitemap::whereNull('deleted_at')
+            ->orderBy('updated_at')
+            ->get();
+
+        return view('scrape.dealer-inspire.sitemaps.index', [
+            'sitemaps' => $sitemaps,
+        ]);
     }
 
     /**
@@ -31,7 +39,7 @@ class DealerInspireSitemapController extends Controller
      */
     public function create()
     {
-        //
+        return view('scrape.dealer-inspire.sitemaps.create');
     }
 
     /**
@@ -42,7 +50,25 @@ class DealerInspireSitemapController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'sitemap_url' => 'required|url',
+        ]);
+
+        $sitemap = new DealerInspireSitemap;
+        // assign data
+        $sitemap->sitemap_url = $validated['sitemap_url'];
+        // save the data
+        try {
+            $sitemap->save();
+        } catch (\Exception $e) {
+            $errors = new MessageBag;
+            // add your error messages:
+            $errors->add('exists', 'XML Sitemap already exists!');
+
+            return back()->withErrors($errors);
+        }
+
+        return redirect()->route('sitemap.dealer-inspire.index');
     }
 
     /**
@@ -53,12 +79,12 @@ class DealerInspireSitemapController extends Controller
      */
     public function show($id)
     {
-        $url = 'https://www.eichmotor.com/dealer-inspire-inventory/inventory_sitemap';
+        $dealerInspireSitemap = DealerInspireSitemap::find($id);
 
         $client = new Client();
 
         try {
-            $response = $client->request('GET', $url, ['allow_redirects' => false,'http_errors' => false]);
+            $response = $client->request('GET', $dealerInspireSitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
             $status_code = $response->getStatusCode();
         } catch (GuzzleException $e) {
             dd($e);
@@ -66,6 +92,8 @@ class DealerInspireSitemapController extends Controller
         }
 
         // write response code to database
+        $dealerInspireSitemap->http_response_code = $status_code;
+        $dealerInspireSitemap->save();
 
         // get body of response
         if ($status_code == 200) {
@@ -81,7 +109,7 @@ class DealerInspireSitemapController extends Controller
             $sitemap_links[] = DealerInspireVdp::firstOrCreate(['vdp_url' => $value->loc->__toString()]);
         }
 
-        return response()->json([
+        return view('scrape.dealer-inspire.sitemaps.show', [
             'links_count' => count($sitemap_links),
             'links' => $sitemap_links,
         ]);

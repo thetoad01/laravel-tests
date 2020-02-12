@@ -48,6 +48,8 @@ Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps'
  *******************************************************************/
 // Sitemap
 Route::get('/scrape/sitemap/dealer-inspire', 'Scrape\DealerInspireSitemapController@index')->name('sitemap.dealer-inspire.index');
+Route::get('/scrape/sitemap/dealer-inspire/create', 'Scrape\DealerInspireSitemapController@create')->name('sitemap.dealer-inspire.create');
+Route::post('/scrape/sitemap/dealer-inspire', 'Scrape\DealerInspireSitemapController@store')->name('sitemap.dealer-inspire.store');
 Route::get('/scrape/sitemap/dealer-inspire/{id}', 'Scrape\DealerInspireSitemapController@show')->name('sitemap.dealer-inspire.show');
 // VDP
 Route::get('/scrape/vdp/dealer-inspire', 'Scrape\DealerInspireVdpController@index')->name('vdp.dealer-inspire.index');

@@ -23,6 +23,13 @@
             </div>
 
             <div class="list-group mt-4">
+                <div class="list-group-item active">Scrape Dealer Inspire Website(s)</div>
+                <a class="list-group-item" href="{{ route('sitemap.dealer-inspire.index') }}">Sitemap List</a>
+                <a class="list-group-item" href="{{ route('vdp.dealer-inspire.index') }}">Dealer Inspire Vehicles to Scrape</a>
+                <a class="list-group-item" href="#">View Scraped Vehicles</a>
+            </div>
+
+            <div class="list-group mt-4">
                 <div class="list-group-item active">Vue Component Tests</div>
                 <a class="list-group-item" href="/vue-components/smooth-scrolling">Smooth Scrolling</a>
                 <a class="list-group-item" href="/vue-components/context-menu">Context Menu</a>

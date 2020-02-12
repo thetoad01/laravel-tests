@@ -60,8 +60,6 @@ class DealerInspireVdpController extends Controller
         // get url
         $dealerInspireVdp = DealerInspireVdp::find($id);
 
-        // return $url;
-
         // Try using guzzle
         $client = new Client();
         // make try request and abort on exception
