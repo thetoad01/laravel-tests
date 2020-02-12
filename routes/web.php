@@ -44,6 +44,18 @@ Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps'
 
 
 /*******************************************************************
+ * Dealer Inspire (/dealer-inspire-inventory/inventory_sitemap)
+ *******************************************************************/
+// Sitemap
+Route::get('/scrape/sitemap/dealer-inspire', 'Scrape\DealerInspireSitemapController@index')->name('sitemap.dealer-inspire.index');
+Route::get('/scrape/sitemap/dealer-inspire/{id}', 'Scrape\DealerInspireSitemapController@show')->name('sitemap.dealer-inspire.show');
+// VDP
+Route::get('/scrape/vdp/dealer-inspire', 'Scrape\DealerInspireVdpController@index')->name('vdp.dealer-inspire.index');
+Route::get('/scrape/vdp/dealer-inspire/{id}', 'Scrape\DealerInspireVdpController@show')->name('vdp.dealer-inspire.show');
+
+
+
+/*******************************************************************
  * Scraped Vehicles
  *******************************************************************/
 Route::resource('/vehicles', 'Scrape\VehicleController');
