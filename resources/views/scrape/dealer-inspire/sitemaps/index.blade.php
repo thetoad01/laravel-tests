@@ -35,7 +35,7 @@
                     <td class="text-right">{{ $sitemap->updated_at ?? '' }}</td>
                     <td class="text-right">
                         <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="#" class="btn btn-sm btn-info ml-2">Un-Scraped VDPs</a>
+                        <a href="{{ route('vdp.dealer-inspire.index') }}" class="btn btn-sm btn-info ml-2">Un-Scraped VDPs</a>
                     </td>
                 </tr>
             @endforeach

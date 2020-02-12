@@ -23,7 +23,10 @@ class DealerInspireVdpController extends Controller
     {
         $data = DealerInspireVdp::where('visited', 0)->get();
 
-        return $data;
+        return view('scrape.dealer-inspire.vdps.index', [
+            'vdp_count' => count($data),
+            'vdps' => $data,
+        ]);
     }
 
     /**
