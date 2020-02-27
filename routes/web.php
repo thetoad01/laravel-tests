@@ -53,6 +53,7 @@ Route::post('/scrape/sitemap/dealer-inspire', 'Scrape\DealerInspireSitemapContro
 Route::get('/scrape/sitemap/dealer-inspire/{id}', 'Scrape\DealerInspireSitemapController@show')->name('sitemap.dealer-inspire.show');
 // VDP
 Route::get('/scrape/vdp/dealer-inspire', 'Scrape\DealerInspireVdpController@index')->name('vdp.dealer-inspire.index');
+Route::get('/scrape/vdp/dealer-inspire/crawl', 'Scrape\DealerInspireVdpController@crawl')->name('vdp.dealer-inspire.crawl');
 Route::get('/scrape/vdp/dealer-inspire/{id}', 'Scrape\DealerInspireVdpController@show')->name('vdp.dealer-inspire.show');
 
 

@@ -9,6 +9,7 @@
 @section('content')
 <div class="container mt-2">
     <h1>Stuff Goes Here</h1>
+
     <div class="py-2">
         <a href="{{ route('vdp.dealer-inspire.index') }}"><< Back</a>
     </div>

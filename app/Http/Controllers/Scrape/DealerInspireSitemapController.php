@@ -93,6 +93,7 @@ class DealerInspireSitemapController extends Controller
 
         // write response code to database
         $dealerInspireSitemap->http_response_code = $status_code;
+        $dealerInspireSitemap->updated_at = now()->toDateTimeString();
         $dealerInspireSitemap->save();
 
         // get body of response

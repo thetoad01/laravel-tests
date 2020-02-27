@@ -17,7 +17,10 @@
         </div>
     </div>
 
-    <div class="h3">Total: {{ $vdp_count }}</div>
+    <div class="h3">
+        Total: {{ $vdp_count }}
+        <span class="pl-4"><a href="{{ route('vdp.dealer-inspire.crawl') }}">Crawl <i class="fas fa-spider"></i></a></span>
+    </div>
 
     <table class="table table-sm table-hover">
         <thead>
