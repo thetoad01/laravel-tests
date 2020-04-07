@@ -2,7 +2,7 @@
 
 Built with Laravel, Bootstrap, MDBootstrap and VueJS
 
-## Sample website coming soon
+## Testing website
 http://a4f5.com
   
 ## Setup
