@@ -14,5 +14,6 @@ http://a4f5.com
 Google "sitemap-inventory-cdk.xml" to get urls to add to the scraper.  
 
 ## Built with Laravel
-
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
