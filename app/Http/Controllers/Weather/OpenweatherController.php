@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Weather;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class OpenweatherController extends Controller
 {
@@ -14,7 +16,33 @@ class OpenweatherController extends Controller
      */
     public function index()
     {
-        return 'Welcome';
+        $zip = request()->zip ?? '48706';
+        $endpoint = config('services.openweather.endpoint');
+        $key = config('services.openweather.key');
+        $cache_key = 'owapi_' . $zip;
+
+        $url = $endpoint . 'forecast?zip=' . $zip . ',us&units=imperial&appid=' . $key;
+        // $url = $endpoint . 'onecall?lat=51.5085&lon=-0.1257&units=imperial&appid=' . $key;
+
+        $data = Cache::remember($cache_key, 7200, function () use ($url) {
+            $response = Http::get($url);
+
+            if ($response->status() !== 200) {
+                $data = [];
+            } else {
+                $data = $response->json();
+            }
+
+            return $data;
+        });
+
+        $city = collect($data['city']);
+        $weather = collect($data['list']);
+
+        return view('weather.index', [
+            'city' => $city,
+            'weather' => $weather
+        ]);
     }
 
     /**
