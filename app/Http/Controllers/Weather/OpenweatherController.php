@@ -41,12 +41,12 @@ class OpenweatherController extends Controller
         // Try this
 
 
-        // $response = (new WeatherService)->get($endpoint . 'forcast', [
-        //     'params' => [
-        //         'zip' => $zip . ',us',
-        //         'units' => 'imperial'
-        //     ]
-        // ]);
+        $response = (new WeatherService)->get('forecast', [
+            'params' => [
+                'zip' => $zip . ',us',
+                'units' => 'imperial'
+            ]
+        ]);
 
 
         $city = collect($data['city']);
