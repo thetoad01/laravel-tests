@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use App\Services\WeatherService;
 
 class OpenweatherController extends Controller
 {
@@ -35,6 +36,18 @@ class OpenweatherController extends Controller
 
             return $data;
         });
+
+
+        // Try this
+
+
+        // $response = (new WeatherService)->get($endpoint . 'forcast', [
+        //     'params' => [
+        //         'zip' => $zip . ',us',
+        //         'units' => 'imperial'
+        //     ]
+        // ]);
+
 
         $city = collect($data['city']);
         $weather = collect($data['list']);
