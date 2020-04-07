@@ -23,6 +23,14 @@ Route::get('/scrape', 'Scrape\HtmlParserController@test');
 // test sitemap routes
 Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@getCdkSitemap');
 
+
+
+/*******************************************************************
+ * Open Weather
+ *******************************************************************/
+Route::resource('/weather', 'Weather\OpenweatherController');
+
+
 /*******************************************************************
  * CDK Sitemaps
  *******************************************************************/

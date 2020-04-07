@@ -40,9 +40,9 @@
         <div class="inner">
             <h3 class="masthead-brand">A4F5</h3>
             <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="#">Home</a>
-                <a class="nav-link" href="/vehicles">Vehicles</a>
-                {{-- <a class="nav-link" href="#">Contact</a> --}}
+                <a class="nav-link active" href="{{ route('home') }}">Home</a>
+                <a class="nav-link" href="{{ route('weather.index') }}">Weather</a>
+                <a class="nav-link" href="{{ route('vehicles.index') }}">Vehicles</a>
             </nav>
         </div>
     </header>
