@@ -21,11 +21,13 @@ I found Openweather and decided to give it a try.
 #### Setup:
 Edit: /config/services.php  
 
-Add:  
+Add:
+```
 'openweather' => [  
     'endpoint' => env('OPENWEATHER_ENDPOINT'),  
     'key' => env('OPENWEATHER_KEY')  
 ], 
+```
 
 ## Built with Laravel
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
