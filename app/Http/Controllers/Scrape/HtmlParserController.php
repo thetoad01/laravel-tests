@@ -32,7 +32,7 @@ class HtmlParserController extends Controller
 
         // check if there are any URLs left to crawl
         if (!$cdk_link_data) {
-            return '<h1>You have run out of links to crawl!</h1><div><a href="/scrape/cdk">Back</a></div>';
+            dd('You have run out of links to crawl');
         }
 
         // grab the url for the VDP
