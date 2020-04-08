@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="unique-color row pb-4">
-    <div class="container pt-4">
+    <div class="container pt-4 px-sm-0">
         <h1 class="text-center text-white">Current Weather</h1>
 
         <div class="card">
@@ -91,7 +91,7 @@
 </div>
 
 <div class="row py-4">
-    <div class="container">
+    <div class="container px-sm-0">
         <h2 class="text-center text-white">Forcast</h2>
 
         <div class="card">
