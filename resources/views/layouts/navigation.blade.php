@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark mx-n4">
+<nav class="navbar navbar-dark bg-dark row">
     <a class="navbar-brand pl-3" href="/"><i class="fa fa-home"></i></a>
     @auth
         <ul class="navbar-nav">

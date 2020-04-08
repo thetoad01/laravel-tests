@@ -19,29 +19,33 @@ class OpenweatherController extends Controller
         $zip = request()->zip ?? '48706';
         $endpoint = config('services.openweather.endpoint');
         $key = config('services.openweather.key');
-        $cache_key = 'owapi_' . $zip;
 
-        $url = $endpoint . 'forecast?zip=' . $zip . ',us&units=imperial&appid=' . $key;
-        // $url = $endpoint . 'onecall?lat=51.5085&lon=-0.1257&units=imperial&appid=' . $key;
+        $data = Cache::remember('owapi_' . $zip, 3600, function () use ($endpoint, &$key, &$zip) {
+            // Get current weather
+            $weather_result = Http::get($endpoint . 'weather', [
+                'zip' => $zip . ',us',
+                'units' => 'imperial',
+                'appid' => $key,
+            ]);
 
-        $data = Cache::remember($cache_key, 7200, function () use ($url) {
-            $response = Http::get($url);
+            // Get forcast data
+            $forcast_result = Http::get($endpoint . 'forecast', [
+                'zip' => $zip . ',us',
+                'units' => 'imperial',
+                'appid' => $key,
+            ]);
 
-            if ($response->status() !== 200) {
-                $data = [];
-            } else {
-                $data = $response->json();
-            }
+            $output = [
+                'weather' => $weather_result->status() === 200 ? $weather_result->json() : '',
+                'forcast' => $forcast_result->status() === 200 ? $forcast_result->json() : '',
+            ];
 
-            return $data;
+            return $output;
         });
 
-        $city = collect($data['city']);
-        $weather = collect($data['list']);
-
         return view('weather.index', [
-            'city' => $city,
-            'weather' => $weather
+            'weather' => collect($data['weather']),
+            'forcast' => collect($data['forcast']),
         ]);
     }
 
