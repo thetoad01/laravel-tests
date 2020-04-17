@@ -13,27 +13,33 @@
 
     <p class="text-center display-4">CDK VDP Scrape Details</p>
 
-    <div class="text-center mb-2 text-secondary">Remaning to scrape: {{ number_format($count, 0) }}</div>
+    @if (!$data)
+        <div class="container">
+            <h1 class="text-danger">URL Failed!</h1>
+            <div class="h5">{{ $url }}</div>
+        </div>
+    @else
+        <div class="text-center mb-2 text-secondary">Remaning to scrape: {{ number_format($count, 0) }}</div>
 
-    @if($data->dealer == '')
-        {{ dd($data) }}
+        @if($data->dealer == '')
+            {{ dd($data) }}
+        @endif
+
+        <div class="container">
+            <div class="h5">{{ $data->dealer }}</div>
+            <div>{{ $data->url }}</div>
+            <div>{{ $data->vin }}</div>
+            <div>{{ $data->year }} {{ $data->make }} {{ $data->model }} {{ $data->trim }}</div>
+            <div>Exterior: {{ $data->exterior_color }}</div>
+            <div>Interior: {{ $data->interior_color }}</div>
+            <div>Stock # {{ $data->stock_number }}</div>
+
+            <div class="pt-4">
+                <button value="Refresh Page" onClick="window.location.reload();" class="btn btn-sm btn-success">Reload Page</button>
+            </div>
+        </div>
     @endif
 
-    <div class="container">
-        <div class="h5">{{ $data->dealer }}</div>
-        <div>{{ $data->url }}</div>
-        <div>{{ $data->vin }}</div>
-        <div>{{ $data->year }} {{ $data->make }} {{ $data->model }} {{ $data->trim }}</div>
-        <div>Exterior: {{ $data->exterior_color }}</div>
-        <div>Interior: {{ $data->interior_color }}</div>
-        <div>Stock # {{ $data->stock_number }}</div>
-
-        <div class="pt-4">
-            <button value="Refresh Page" onClick="window.location.reload();" class="btn btn-sm btn-success">Reload Page</button>
-        </div>
-    </div>
-
-{{-- {{ dd($data) }} --}}
 @endsection
 
 @section('scripts')

@@ -42,10 +42,15 @@ class HtmlParserController extends Controller
         $client = new Client();
         // make try request and abort on exception
         try {
-            $response = $client->request('GET', $url, array('allow_redirects' => false));
+            $response = $client->request('GET', $url, ['allow_redirects' => false]);
         } catch(RequestException $e) {
             // dd( Psr7\str($e->getRequest()) );
-            return redirect('/scrape');
+
+            return view('scrape.cdk.vdp-result', [
+                'data' => '',
+                'count', $cdk_link_count ?? 0,
+                'url' => $url,
+            ]);
         }
 
         // write respone code to db record
@@ -57,6 +62,10 @@ class HtmlParserController extends Controller
             $file = $response->getBody()->getContents();
         } else {
             // abort(404);
+            // return response()->json([
+            //     'status' => $response->getStatusCode(),
+            //     'url' => $url,
+            // ]);
             return redirect('/scrape');
         }
 
