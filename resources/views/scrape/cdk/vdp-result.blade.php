@@ -44,6 +44,6 @@
 
 @section('scripts')
 <script>
-    setTimeout("location.reload(true);", 500);
+    setTimeout("location.reload(true);", 1000);
 </script>
 @endsection

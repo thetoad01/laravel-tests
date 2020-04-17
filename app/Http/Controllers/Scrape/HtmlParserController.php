@@ -46,6 +46,10 @@ class HtmlParserController extends Controller
         } catch(RequestException $e) {
             // dd( Psr7\str($e->getRequest()) );
 
+            $cdk_link_data->http_response_code = 500;
+            $cdk_link_data->visited = true;
+            $cdk_link_data->save();
+
             return view('scrape.cdk.vdp-result', [
                 'data' => '',
                 'count', $cdk_link_count ?? 0,
