@@ -57,11 +57,20 @@ class CheckActiveLinks implements ShouldQueue
             'allow_redirects' => false,
         ])->get($link->vdp_url);
 
-        if ($response->status() != 200) {
-            // update model
-            $link->http_response_code = $response->status();
-            $link->updated_at = Carbon::now()->toDateTime();
-            $link->save();
+        // update model
+        $link->http_response_code = $response->status();
+        $link->updated_at = Carbon::now()->toDateTime();
+        $link->save();
+
+        if ($response->status() !== 200) {
+            $vehicle = Vehicle::where('url', $link->vdp_url)->firstOrFail();
+            $vehicle->deleted_at = Carbon::now()->toDateTime();
+            $vehicle->save();
+
+            return response()->json([
+                'link' => $link,
+                'vehicle' => $vehicle,
+            ]);
         }
 
         return response()->json([
