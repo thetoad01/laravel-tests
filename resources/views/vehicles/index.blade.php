@@ -15,7 +15,7 @@
                 <option value="" disabled selected>Filter by Year</option>
                 <option value="">All</option>
                 @foreach ($years as $year)
-                    <option value="{{ $year->year }}"{{ app('request')->input('year') == $year->year ? 'selected' : '' }}>{{ $year->year }}</option>
+                    <option value="{{ $year }}"{{ app('request')->input('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
                 @endforeach
             </select>
         </div>
@@ -25,7 +25,7 @@
                 <option value="" disabled selected>Filter by Make</option>
                 <option value="">All</option>
                 @foreach ($makes as $make)
-                    <option value="{{ $make->make }}"{{ app('request')->input('make') == $make->make ? 'selected' : '' }}>{{ $make->make }}</option>
+                    <option value="{{ $make }}"{{ app('request')->input('make') == $make ? 'selected' : '' }}>{{ $make }}</option>
                 @endforeach
             </select>
         </div>
@@ -35,7 +35,7 @@
                 <option value="" disabled selected>Filter by Model</option>
                 <option value="">All</option>
                 @foreach ($models as $model)
-                    <option value="{{ $model->model }}"{{ app('request')->input('model') == $model->model ? 'selected' : '' }}>{{ $model->model }}</option>
+                    <option value="{{ $model }}"{{ app('request')->input('model') == $model ? 'selected' : '' }}>{{ $model }}</option>
                 @endforeach
             </select>
         </div>
