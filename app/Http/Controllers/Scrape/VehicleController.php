@@ -28,23 +28,15 @@ class VehicleController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(25);
 
-        $select = Vehicle::select('year', 'make', 'model')
-            ->whereNull('deleted_at')
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->get();
+        $available = \App\Repositories\AvailableYearMakeModel::get();
 
-        $output = $select->when($request->year, function ($select) use ($request) {
-            return $select->where('year', $request->year);
-        })->when($request->make, function ($select) use ($request) {
-            return $select->where('make', $request->make);
-        })->when($request->model, function ($select) use ($request) {
-            return $select->where('model', $request->model);
-        });
+        if ($request) {
+            $filtered = \App\Repositories\AvailableYearMakeModel::filter($available, $request);
+        }
 
-        $years = $output->pluck('year')->unique()->sortDesc()->values();
-        $makes = $output->pluck('make')->unique()->sort()->values();
-        $models = $output->pluck('model')->unique()->sort()->values();
+        $years = $filtered->pluck('year')->unique()->sortDesc()->values() ?? '';
+        $makes = $filtered->pluck('make')->unique()->sort()->values() ?? '';
+        $models = $filtered->pluck('model')->unique()->sort()->values() ?? '';
 
         return view('vehicles.index')
             ->with('vehicles', $vehicles)
