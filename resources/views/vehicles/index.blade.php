@@ -87,8 +87,6 @@
         {{ $vehicles->appends(Request::all())->links() }}
     </div>
 
-
-{{-- {{ dd($vehicles) }} --}}
 @endsection
 
 @section('scripts')

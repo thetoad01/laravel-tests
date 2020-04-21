@@ -19,13 +19,18 @@
 
     <div class="h4">Dealership: {{ $vehicle->dealer }}</div>
 
-    <div class="lead">
+    <div class="lead font-weight-bold">
         {{ $vehicle->year }}
         {{ $vehicle->make }}
         {{ $vehicle->model }}
         @if ($vehicle->trim)
             {{ $vehicle->trim }}
         @endif
+
+        <a href="{{ $vehicle->url }}" target="_new" title="view vehicle page" class="btn btn-link py-0">
+            <i class="fas fa-external-link-alt"></i>
+            View
+        </a>
     </div>
     <div>
         Exterior Color: {{ $vehicle->exterior_color ?? '' }}
@@ -39,7 +44,8 @@
     <div>
         Stock #: {{ $vehicle->stock_number ?? '' }}
     </div>
-    <div>
+
+    <div class="pt-4">
         First seen: {{ \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() ?? '' }}
     </div>
     <div class="mt-4">
