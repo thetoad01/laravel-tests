@@ -17,14 +17,14 @@
 <div class="container mt-4">
     <h1 class="mb-3">Scraped Vehicle</h1>
 
-    <div class="h4">Dealership: {{ $vehicle->dealer }}</div>
+    <div class="h4">Dealership: {{ $vehicle->dealer ?? '' }}</div>
 
     <div class="lead font-weight-bold">
-        {{ $vehicle->year }}
-        {{ $vehicle->make }}
-        {{ $vehicle->model }}
+        {{ $vehicle->year ?? '' }}
+        {{ $vehicle->make ?? '' }}
+        {{ $vehicle->model ?? '' }}
         @if ($vehicle->trim)
-            {{ $vehicle->trim }}
+            {{ $vehicle->trim ?? '' }}
         @endif
 
         <a href="{{ $vehicle->url }}" target="_new" title="view vehicle page" class="btn btn-link py-0">
@@ -46,10 +46,12 @@
     </div>
 
     <div class="pt-4">
-        First seen: {{ \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() ?? '' }}
+        First seen: {{ $vehicle->created_at ? \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() : '' }}
     </div>
     <div class="mt-4">
-        <a href="/vehicles/{{ $vehicle->id }}/edit" class="btn btn-sm btn-info ml-0">Edit Vehicle</a>
+        @if ($vehicle->id)
+            <a href="/vehicles/{{ $vehicle->id }}/edit" class="btn btn-sm btn-info ml-0">Edit Vehicle</a>
+        @endif
     </div>
 </div>
 @endsection

@@ -22,14 +22,14 @@
     <h1 class="mb-0">Edit Scraped Vehicle</h1>
     <div class="small mb-4">(Well not really edit, but pehaps sweeten the data?)</div>
 
-    <div class="h4">Dealership: {{ $vehicle->dealer }}</div>
+    <div class="h4">Dealership: {{ $vehicle->dealer ?? '' }}</div>
 
     <div class="lead">
-        {{ $vehicle->year }}
-        {{ $vehicle->make }}
-        {{ $vehicle->model }}
-        @if ($vehicle->trim)
-            {{ $vehicle->trim }}
+        {{ $vehicle->year ?? '' }}
+        {{ $vehicle->make ?? '' }}
+        {{ $vehicle->model ?? '' }}
+        @if ($vehicle->trim ?? '')
+            {{ $vehicle->trim ?? '' }}
         @endif
     </div>
     <div>
@@ -45,10 +45,12 @@
         Stock #: {{ $vehicle->stock_number ?? '' }}
     </div>
     <div>
-        First seen: {{ \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() ?? '' }}
+        First seen: {{ $vehicle->created_at ? \Carbon\carbon::parse($vehicle->created_at)->toFormattedDateString() : '' }}
     </div>
     <div class="mt-4">
-        <a href="/nhtsa/decode/{{ $vehicle->vin }}/{{ $vehicle->year }}" class="btn btn-sm btn-success ml-0">Decode VIN Using NHTSA</a>
+        @if ($vehicle->vin && $vehicle->year)
+            <a href="/nhtsa/decode/{{ $vehicle->vin }}/{{ $vehicle->year ?? '' }}" class="btn btn-sm btn-success ml-0">Decode VIN Using NHTSA</a>
+        @endif
     </div>
 </div>
 @endsection

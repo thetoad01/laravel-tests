@@ -76,6 +76,8 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::find($id);
 
+        abort_if(!$vehicle, 404);
+
         return view('vehicles.show')->with('vehicle', $vehicle);
     }
 
@@ -88,6 +90,8 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $vehicle = Vehicle::find($id);
+
+        abort_if(!$vehicle, 404);
 
         return view('vehicles.edit')->with('vehicle', $vehicle);
     }
