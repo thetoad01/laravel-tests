@@ -19,7 +19,7 @@
                 <div class="list-group-item active">Scrape CDK Website(s)</div>
                 <a class="list-group-item" href="/scrape/cdk">Scrape Sitemap(s)</a>
                 <a class="list-group-item" href="/scrape">Scrape Vehicles</a>
-                <a class="list-group-item" href="/scrape/vehicles">View Scraped Vehicles</a>
+                <a class="list-group-item" href="/vehicles">View Scraped Vehicles</a>
             </div>
 
             <div class="list-group mt-4">
