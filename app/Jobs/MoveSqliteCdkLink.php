@@ -32,7 +32,7 @@ class MoveSqliteCdkLink implements ShouldQueue
     public function handle()
     {
         $link = DB::connection('sqlite')->table('cdk_links')
-            ->where('created_at', 'like', '2020-%')
+            // ->where('created_at', 'like', '2020-%')
             ->where('http_response_code', 200)
             ->inRandomOrder()
             ->first();

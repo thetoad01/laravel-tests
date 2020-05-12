@@ -40,7 +40,7 @@ class GetCdkSitemap implements ShouldQueue
         $sitemap = CdkSitemap::whereNull('http_response_code')
             ->orWhere('http_response_code', '200')
             ->whereDate('updated_at', '!=', $now->toDateString())
-            ->inRandomOrder()
+            // ->inRandomOrder()
             ->first();
 
         // check for sitemap
