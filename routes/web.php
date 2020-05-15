@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/scrape/cdk', 'Scrape\CdkController@store');
     Route::get('/sitemap/cdk/{id}', 'Scrape\CdkController@edit')->name('sitemap.cdk.edit');
     Route::put('/sitemap/cdk/{id}', 'Scrape\CdkController@update')->name('sitemap.cdk.update');
+
+    Route::get('/test/sitemap/first', 'Tests\CdkSitemapTestController@first')->name('test.sitemap.first');
 });
 Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
 Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');

@@ -40,7 +40,7 @@ class GetCdkSitemap implements ShouldQueue
         $sitemap = CdkSitemap::whereNull('http_response_code')
             ->orWhere('http_response_code', '200')
             ->whereDate('updated_at', '!=', $now->toDateString())
-            // ->inRandomOrder()
+            ->orderBy('updated_at')
             ->first();
 
         // check for sitemap
@@ -51,10 +51,16 @@ class GetCdkSitemap implements ShouldQueue
         // make try request and abort on exception
         try {
             $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
-            $status_code = $response->getStatusCode();
         } catch (GuzzleException $exception) {
+            // write response code to the database
+            $sitemap->http_response_code = '500';
+            $sitemap->updated_at = $now->toDateTime();
+            $sitemap->save();
+
             abort(404);
         }
+
+        $status_code = $response->getStatusCode();
 
         // write response code to the database
         $sitemap->http_response_code = $status_code;
