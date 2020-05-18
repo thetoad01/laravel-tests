@@ -26,6 +26,8 @@ class NhtsaDecodeRepository
         $error_codes = explode(',', $this->nhtsa_data->Results[0]->ErrorCode);
         $error_text = explode('; ', $this->nhtsa_data->Results[0]->ErrorText);
 
+        // dd($error_codes);
+
         if ( !in_array('7', $error_codes) ) {
             $output = [
                 'result' => 'success',
