@@ -31,28 +31,50 @@ class MoveSqliteCdkLink implements ShouldQueue
      */
     public function handle()
     {
-        $link = DB::connection('sqlite')->table('cdk_links')
+        $links = DB::connection('sqlite')->table('cdk_links')
             ->latest()
-            ->where('http_response_code', 200)
-            ->first();
+            ->where('http_response_code', '!=', 418)
+            ->take(10)
+            ->get();
 
-        abort_if(!$link, 404);
+        if($links->isEmpty()) {
+            return 'There were no links in the database.';
+        };
 
-        $data = \App\Models\Scrape\CdkLink::updateOrInsert(
-            [
-                'vdp_url' => $link->vdp_url,
-            ],
-            [
-                'visited' => $link->visited,
-                'http_response_code' => $link->http_response_code,
-                'created_at' => $link->created_at,
-                'updated_at' => $link->updated_at,
-            ]
-        );
+        foreach ($links as $link) {
+            $exists = DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->first();
 
-        // set reponse code to 418 teapot
-        DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
-            'http_response_code' => 418,
-        ]);
+            if (!$exists) {
+                DB::connection('mysql')->table('cdk_links')->insert([
+                    'vdp_url' => $link->vdp_url,
+                    'visited' => $link->visited,
+                    'http_response_code' => $link->http_response_code,
+                    'created_at' => $link->created_at,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+            } elseif ($exists && !$exists->http_response_code) {
+                DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->update([
+                    'visited' => $link->visited,
+                    'http_response_code' => $link->http_response_code,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+            } else {
+                DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->update([
+                    'visited' => $link->visited,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+            }
+
+            // set reponse code to 418 teapot
+            DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
+                'http_response_code' => 418,
+            ]);
+        }
     }
 }

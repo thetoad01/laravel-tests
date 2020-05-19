@@ -15,8 +15,9 @@ class MysqlVehicleController extends Controller
     {
         $vehicle = DB::connection('sqlite')->table('vehicles')
             ->where('stock_number', '!=', 'moved')
-            // ->latest()
-            ->take(5)
+            ->latest()
+            ->skip(1000)
+            ->take(10)
             ->get();
 
         return $vehicle;
@@ -24,9 +25,9 @@ class MysqlVehicleController extends Controller
 
     public function move()
     {
-        $vehicles = Vehicle::where('stock_number', '!=', 'moved')
+        $vehicles = DB::connection('sqlite')->table('vehicles')
+            ->where('stock_number', '!=', 'moved')
             ->latest()
-            // ->first();
             ->skip(1000)
             ->take(10)
             ->get();
@@ -56,7 +57,7 @@ class MysqlVehicleController extends Controller
                     'interior_color' => $vehicle->interior_color,
                     'stock_number' => $vehicle->stock_number,
                     'deleted_at' => $vehicle->deleted_at,
-                    'created_at' => $vehicle->created_at->toDateTimeString(),
+                    'created_at' => $vehicle->created_at,
                     'updated_at' => now()->toDateTimeString(),
                 ]);
 
@@ -78,39 +79,75 @@ class MysqlVehicleController extends Controller
 
     public function moveCdkLink()
     {
-        $link = DB::connection('sqlite')->table('cdk_links')
+        $links = DB::connection('sqlite')->table('cdk_links')
             // ->where('created_at', 'like', '2020-03%')
             ->latest()
-            ->where('http_response_code', 200)
-            // ->inRandomOrder()
-            ->first();
+            ->where('http_response_code', '!=', 418)
+            // ->skip(100)
+            ->take(10)
+            ->get();
 
-        abort_if(!$link, 404);
+        if($links->isEmpty()) {
+            return 'There were no links in the database.';
+        };
 
-        // dd($link->id);
+        // return $links;
 
-        $data = \App\Models\Scrape\CdkLink::updateOrInsert(
-            [
+        $output = [];
+        foreach ($links as $link) {
+            $exists = DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->first();
+
+            // dd($exists);
+
+            if (!$exists) {
+                // dd($vehicle->toArray());
+                DB::connection('mysql')->table('cdk_links')->insert([
+                    'vdp_url' => $link->vdp_url,
+                    'visited' => $link->visited,
+                    'http_response_code' => $link->http_response_code,
+                    'created_at' => $link->created_at,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                $created = true;
+            } elseif ($exists && !$exists->http_response_code) {
+                DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->update([
+                    'visited' => $link->visited,
+                    'http_response_code' => $link->http_response_code,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                $created = 'status';
+            } else {
+                DB::connection('mysql')->table('cdk_links')
+                ->where('vdp_url', $link->vdp_url)
+                ->update([
+                    'visited' => $link->visited,
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                $created = false;
+            }
+
+            // set reponse code to 418 teapot
+            DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
+                'http_response_code' => 418,
+            ]);
+
+            $output[] = [
                 'vdp_url' => $link->vdp_url,
-            ],
-            [
                 'visited' => $link->visited,
                 'http_response_code' => $link->http_response_code,
                 'created_at' => $link->created_at,
-                'updated_at' => $link->updated_at,
-            ]
-        );
+                'new' => $created,
+            ];
+        }
 
-        // set reponse code to 418 teapot
-        DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
-            'http_response_code' => 418,
-        ]);
-
-        $output = \App\Models\Scrape\CdkLink::where('vdp_url', $link->vdp_url)->first();
-
-        abort_if(!$output, 404);
-
-        return $output;
+        return response()->json($output);
     }
 
     public function moveCdkSitemap()
