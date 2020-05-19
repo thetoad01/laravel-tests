@@ -34,8 +34,10 @@ class MoveSqliteVehicle implements ShouldQueue
     public function handle()
     {
         $vehicle = DB::connection('sqlite')->table('vehicles')
-            ->where('created_at', 'like', '2020-%')
-            ->inRandomOrder()
+            // ->where('created_at', 'like', '2020-%')
+            // ->inRandomOrder()
+            ->where('stock_number', '!=', 'moved')
+            ->latest()
             ->first();
 
         abort_if(!$vehicle, 404);
@@ -59,5 +61,10 @@ class MoveSqliteVehicle implements ShouldQueue
                 'updated_at' => now()->toDateTimeString(),
             ]
         );
+
+        // set stock# for moved vehicle to moved
+        DB::connection('sqlite')->table('vehicles')->where('id', $vehicle->id)->update([
+            'stock_number' => 'moved',
+        ]);
     }
 }

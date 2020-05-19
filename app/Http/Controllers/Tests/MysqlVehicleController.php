@@ -13,54 +13,81 @@ class MysqlVehicleController extends Controller
 {
     public function index()
     {
-        $vehicle = DB::connection('sqlite')->table('vehicles')->inRandomOrder()->first();
+        $vehicle = DB::connection('sqlite')->table('vehicles')
+            ->where('stock_number', '!=', 'moved')
+            // ->latest()
+            ->take(5)
+            ->get();
 
-        dd($vehicle);
+        return $vehicle;
     }
 
     public function move()
     {
-        $vehicle = DB::connection('sqlite')->table('vehicles')
-            ->where('created_at', 'like', '2020-%')
-            ->inRandomOrder()
-            ->first();
+        $vehicles = Vehicle::where('stock_number', '!=', 'moved')
+            ->latest()
+            // ->first();
+            ->skip(1000)
+            ->take(10)
+            ->get();
 
-        abort_if(!$vehicle, 404);
+        abort_if(!$vehicles, 404);
 
-        $data = DB::connection('mysql')->table('vehicles')->updateOrInsert(
-            [
-                'url' => $vehicle->url,
+        $output = [];
+        foreach ($vehicles as $vehicle) {
+            $exists = DB::connection('mysql')->table('vehicles')
+                ->where('vin', $vehicle->vin)
+                ->where('stock_number', $vehicle->stock_number)
+                ->first();
+
+            // dd($exists);
+
+            if (!$exists) {
+                // dd($vehicle->toArray());
+                DB::connection('mysql')->table('vehicles')->insert([
+                    'dealer' => $vehicle->dealer,
+                    'url' => $vehicle->url,
+                    'vin' => $vehicle->vin,
+                    'year' => $vehicle->year,
+                    'make' => $vehicle->make,
+                    'model' => $vehicle->model,
+                    'trim' => $vehicle->trim,
+                    'exterior_color' => $vehicle->exterior_color,
+                    'interior_color' => $vehicle->interior_color,
+                    'stock_number' => $vehicle->stock_number,
+                    'deleted_at' => $vehicle->deleted_at,
+                    'created_at' => $vehicle->created_at->toDateTimeString(),
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                $created = true;
+            } else {
+                $created = false;
+            }
+
+            DB::connection('sqlite')->table('vehicles')->where('id', $vehicle->id)->update(['stock_number' => 'moved']);
+
+            $output[] = [
                 'vin' => $vehicle->vin,
-                'stock_number' => $vehicle->stock_number
-            ],
-            [
-                'dealer' => $vehicle->dealer,
-                'year' => $vehicle->year,
-                'make' => $vehicle->make,
-                'model' => $vehicle->model,
-                'trim' => $vehicle->trim,
-                'exterior_color' => $vehicle->exterior_color,
-                'interior_color' => $vehicle->interior_color,
-                'deleted_at' => $vehicle->deleted_at,
-                'created_at' => $vehicle->created_at,
-                'updated_at' => now()->toDateTimeString(),
-            ]
-        );
+                'created' => $created,
+            ];
+        };
 
-        return response()->json([
-            'vehicle' => DB::connection('mysql')->table('vehicles')->orderBy('updated_at', 'desc')->first(),
-        ]);
+        return response()->json($output);
     }
 
     public function moveCdkLink()
     {
         $link = DB::connection('sqlite')->table('cdk_links')
-            ->where('created_at', 'like', '2020-01%')
+            // ->where('created_at', 'like', '2020-03%')
+            ->latest()
             ->where('http_response_code', 200)
-            ->inRandomOrder()
+            // ->inRandomOrder()
             ->first();
 
-        // dd($link);
+        abort_if(!$link, 404);
+
+        // dd($link->id);
 
         $data = \App\Models\Scrape\CdkLink::updateOrInsert(
             [
@@ -74,7 +101,14 @@ class MysqlVehicleController extends Controller
             ]
         );
 
+        // set reponse code to 418 teapot
+        DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
+            'http_response_code' => 418,
+        ]);
+
         $output = \App\Models\Scrape\CdkLink::where('vdp_url', $link->vdp_url)->first();
+
+        abort_if(!$output, 404);
 
         return $output;
     }

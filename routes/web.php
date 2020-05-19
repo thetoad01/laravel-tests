@@ -111,6 +111,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'Tests\MysqlVehicleController@index');
-Route::get('/test/move', 'Tests\MysqlVehicleController@move')->middleware('auth');
+Route::get('/test/move', 'Tests\MysqlVehicleController@move');
 Route::get('/test/move/cdklink', 'Tests\MysqlVehicleController@moveCdkLink')->middleware('auth');
 Route::get('/test/move/cdksitemap', 'Tests\MysqlVehicleController@moveCdkSitemap')->middleware('auth');

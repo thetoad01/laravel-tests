@@ -32,9 +32,8 @@ class MoveSqliteCdkLink implements ShouldQueue
     public function handle()
     {
         $link = DB::connection('sqlite')->table('cdk_links')
-            // ->where('created_at', 'like', '2020-%')
+            ->latest()
             ->where('http_response_code', 200)
-            ->inRandomOrder()
             ->first();
 
         abort_if(!$link, 404);
@@ -50,5 +49,10 @@ class MoveSqliteCdkLink implements ShouldQueue
                 'updated_at' => $link->updated_at,
             ]
         );
+
+        // set reponse code to 418 teapot
+        DB::connection('sqlite')->table('cdk_links')->where('id', $link->id)->update([
+            'http_response_code' => 418,
+        ]);
     }
 }
