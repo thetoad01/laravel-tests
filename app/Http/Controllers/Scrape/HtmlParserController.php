@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Scrape;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,17 +9,14 @@ use Carbon\Carbon;
 use PHPHtmlParser\Dom;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
+
+// clients
+use App\Clients\CdkVdpLinkClient;
 
 // models
 use App\Models\Scrape\CdkSitemap;
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
-
-// jobs
-use App\Jobs\GetCdkSitemap;
 
 class HtmlParserController extends Controller
 {
@@ -38,15 +33,10 @@ class HtmlParserController extends Controller
         // grab the url for the VDP
         $url = $cdk_link_data->vdp_url;
 
-        // Try using guzzle
-        $client = new Client();
-        // make try request and abort on exception
-        try {
-            $response = $client->request('GET', $url, ['allow_redirects' => false]);
-        } catch(RequestException $e) {
-            // dd( Psr7\str($e->getRequest()) );
+        $data = collect((new CdkVdpLinkClient)->handle($url));
 
-            $cdk_link_data->http_response_code = 500;
+        if (!$data['data']) {
+            $cdk_link_data->http_response_code = $data['response_code'];
             $cdk_link_data->visited = true;
             $cdk_link_data->save();
 
@@ -55,23 +45,9 @@ class HtmlParserController extends Controller
                 'count', $cdk_link_count ?? 0,
                 'url' => $url,
             ]);
-        }
+        };
 
-        // write respone code to db record
-        $cdk_link_data->http_response_code = $response->getStatusCode();
-        $cdk_link_data->visited = true;
-        $cdk_link_data->save();
-
-        if ($response->getStatusCode() == 200) {
-            $file = $response->getBody()->getContents();
-        } else {
-            // abort(404);
-            // return response()->json([
-            //     'status' => $response->getStatusCode(),
-            //     'url' => $url,
-            // ]);
-            return redirect('/scrape');
-        }
+        $file = $data['data'];
 
         $dom = new Dom;
 
@@ -83,7 +59,6 @@ class HtmlParserController extends Controller
 
         // If there is no VIN move on
         if (!$dom->find('span[itemprop=vehicleIdentificationNumber]', 0)) {
-            // dd('there is no vehicleIdentificationNumber at ' . $url);
             return redirect('/scrape');
         }
 
