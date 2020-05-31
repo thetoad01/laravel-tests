@@ -35,11 +35,12 @@ class HtmlParserController extends Controller
 
         $data = collect((new CdkVdpLinkClient)->handle($url));
 
-        if (!$data['data']) {
-            $cdk_link_data->http_response_code = $data['response_code'];
-            $cdk_link_data->visited = true;
-            $cdk_link_data->save();
+        // record the url status
+        $cdk_link_data->http_response_code = $data['response_code'];
+        $cdk_link_data->visited = true;
+        $cdk_link_data->save();
 
+        if (!$data['data']) {
             return view('scrape.cdk.vdp-result', [
                 'data' => '',
                 'count', $cdk_link_count ?? 0,
