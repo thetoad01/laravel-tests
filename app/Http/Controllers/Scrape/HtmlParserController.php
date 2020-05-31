@@ -35,12 +35,12 @@ class HtmlParserController extends Controller
 
         $data = collect((new CdkVdpLinkClient)->handle($url));
 
-        // record the url status
-        $cdk_link_data->http_response_code = $data['response_code'];
-        $cdk_link_data->visited = true;
-        $cdk_link_data->save();
-
         if (!$data['data']) {
+            // record the url status
+            $cdk_link_data->http_response_code = $data['response_code'];
+            $cdk_link_data->visited = true;
+            $cdk_link_data->save();
+            
             return view('scrape.cdk.vdp-result', [
                 'data' => '',
                 'count', $cdk_link_count ?? 0,
@@ -71,7 +71,6 @@ class HtmlParserController extends Controller
             'make' => $dom->find('span[itemprop=manufacturer]')->text ?? '',
             'model' => $dom->find('span[itemprop=model]')->text ?? '',
             'trim' => !$dom->find('span[itemprop=vehicleConfiguration]', 0) ? '' : $dom->find('span[itemprop=vehicleConfiguration]')->text,
-            // 'trim' => $trim,
             'exterior_color' => $dom->find('span[itemprop=color]')->text ?? '',
             'interior_color' => $dom->find('span[itemprop=vehicleInteriorColor]')->text ?? '',
             'stock_number' => $dom->find('span[itemprop=sku]')->text ?? '',
@@ -83,8 +82,15 @@ class HtmlParserController extends Controller
         // get count from db
         $cdk_link_count = CdkLink::where('visited', 0)->count();
 
-        // return response()->json($result);
-        return view('scrape.cdk.vdp-result')->with('data', $result)->with('count', $cdk_link_count);
+        // record the url status
+        $cdk_link_data->http_response_code = $data['response_code'];
+        $cdk_link_data->visited = true;
+        $cdk_link_data->save();
+
+        return view('scrape.cdk.vdp-result', [
+            'data' => $result,
+            'count' => $cdk_link_count
+        ]);
     }
 
     public function getFile($url)
@@ -105,8 +111,6 @@ class HtmlParserController extends Controller
 
         // set current timestamp
         $now = Carbon::now()->toDateTimeString();
-
-        // dd($sitemap);
 
         // Try using guzzle
         $client = new Client();
@@ -130,15 +134,10 @@ class HtmlParserController extends Controller
             abort(404);
         }
 
-        // dd($data);
-
         $xml = simplexml_load_string($data);
-
-        // dd($xml->url[0]->loc);
 
         $sitemap_links = array();
         foreach ($xml->url as $value) {
-            // $sitemap_links[] = ['vdp_url' => $value->loc->__toString()];
             $sitemap_links[] = CdkLink::firstOrCreate(['vdp_url' => $value->loc->__toString()]);
         }
 
@@ -166,8 +165,6 @@ class HtmlParserController extends Controller
             ->where('http_response_code', 200)
             ->whereDate('updated_at', '!=', $date)
             ->get();
-
-        // return response()->json($sitemaps);
 
         $output = array();
 
