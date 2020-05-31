@@ -1,14 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::get('/', function () {
@@ -30,6 +27,13 @@ Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@
  *******************************************************************/
 Route::resource('/weather', 'Weather\OpenweatherController');
 
+
+
+/*******************************************************************
+ * CDK VDPs
+ *******************************************************************/
+Route::get('/scrape/cdk-vdp', 'Scrape\CdkVdpController@index')->name('scrape.cdk-vdp.index');
+Route::get('/scrape/cdk-vdp/{id}', 'Scrape\CdkVdpController@show')->name('scrape.cdk-vdp.show');
 
 /*******************************************************************
  * CDK Sitemaps

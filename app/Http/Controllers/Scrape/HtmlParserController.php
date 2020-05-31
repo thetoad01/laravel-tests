@@ -23,7 +23,9 @@ class HtmlParserController extends Controller
     public function test()
     {
         // get random link data from db
-        $cdk_link_data = CdkLink::where('visited', 0)->inRandomOrder()->first();
+        $cdk_link_data = CdkLink::where('visited', 0)
+            ->inRandomOrder()
+            ->first();
 
         // check if there are any URLs left to crawl
         if (!$cdk_link_data) {
@@ -55,12 +57,22 @@ class HtmlParserController extends Controller
         try {
             $dom->loadStr($file);
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
+            dd('error');
         }
 
         // If there is no VIN move on
-        if (!$dom->find('span[itemprop=vehicleIdentificationNumber]', 0)) {
-            return redirect('/scrape');
+        if ($dom->find('span[itemprop=vehicleIdentificationNumber]')->count() == 0) {
+            // record the url status
+            $cdk_link_data->http_response_code = $data['response_code'];
+            $cdk_link_data->visited = true;
+            $cdk_link_data->save();
+
+            return view('scrape.cdk.vdp-result', [
+                'data' => '',
+                'count', $cdk_link_count ?? 0,
+                'url' => $url,
+            ]);
         }
 
         $vehicle = [
@@ -91,17 +103,6 @@ class HtmlParserController extends Controller
             'data' => $result,
             'count' => $cdk_link_count
         ]);
-    }
-
-    public function getFile($url)
-    {
-        $dom = new Dom;
-        $dom->loadFromUrl($url);
-        $html = $dom->outerHtml;
-
-        Storage::put('/html/3423332823.html', $html);
-
-        // $vin = $dom->find('//span[@itemprop="vehicleIdentificationNumber"]')->item(0)->nodeValue;
     }
 
     public function getCdkSitemap($cdk_sitemap_id)
