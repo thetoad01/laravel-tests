@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Scrape;
 
 use App\Http\Controllers\Controller;
-use App\Models\Scrape\CdkSitemap;
 use Illuminate\Http\Request;
+use App\Models\Scrape\CdkSitemap;
+use App\Models\Scrape\CdkLink;
 
 class CdkSitemapController extends Controller
 {
@@ -100,7 +101,14 @@ class CdkSitemapController extends Controller
             'state' => 'required',
         ]);
 
-        dd($request->all());
+        $sitemap = CdkSitemap::find($id);
+
+        $sitemap->sitemap_url = $validated['sitemap_url'];
+        $sitemap->state = $validated['state'];
+        $sitemap->http_response_code = null;
+        $sitemap->save();
+
+        return redirect()->route('scrape.cdk-sitemap.index');
     }
 
     /**
@@ -111,7 +119,9 @@ class CdkSitemapController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sitemap = CdkSitemap::destroy($id);
+        
+        return redirect()->route('scrape.cdk-sitemap.index');
     }
 
     /**
@@ -131,8 +141,14 @@ class CdkSitemapController extends Controller
         $sitemap->updated_at = now()->toDateTimeString();
         $sitemap->save();
 
+        // need to update or create vdp links to CdkLink model
+        $output = [];
+        foreach ($data['data'] as $key => $value) {
+            $output[] = CdkLink::firstOrCreate($value);
+        }
+
         return view('scrape.cdk-sitemap.scrape', [
-            'links' => collect($data['data']),
+            'links' => collect($output),
         ]);
     }
 }

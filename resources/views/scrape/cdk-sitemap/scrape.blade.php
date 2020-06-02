@@ -11,8 +11,6 @@
 
     @include('scrape.cdk-sitemap.nav')
 
-    <h2 class="text-danger">This is not currently storing to the database!</h2>
-
     <div class="text-weight-bold mt-4"># of VDP Links: {{ $links->count() }}</div>
 
     <ul class="list-group mb-4">

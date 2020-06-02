@@ -46,13 +46,42 @@
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Save</button>
                         <span class="small">Note:  This will reset the response code</span>
-                        <a href="{{ route('scrape.cdk-sitemap.index') }}" class="btn btn-sm btn-warning float-right">Cancel</a>
+
+                        <span class="float-right">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteSitemapModal" title="delete sitemap">Delete</button>
+                            <a href="{{ route('scrape.cdk-sitemap.index') }}" class="btn btn-sm btn-warning">Cancel</a>
+                        </span>
                     </div>
                 </form>
             </div>
         </div>
         
     </div><!-- ./container -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteSitemapModal" tabindex="-1" role="dialog" aria-labelledby="deleteSitemapModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="deleteSitemapModalLabel">Delete Sitemap</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="text-white">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="h4 text-danger">You are about to delete a sitemap!  Do you really want to do this?</div>
+        </div>
+        <div class="modal-footer">
+            <form action="{{ route('scrape.cdk-sitemap.destroy', $sitemap->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-danger">YES, Delete</button>
+            </form>
+        </div>
+      </div>
+    </div>
 </div>
 @endsection
 

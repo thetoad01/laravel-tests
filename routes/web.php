@@ -56,6 +56,7 @@ Route::middleware(['auth'])->namespace('Scrape')->name('scrape.')->prefix('scrap
     Route::get('/cdk-sitemap/{id}/scrape', 'CdkSitemapController@scrape')->name('cdk-sitemap.scrape');
     Route::post('/cdk-sitemap', 'CdkSitemapController@store')->name('cdk-sitemap.store');
     Route::put('/cdk-sitemap/{id}', 'CdkSitemapController@update')->name('cdk-sitemap.update');
+    Route::delete('/cdk-sitemap/{id}', 'CdkSitemapController@destroy')->name('cdk-sitemap.destroy');
 });
 // Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
 // Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
