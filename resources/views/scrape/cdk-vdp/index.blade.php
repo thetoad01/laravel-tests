@@ -6,6 +6,8 @@
 @endsection
 
 @section('content')
+@include('scrape.cdk-vdp.partials.nav')
+
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-6">

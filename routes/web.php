@@ -14,13 +14,6 @@ Route::get('/', function () {
 
 Route::view('/home', 'home')->name('home');
 
-// test scrape routes
-Route::get('/scrape', 'Scrape\HtmlParserController@test');
-
-// test sitemap routes
-// Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@getCdkSitemap');
-
-
 
 /*******************************************************************
  * Open Weather
@@ -32,21 +25,29 @@ Route::resource('/weather', 'Weather\OpenweatherController');
 /*******************************************************************
  * CDK VDPs
  *******************************************************************/
-Route::get('/scrape/cdk-vdp', 'Scrape\CdkVdpController@index')->name('scrape.cdk-vdp.index');
-Route::get('/scrape/cdk-vdp/{id}', 'Scrape\CdkVdpController@show')->name('scrape.cdk-vdp.show');
+// test scrape routes
+// Route::get('/scrape', 'Scrape\HtmlParserController@test');
+// Route::get('/scrape/count', 'Scrape\HtmlParserController@getNumberToCrawl');
+
+Route::middleware('auth')->namespace('Scrape')->prefix('scrape')->name('scrape.cdk-vdp.')->group(function () {
+    Route::get('/cdk-vdp', 'CdkVdpController@index')->name('index');
+    Route::get('/cdk-vdp/process', 'CdkVdpController@process')->name('process');
+    Route::get('/cdk-vdp/{id}', 'CdkVdpController@show')->name('show');
+});
+
 
 /*******************************************************************
  * CDK Sitemaps
  *******************************************************************/
 // protected
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
-    Route::post('/scrape/cdk', 'Scrape\CdkController@store');
-    Route::get('/sitemap/cdk/{id}', 'Scrape\CdkController@edit')->name('sitemap.cdk.edit');
-    Route::put('/sitemap/cdk/{id}', 'Scrape\CdkController@update')->name('sitemap.cdk.update');
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
+//     Route::post('/scrape/cdk', 'Scrape\CdkController@store');
+//     Route::get('/sitemap/cdk/{id}', 'Scrape\CdkController@edit')->name('sitemap.cdk.edit');
+//     Route::put('/sitemap/cdk/{id}', 'Scrape\CdkController@update')->name('sitemap.cdk.update');
 
-    Route::get('/test/sitemap/first', 'Tests\CdkSitemapTestController@first')->name('test.sitemap.first');
-});
+//     Route::get('/test/sitemap/first', 'Tests\CdkSitemapTestController@first')->name('test.sitemap.first');
+// });
 
 Route::middleware(['auth'])->namespace('Scrape')->name('scrape.')->prefix('scrape')->group(function () {
     Route::get('/cdk-sitemap', 'CdkSitemapController@index')->name('cdk-sitemap.index');
@@ -58,15 +59,6 @@ Route::middleware(['auth'])->namespace('Scrape')->name('scrape.')->prefix('scrap
     Route::put('/cdk-sitemap/{id}', 'CdkSitemapController@update')->name('cdk-sitemap.update');
     Route::delete('/cdk-sitemap/{id}', 'CdkSitemapController@destroy')->name('cdk-sitemap.destroy');
 });
-// Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
-// Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
-// Route::get('/scrape/cdk/{id}/edit', 'Scrape\CdkController@edit');
-// Route::patch('/scrape/cdk/{id}', 'Scrape\CdkController@update');
-// Route::delete('/scrape/cdk/{id}', 'Scrape\CdkController@destroy');
-Route::get('/scrape/count', 'Scrape\HtmlParserController@getNumberToCrawl');
-// process all sitemaps
-Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps');
-
 
 /*******************************************************************
  * Dealer Inspire (/dealer-inspire-inventory/inventory_sitemap)
