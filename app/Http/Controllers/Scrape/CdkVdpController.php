@@ -68,7 +68,7 @@ class CdkVdpController extends Controller
             
             return [
                 'response' => $data['response_code'],
-                'data' => '',
+                'vehicle' => '',
                 'url' => $vdp->vdp_url,
             ];
         };
@@ -81,7 +81,10 @@ class CdkVdpController extends Controller
             $vdp->visited = true;
             $vdp->save();
 
-            return redirect()->route('scrape.cdk-vdp.index');
+            return view('scrape.cdk-vdp.show', [
+                'response' => $data['response_code'],
+                'vehicle' => $vehicle,
+            ]);
         }
 
         $result = Vehicle::firstOrCreate(
@@ -106,7 +109,10 @@ class CdkVdpController extends Controller
         $vdp->visited = true;
         $vdp->save();
 
-        return redirect()->route('scrape.cdk-vdp.index');
+        return view('scrape.cdk-vdp.show', [
+            'response' => $data['response_code'],
+            'vehicle' => $result,
+        ]);
     }
 
     /**
@@ -160,11 +166,12 @@ class CdkVdpController extends Controller
             $vdp->visited = true;
             $vdp->save();
             
-            return [
+            return view('scrape.cdk-vdp.process', [
                 'response' => $data['response_code'],
-                'vehicle' => '',
-                'url' => $vdp->vdp_url,
-            ];
+                'vehicle' => [
+                    'url' => $vdp->vdp_url,
+                ],
+            ]);
         };
     
         $vehicle = (new \App\Helpers\ParseCdkVdpHelper)->handle($vdp->vdp_url, $data['data']);

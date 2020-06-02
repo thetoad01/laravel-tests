@@ -12,12 +12,16 @@
     <div class="h5">Response Code:  {{ $response }}</div>
 
     <div class="card">
+        <div class="card-header">
+            Page will reload in <span id="countdown">10</span>
+        </div>
+
         <div class="card-body">
             <div>{{ $vehicle['url'] }}</div>
-            <div>Dealer: {{ $vehicle['dealer'] }}</div>
+            <div>Dealer: {{ $vehicle['dealer'] ?? '' }}</div>
             <div>
                 VIN:
-                @if ($vehicle['vin'])
+                @if (isset($vehicle['vin']) && $vehicle['vin'] != '')
                     {{ $vehicle['vin'] }}
                 @else
                     <span class="text-danger">No VIN, vehicle was not saved to DB!</span>
@@ -25,13 +29,13 @@
             </div>
             <div>
                 Vehicle:
-                {{ $vehicle['year'] }}
-                {{ $vehicle['make'] }}
-                {{ $vehicle['model'] }}
-                {{ $vehicle['trim'] }}
+                {{ $vehicle['year'] ?? '' }}
+                {{ $vehicle['make'] ?? '' }}
+                {{ $vehicle['model'] ?? '' }}
+                {{ $vehicle['trim'] ?? '' }}
             </div>
-            <div>Color: {{ $vehicle['exterior_color'] }}</div>
-            <div>Stock #: {{ $vehicle['stock_number'] }}</div>
+            <div>Color: {{ $vehicle['exterior_color'] ?? '' }}</div>
+            <div>Stock #: {{ $vehicle['stock_number'] ?? '' }}</div>
 
             <button type="button" id="reloadBtn" onClick="window.location.reload();" class="btn btn-sm btn-primary mt-4 ml-0">Reload Page</button>
         </div><!-- ./card-body -->
@@ -41,8 +45,23 @@
 
 @section('scripts')
 <script>
-$(function() {
-    console.log('document ready');
-});
-</script>
+    $(function() {
+        var counter = 10;
+    
+        setInterval(function() {
+            counter--;
+    
+            if (counter >= 0) {
+                $('#countdown').text(counter + ' seconds!');
+            }
+
+            if (counter === 0) {
+                clearInterval(counter);
+                $('#countdown').text('LOADING!!!');
+                window.location.reload();
+            }
+    
+        }, 1000);
+    });
+    </script>
 @endsection
