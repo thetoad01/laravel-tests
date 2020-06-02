@@ -57,7 +57,10 @@
 
     <footer class="mastfoot mt-auto text-center">
         <div class="inner">
-            <p>Created by <a href="http://defoenet.com/">David Defoe</a> &copy; {{ now()->year }}</p>
+            <p>
+                Created by <a href="http://defoenet.com/">David Defoe</a> &copy; {{ now()->year }}
+                <a href="{{ route('login') }}" class="btn btn-link ml-5">login</a>
+            </p>
         </div>
     </footer>
 </div>

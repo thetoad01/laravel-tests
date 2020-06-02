@@ -18,7 +18,7 @@ Route::view('/home', 'home')->name('home');
 Route::get('/scrape', 'Scrape\HtmlParserController@test');
 
 // test sitemap routes
-Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@getCdkSitemap');
+// Route::get('/scrape/cdk-sitemap/{cdk_sitemap_id}', 'Scrape\HtmlParserController@getCdkSitemap');
 
 
 
@@ -47,11 +47,21 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/test/sitemap/first', 'Tests\CdkSitemapTestController@first')->name('test.sitemap.first');
 });
-Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
-Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
-Route::get('/scrape/cdk/{id}/edit', 'Scrape\CdkController@edit');
-Route::patch('/scrape/cdk/{id}', 'Scrape\CdkController@update');
-Route::delete('/scrape/cdk/{id}', 'Scrape\CdkController@destroy');
+
+Route::middleware(['auth'])->namespace('Scrape')->name('scrape.')->prefix('scrape')->group(function () {
+    Route::get('/cdk-sitemap', 'CdkSitemapController@index')->name('cdk-sitemap.index');
+    Route::get('/cdk-sitemap/create', 'CdkSitemapController@create')->name('cdk-sitemap.create');
+    Route::get('/cdk-sitemap/{id}', 'CdkSitemapController@show')->name('cdk-sitemap.show');
+    Route::get('/cdk-sitemap/{id}/edit', 'CdkSitemapController@edit')->name('cdk-sitemap.edit');
+    Route::get('/cdk-sitemap/{id}/scrape', 'CdkSitemapController@scrape')->name('cdk-sitemap.scrape');
+    Route::post('/cdk-sitemap', 'CdkSitemapController@store')->name('cdk-sitemap.store');
+    Route::put('/cdk-sitemap/{id}', 'CdkSitemapController@update')->name('cdk-sitemap.update');
+});
+// Route::get('/scrape/cdk', 'Scrape\CdkController@index')->name('scrape.cdk');
+// Route::get('/scrape/cdk/{id}', 'Scrape\CdkController@show');
+// Route::get('/scrape/cdk/{id}/edit', 'Scrape\CdkController@edit');
+// Route::patch('/scrape/cdk/{id}', 'Scrape\CdkController@update');
+// Route::delete('/scrape/cdk/{id}', 'Scrape\CdkController@destroy');
 Route::get('/scrape/count', 'Scrape\HtmlParserController@getNumberToCrawl');
 // process all sitemaps
 Route::get('/scrape/sitemaps/all', 'Scrape\HtmlParserController@processSitemaps');
