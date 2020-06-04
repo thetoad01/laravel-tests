@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\CdkSitemap;
 
-use GuzzleHttp\Client;
+// use GuzzleHttp\Client;
 
 class GetCdkSitemap implements ShouldQueue
 {
@@ -45,42 +45,59 @@ class GetCdkSitemap implements ShouldQueue
 
         // check for sitemap
         abort_if(!$sitemap, 404);
+        
+        $data = (new \App\Clients\CdkSitemapClient)->handle($sitemap->sitemap_url);
 
-        // Try using guzzle
-        $client = new Client();
-        // make try request and abort on exception
-        try {
-            $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
-        } catch (GuzzleException $exception) {
-            // write response code to the database
-            $sitemap->http_response_code = '500';
-            $sitemap->updated_at = $now->toDateTime();
-            $sitemap->save();
+        abort_if(!$data['data'], 404);
 
-            abort(404);
-        }
-
-        $status_code = $response->getStatusCode();
-
-        // write response code to the database
-        $sitemap->http_response_code = $status_code;
-        $sitemap->updated_at = $now->toDateTime();
+        // update CdkSitemap
+        $sitemap->http_response_code = $data['status'];
+        $sitemap->updated_at = now()->toDateTimeString();
         $sitemap->save();
 
-        // get body of response
-        if ($status_code == 200) {
-            $data = $response->getBody()->getContents();
-        } else {
-            abort(404);
+        // need to update or create vdp links to CdkLink model
+        $output = [];
+        foreach ($data['data'] as $key => $value) {
+            $output[] = CdkLink::firstOrCreate($value);
         }
 
-        // parse XML returned from GET
-        $xml = simplexml_load_string($data);
-        $sitemap_links = array();
-        foreach ($xml->url as $value) {
-            $sitemap_links[] = CdkLink::firstOrCreate(['vdp_url' => $value->loc->__toString()]);
-        }
+        return 'There were ' . count($output) . ' VDP links processed!';
 
-        return 'There were ' . count($sitemap_links) . ' VDP links processed!';
+        // // Try using guzzle
+        // $client = new Client();
+        // // make try request and abort on exception
+        // try {
+        //     $response = $client->request('GET', $sitemap->sitemap_url, ['allow_redirects' => false,'http_errors' => false]);
+        // } catch (\Throwable $exception) {
+        //     // write response code to the database
+        //     $sitemap->http_response_code = '500';
+        //     $sitemap->updated_at = $now->toDateTime();
+        //     $sitemap->save();
+
+        //     abort(404);
+        // }
+
+        // $status_code = $response->getStatusCode();
+
+        // // write response code to the database
+        // $sitemap->http_response_code = $status_code;
+        // $sitemap->updated_at = $now->toDateTime();
+        // $sitemap->save();
+
+        // // get body of response
+        // if ($status_code == 200) {
+        //     $data = $response->getBody()->getContents();
+        // } else {
+        //     abort(404);
+        // }
+
+        // // parse XML returned from GET
+        // $xml = simplexml_load_string($data);
+        // $sitemap_links = array();
+        // foreach ($xml->url as $value) {
+        //     $sitemap_links[] = CdkLink::firstOrCreate(['vdp_url' => $value->loc->__toString()]);
+        // }
+
+        // return 'There were ' . count($sitemap_links) . ' VDP links processed!';
     }
 }
