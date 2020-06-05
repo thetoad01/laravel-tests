@@ -49,13 +49,17 @@ class CheckActiveLinks implements ShouldQueue
             abort(402, 'No more results from db.');
         }
 
-        $response = Http::withHeaders([
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36',
-            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Encoding' => 'gzip, deflate, br',
-        ])->withOptions([
-            'allow_redirects' => false,
-        ])->get($link->vdp_url);
+        try {
+            $response = Http::withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36',
+                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                'Accept-Encoding' => 'gzip, deflate, br',
+            ])->withOptions([
+                'allow_redirects' => false,
+            ])->get($link->vdp_url);
+        } catch (\Throwable $th) {
+            abort(406, 'Not Acceptable');
+        }
 
         // update model
         $link->http_response_code = $response->status();
