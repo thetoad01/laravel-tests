@@ -21,7 +21,6 @@
             <div class="card-body">
                 <form action="{{ route('scrape.cdk-sitemap.store') }}" method="POST" autocomplete="off">
                     @csrf
-
                     <div class="form-group">
                         <label for="sitemap_url">
                             Sitemap URL
@@ -39,7 +38,8 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </label>
-                        @include('scrape.cdk-sitemap.partials.state-select')
+
+                        <x-select-state></x-select-state>
                     </div>
 
                     <div class="form-group">
