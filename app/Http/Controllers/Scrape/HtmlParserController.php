@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Scrape;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,24 +9,23 @@ use Carbon\Carbon;
 use PHPHtmlParser\Dom;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
+
+// clients
+use App\Clients\CdkVdpLinkClient;
 
 // models
 use App\Models\Scrape\CdkSitemap;
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
 
-// jobs
-use App\Jobs\GetCdkSitemap;
-
 class HtmlParserController extends Controller
 {
     public function test()
     {
         // get random link data from db
-        $cdk_link_data = CdkLink::where('visited', 0)->inRandomOrder()->first();
+        $cdk_link_data = CdkLink::where('visited', 0)
+            ->inRandomOrder()
+            ->first();
 
         // check if there are any URLs left to crawl
         if (!$cdk_link_data) {
@@ -38,15 +35,36 @@ class HtmlParserController extends Controller
         // grab the url for the VDP
         $url = $cdk_link_data->vdp_url;
 
-        // Try using guzzle
-        $client = new Client();
-        // make try request and abort on exception
-        try {
-            $response = $client->request('GET', $url, ['allow_redirects' => false]);
-        } catch(RequestException $e) {
-            // dd( Psr7\str($e->getRequest()) );
+        $data = collect((new CdkVdpLinkClient)->handle($url));
 
-            $cdk_link_data->http_response_code = 500;
+        if (!$data['data']) {
+            // record the url status
+            $cdk_link_data->http_response_code = $data['response_code'];
+            $cdk_link_data->visited = true;
+            $cdk_link_data->save();
+            
+            return view('scrape.cdk.vdp-result', [
+                'data' => '',
+                'count', $cdk_link_count ?? 0,
+                'url' => $url,
+            ]);
+        };
+
+        $file = $data['data'];
+
+        $dom = new Dom;
+
+        try {
+            $dom->loadStr($file);
+        } catch (\Throwable $th) {
+            // dd($th);
+            dd('error');
+        }
+
+        // If there is no VIN move on
+        if ($dom->find('span[itemprop=vehicleIdentificationNumber]')->count() == 0) {
+            // record the url status
+            $cdk_link_data->http_response_code = $data['response_code'];
             $cdk_link_data->visited = true;
             $cdk_link_data->save();
 
@@ -57,36 +75,6 @@ class HtmlParserController extends Controller
             ]);
         }
 
-        // write respone code to db record
-        $cdk_link_data->http_response_code = $response->getStatusCode();
-        $cdk_link_data->visited = true;
-        $cdk_link_data->save();
-
-        if ($response->getStatusCode() == 200) {
-            $file = $response->getBody()->getContents();
-        } else {
-            // abort(404);
-            // return response()->json([
-            //     'status' => $response->getStatusCode(),
-            //     'url' => $url,
-            // ]);
-            return redirect('/scrape');
-        }
-
-        $dom = new Dom;
-
-        try {
-            $dom->loadStr($file);
-        } catch (\Throwable $th) {
-            dd($th);
-        }
-
-        // If there is no VIN move on
-        if (!$dom->find('span[itemprop=vehicleIdentificationNumber]', 0)) {
-            // dd('there is no vehicleIdentificationNumber at ' . $url);
-            return redirect('/scrape');
-        }
-
         $vehicle = [
             'dealer' => $dom->find('meta[itemprop=name]')->content ?? '',
             'url' => $url,
@@ -95,7 +83,6 @@ class HtmlParserController extends Controller
             'make' => $dom->find('span[itemprop=manufacturer]')->text ?? '',
             'model' => $dom->find('span[itemprop=model]')->text ?? '',
             'trim' => !$dom->find('span[itemprop=vehicleConfiguration]', 0) ? '' : $dom->find('span[itemprop=vehicleConfiguration]')->text,
-            // 'trim' => $trim,
             'exterior_color' => $dom->find('span[itemprop=color]')->text ?? '',
             'interior_color' => $dom->find('span[itemprop=vehicleInteriorColor]')->text ?? '',
             'stock_number' => $dom->find('span[itemprop=sku]')->text ?? '',
@@ -107,19 +94,15 @@ class HtmlParserController extends Controller
         // get count from db
         $cdk_link_count = CdkLink::where('visited', 0)->count();
 
-        // return response()->json($result);
-        return view('scrape.cdk.vdp-result')->with('data', $result)->with('count', $cdk_link_count);
-    }
+        // record the url status
+        $cdk_link_data->http_response_code = $data['response_code'];
+        $cdk_link_data->visited = true;
+        $cdk_link_data->save();
 
-    public function getFile($url)
-    {
-        $dom = new Dom;
-        $dom->loadFromUrl($url);
-        $html = $dom->outerHtml;
-
-        Storage::put('/html/3423332823.html', $html);
-
-        // $vin = $dom->find('//span[@itemprop="vehicleIdentificationNumber"]')->item(0)->nodeValue;
+        return view('scrape.cdk.vdp-result', [
+            'data' => $result,
+            'count' => $cdk_link_count
+        ]);
     }
 
     public function getCdkSitemap($cdk_sitemap_id)
@@ -129,8 +112,6 @@ class HtmlParserController extends Controller
 
         // set current timestamp
         $now = Carbon::now()->toDateTimeString();
-
-        // dd($sitemap);
 
         // Try using guzzle
         $client = new Client();
@@ -154,15 +135,10 @@ class HtmlParserController extends Controller
             abort(404);
         }
 
-        // dd($data);
-
         $xml = simplexml_load_string($data);
-
-        // dd($xml->url[0]->loc);
 
         $sitemap_links = array();
         foreach ($xml->url as $value) {
-            // $sitemap_links[] = ['vdp_url' => $value->loc->__toString()];
             $sitemap_links[] = CdkLink::firstOrCreate(['vdp_url' => $value->loc->__toString()]);
         }
 
@@ -190,8 +166,6 @@ class HtmlParserController extends Controller
             ->where('http_response_code', 200)
             ->whereDate('updated_at', '!=', $date)
             ->get();
-
-        // return response()->json($sitemaps);
 
         $output = array();
 

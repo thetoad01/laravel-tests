@@ -17,8 +17,8 @@
         <div class="card-body">
             <div class="list-group">
                 <div class="list-group-item active">Scrape CDK Website(s)</div>
-                <a class="list-group-item" href="/scrape/cdk">Scrape Sitemap(s)</a>
-                <a class="list-group-item" href="/scrape">Scrape Vehicles</a>
+                <a class="list-group-item" href="{{ route('scrape.cdk-sitemap.index') }}">Sitemap(s)</a>
+                <a class="list-group-item" href="{{ route('scrape.cdk-vdp.index') }}">View Un-Scraped VDPs</a>
                 <a class="list-group-item" href="/vehicles">View Scraped Vehicles</a>
             </div>
 
