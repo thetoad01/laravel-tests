@@ -130,4 +130,6 @@ Route::get('/test/move/cdksitemap', 'Tests\MysqlVehicleController@moveCdkSitemap
  *******************************************************************/
 Route::namespace('Fitbit')->name('fitbit.')->prefix('fitbit')->group(function () {
     Route::get('/activity', 'ActivityController@index')->name('activity.index');
+    Route::get('/activity/create', 'ActivityController@create')->name('activity.create');
+    Route::post('/activity/store', 'ActivityController@store')->name('activity.store');
 });
