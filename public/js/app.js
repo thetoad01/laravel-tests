@@ -6312,7 +6312,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay {\r\n    visibility: hidden;\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background: rgba(0, 0, 0, 0.4);\r\n    transition: opacity 0.5s;\r\n    opacity: 0;\n}\n.overlay:target {\r\n    visibility: visible;\r\n    opacity: 1;\n}\n.dd-modal {\r\n    position: relative;\r\n    width: 500px;\r\n    max-width: 80%;\r\n    background: white;\r\n    border-radius: 4px;\r\n    padding: 1em 2.5em;\r\n    box-shadow: 0 5px 11px rgba(36, 37, 38, 0.08);\n}\n.dd-modal .close {\r\n    position: absolute;\r\n    top: 15px;\r\n    right: 15px;\r\n    color: grey;\r\n    text-decoration: none;\n}\n.overlay .cancel {\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\n.overlay {\n    visibility: hidden;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    background: rgba(0, 0, 0, 0.4);\n    transition: opacity 0.5s;\n    opacity: 0;\n}\n.overlay:target {\n    visibility: visible;\n    opacity: 1;\n}\n.dd-modal {\n    position: relative;\n    width: 500px;\n    max-width: 80%;\n    background: white;\n    border-radius: 4px;\n    padding: 1em 2.5em;\n    box-shadow: 0 5px 11px rgba(36, 37, 38, 0.08);\n}\n.dd-modal .close {\n    position: absolute;\n    top: 15px;\n    right: 15px;\n    color: grey;\n    text-decoration: none;\n}\n.overlay .cancel {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -6331,7 +6331,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\r\n    transition: opacity 1s;\n}\n.fade-enter, .fade-leave-to {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n    transition: opacity 1s;\n}\n.fade-enter, .fade-leave-to {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -51328,8 +51328,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\websites\laravel-tests\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\websites\laravel-tests\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/dking/Websites/laravel-tests/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/dking/Websites/laravel-tests/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
