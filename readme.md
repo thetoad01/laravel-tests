@@ -30,8 +30,8 @@ Add:
 ```
 
 ### Laravel collection macros
-https://github.com/spatie/laravel-collection-macros
-You can pull in the package via composer:
+https://github.com/spatie/laravel-collection-macros  
+Pull in the package via composer:
 ```
 composer require spatie/laravel-collection-macros
 ```
