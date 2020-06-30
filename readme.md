@@ -29,6 +29,13 @@ Add:
 ], 
 ```
 
+### Laravel collection macros
+https://github.com/spatie/laravel-collection-macros
+You can pull in the package via composer:
+```
+composer require spatie/laravel-collection-macros
+```
+
 ## Built with Laravel
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
   
