@@ -121,3 +121,15 @@ Route::get('/test', 'Tests\MysqlVehicleController@index');
 Route::get('/test/move', 'Tests\MysqlVehicleController@move');
 Route::get('/test/move/cdklink', 'Tests\MysqlVehicleController@moveCdkLink')->middleware('auth');
 Route::get('/test/move/cdksitemap', 'Tests\MysqlVehicleController@moveCdkSitemap')->middleware('auth');
+
+
+
+
+/*******************************************************************
+ * Fitbit
+ *******************************************************************/
+Route::namespace('Fitbit')->name('fitbit.')->prefix('fitbit')->group(function () {
+    Route::get('/activity', 'ActivityController@index')->name('activity.index');
+    Route::get('/activity/create', 'ActivityController@create')->name('activity.create');
+    Route::post('/activity/store', 'ActivityController@store')->name('activity.store');
+});

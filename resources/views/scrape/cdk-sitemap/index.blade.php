@@ -12,7 +12,10 @@
 @endsection
 
 @section('content')
+@include('navs.scrape')
+
 <div class="row teal lighten-5 py-4 h-100">
+
     <div class="container">
         <h1 class="text-center mt-2 mb-4">Scrape CDK Websites</h1>
     

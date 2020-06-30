@@ -21,7 +21,7 @@ class CdkVdpLinkClient
             ])->get($endpoint);
         } catch (\Throwable $e) {
             return [
-                'status' => 500,
+                'response_code' => 500,
                 'data' => null,
             ];
         }
