@@ -133,3 +133,13 @@ Route::namespace('Fitbit')->name('fitbit.')->prefix('fitbit')->group(function ()
     Route::get('/activity/create', 'ActivityController@create')->name('activity.create');
     Route::post('/activity/store', 'ActivityController@store')->name('activity.store');
 });
+
+
+
+
+/*******************************************************************
+ * spatie/laravel-collection-macros
+ *******************************************************************/
+Route::name('collection-macros')->prefix('collection-macros')->group(function () {
+    Route::get('/', 'CollectionMacrosController@index')->name('index');
+});

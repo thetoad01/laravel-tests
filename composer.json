@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
         "league/csv": "^9.6",
-        "paquettg/php-html-parser": "^2.0"
+        "paquettg/php-html-parser": "^2.0",
+        "spatie/laravel-collection-macros": "^7.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
