@@ -15,7 +15,10 @@
 
         <div class="card">
             <div class="card-body">
-                <h2>{{ $weather['name'] }}</h2>
+                <h2>
+                    {{ $weather['name'] }}
+                    <button type="button" class="ml-4 btn btn-primary py-1 px-3"  data-toggle="modal" data-target="#zipcodeModal">Change</button>
+                </h2>
                 <div>{{ Carbon\Carbon::parse($weather['dt'])->addSeconds($weather['timezone'])->toFormattedDateString() }} {{ $weather['weather'][0]['description'] }}</div>
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
@@ -89,7 +92,7 @@
         </div>
     </div>
 </div>
-
+{{-- Forcast --}}
 <div class="row py-4">
     <div class="container px-sm-0">
         <h2 class="text-center text-white">Forcast</h2>
@@ -138,32 +141,58 @@
                                 </div>
                             </div>
                         </li>
-                        {{-- {{ dd($item) }} --}}
                     @endforeach
                 </ul>
-
-{{-- {{ dd($forcast) }} --}}
             </div>
         </div>
     </div>
 </div>
 
-
-        {{-- <ul class="list-group">
-            @foreach ($forcast as $item)
-                <li class="list-group-item hoverable">
-                    <div>{{ Carbon\Carbon::parse($item['dt_txt'])->addSeconds($city['timezone'])->toDayDateTimeString() }}</div>
-                    <div>
-                        {{ intval($item['main']['temp']) }}°
-                        {{ $item['weather'][0]['description'] }}
+{{-- Enter zip code modal --}}
+<div class="modal fade" id="zipcodeModal" tabindex="-1" role="dialog" aria-labelledby="zipcodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="zipcodeModalLabel">Enter Zip Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('weather.index') }}" method="GET">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="zip" id="zip" class="form-control" maxlength="5" placeholder="zipcode">
                     </div>
-                    <div>Feels Like: {{ intval($item['main']['feels_like']) }}°</div>
-                    <div>Humidity: {{ intval($item['main']['humidity']) }}%</div>
-                </li>
-                {{ dd($item) }}
-            @endforeach
-        </ul> --}}
+                    <div id="zipError"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="zipSubmit" class="btn btn-sm btn-success">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
+<script>
+    let button = document.getElementById('zipSubmit');
+    let input = document.getElementById('zip');
+
+    button.disabled = true
+    input.onkeyup = updateValue;
+
+    function updateValue(e) {
+        let value = input.value;
+        let len = input.value.length;
+        
+        if (isNaN(value) || len < 5) {
+            button.disabled = true;
+        } else {
+            button.disabled = false;
+        }
+    }
+</script>
 @endsection

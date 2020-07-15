@@ -15,30 +15,38 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="list-group">
-                <div class="list-group-item active">Scrape CDK Website(s)</div>
-                <a class="list-group-item" href="{{ route('scrape.cdk-sitemap.index') }}">Sitemap(s)</a>
-                <a class="list-group-item" href="{{ route('scrape.cdk-vdp.index') }}">View Un-Scraped VDPs</a>
-                <a class="list-group-item" href="/vehicles">View Scraped Vehicles</a>
-            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="list-group">
+                        <div class="list-group-item active">Scrape CDK Website(s)</div>
+                        <a class="list-group-item" href="{{ route('scrape.cdk-sitemap.index') }}">Sitemap(s)</a>
+                        <a class="list-group-item" href="{{ route('scrape.cdk-vdp.index') }}">View Un-Scraped VDPs</a>
+                        <a class="list-group-item" href="/vehicles">View Scraped Vehicles</a>
+                    </div>
+        
+                    <div class="list-group mt-4">
+                        <div class="list-group-item active">Scrape Dealer Inspire Website(s)</div>
+                        <a class="list-group-item" href="{{ route('sitemap.dealer-inspire.index') }}">Sitemap List</a>
+                        <a class="list-group-item" href="{{ route('vdp.dealer-inspire.index') }}">Dealer Inspire Vehicles to Scrape</a>
+                        <a class="list-group-item" href="#">View Scraped Vehicles</a>
+                    </div>
+        
+                    <div class="list-group mt-4">
+                        <div class="list-group-item active">Vue Component Tests</div>
+                        <a class="list-group-item" href="/vue-components/smooth-scrolling">Smooth Scrolling</a>
+                        <a class="list-group-item" href="/vue-components/context-menu">Context Menu</a>
+                        <a class="list-group-item" href="/vue-components/conditional-visibility">Show an element when another is hidden</a>
+                        <a class="list-group-item" href="/vue-components/modal">Modals</a>
+                        <a class="list-group-item" href="/vue-components/confirmation-button">Confirmation Button</a>
+                    </div>
+                </div><!-- ./col-sm-6 -->
 
-            <div class="list-group mt-4">
-                <div class="list-group-item active">Scrape Dealer Inspire Website(s)</div>
-                <a class="list-group-item" href="{{ route('sitemap.dealer-inspire.index') }}">Sitemap List</a>
-                <a class="list-group-item" href="{{ route('vdp.dealer-inspire.index') }}">Dealer Inspire Vehicles to Scrape</a>
-                <a class="list-group-item" href="#">View Scraped Vehicles</a>
-            </div>
-
-            <div class="list-group mt-4">
-                <div class="list-group-item active">Vue Component Tests</div>
-                <a class="list-group-item" href="/vue-components/smooth-scrolling">Smooth Scrolling</a>
-                <a class="list-group-item" href="/vue-components/context-menu">Context Menu</a>
-                <a class="list-group-item" href="/vue-components/conditional-visibility">Show an element when another is hidden</a>
-                <a class="list-group-item" href="/vue-components/modal">Modals</a>
-                <a class="list-group-item" href="/vue-components/confirmation-button">Confirmation Button</a>
-            </div>
-        </div>
-    </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="list-group"></div>    
+                </div><!-- ./col-sm-6 -->
+            </div><!-- ./row -->
+        </div><!-- ./card-body -->
+    </div><!-- ./card -->
 @endsection
 
 @section('scripts')
