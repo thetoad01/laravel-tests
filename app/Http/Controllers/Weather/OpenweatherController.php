@@ -45,6 +45,7 @@ class OpenweatherController extends Controller
         });
 
         return view('weather.index', [
+            'zip' => $zip,
             'weather' => collect($data['weather']),
             'forcast' => collect($data['forcast']),
         ]);
