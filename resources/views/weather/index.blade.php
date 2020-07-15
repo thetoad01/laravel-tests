@@ -27,11 +27,17 @@
 {{-- Forcast --}}
 <div class="row py-4">
     <div class="container px-sm-0">
-        @if ($weather->count() < 2)
-            @include('weather.partials.no-forcast')
-        @else
-            @include('weather.partials.forcast')
-        @endif
+        <h2 class="text-center text-white">Forcast</h2>
+
+        <div class="card">
+            <div class="card-body">
+                @if ($forcast->count() < 2)
+                    @include('weather.partials.no-forcast')
+                @else
+                    @include('weather.partials.forcast')
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 

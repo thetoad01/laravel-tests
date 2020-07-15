@@ -21,6 +21,8 @@ class NhtsaController extends Controller
     public function decode($vin, $year)
     {
         // need to do something here to validate the params
+        abort_if(!$vin, 404);
+        abort_if(!$year, 404);
 
         // for more information about the NHTSA decode visit: https://vpic.nhtsa.dot.gov/api/
         $url = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/'.$vin.'?format=json&modelyear='.$year;
