@@ -22,20 +22,6 @@
 </head>
 <body>
 <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        {{-- @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif --}}
-
     <header class="masthead mb-auto">
         <div class="inner">
             <h3 class="masthead-brand">A4F5</h3>
@@ -43,6 +29,7 @@
                 <a class="nav-link active" href="{{ route('home') }}">Home</a>
                 <a class="nav-link" href="{{ route('weather.index') }}">Weather</a>
                 <a class="nav-link" href="{{ route('vehicles.index') }}">Vehicles</a>
+                <a class="nav-link" href="{{ route('nhtsa.index') }}">Decode VIN</a>
             </nav>
         </div>
     </header>

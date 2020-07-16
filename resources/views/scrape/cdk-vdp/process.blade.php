@@ -13,7 +13,7 @@
 
     <div class="card">
         <div class="card-header">
-            Page will reload in <span id="countdown">10</span>
+            Page will reload in <span id="countdown"></span>
         </div>
 
         <div class="card-body">
@@ -46,7 +46,8 @@
 @section('scripts')
 <script>
     $(function() {
-        var counter = 10;
+        var counter = 8;
+        $('#countdown').text(counter + ' seconds!');
     
         setInterval(function() {
             counter--;

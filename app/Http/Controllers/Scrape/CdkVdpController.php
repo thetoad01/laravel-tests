@@ -158,6 +158,8 @@ class CdkVdpController extends Controller
             ->inRandomOrder()
             ->first();
 
+        abort_if(!$vdp, 404);
+
         $data = collect((new CdkVdpLinkClient)->handle($vdp->vdp_url));
     
         if (!$data['data']) {

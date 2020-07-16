@@ -42,7 +42,12 @@
                 </div><!-- ./col-sm-6 -->
 
                 <div class="col-sm-6 col-xs-12">
-                    <div class="list-group"></div>    
+                    <div class="list-group">
+                        <div class="list-group">
+                            <div class="list-group-item active">VIN Decode</div>
+                            <a class="list-group-item" href="{{ route('nhtsa.index') }}">NHTSA</a>
+                        </div>
+                    </div>    
                 </div><!-- ./col-sm-6 -->
             </div><!-- ./row -->
         </div><!-- ./card-body -->
