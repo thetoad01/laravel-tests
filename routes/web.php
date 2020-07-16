@@ -88,7 +88,9 @@ Route::get('/deleted/vehicles', 'Scrape\DeletedVehicleController@index')->name('
 /*******************************************************************
  * NHTSA VIN Decode
  *******************************************************************/
-Route::get('/nhtsa/decode/{vin}/{year}', 'Nhtsa\NhtsaController@decode');
+Route::get('/nhtsa', 'Nhtsa\NhtsaController@index')->name('nhtsa.index');
+Route::post('/nhtsa', 'Nhtsa\NhtsaController@store')->name('nhtsa.store');
+Route::get('/nhtsa/decode/{vin}/{year}', 'Nhtsa\NhtsaController@decode')->name('nhtsa.decode');
 
 
 /*******************************************************************

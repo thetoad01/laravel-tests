@@ -4,12 +4,48 @@ namespace App\Http\Controllers\Nhtsa;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 use GuzzleHttp\Client;
 use App\Repositories\NhtsaDecodeRepository;
 
 class NhtsaController extends Controller
 {
+    public function index()
+    {
+        return view('nhtsa.index');
+    }
+
+    
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'vin' => 'required|size:17',
+            'year' => 'required|digits:4',
+        ]);
+
+        $url = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/'.$validated['vin'].'?format=json&modelyear='.$validated['year'];
+
+        $response = Http::get($url);
+
+        abort_if($response->failed(), 404);
+        
+        $data = $response->json();
+
+        $vehicle = collect($data['Results'])->first();
+        // dd($results);
+
+        $output = [
+            'message' => $data['Message'],
+            'errorCodes' => Str::of($vehicle['ErrorCode'])->split('/(,)+/'),
+            'errorMessages' => Str::of($vehicle['ErrorText'])->split('/(; )+/'),
+            'vehicle' => $vehicle,
+        ];
+
+        return $output;
+    }
+
     /**
      * Decode a vin using NHTSA
      *
@@ -38,6 +74,8 @@ class NhtsaController extends Controller
         }
 
         $data = json_decode($data);
+
+        dd(collect($data->Results)->first());
 
         $nhtsaData = new NhtsaDecodeRepository($data);
 
