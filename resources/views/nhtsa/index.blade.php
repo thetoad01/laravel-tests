@@ -45,6 +45,14 @@
         <button type="submit" class="btn btn-sm btn-success">Decode VIN</button>
     </form>
 </div><!-- ./container -->
+
+@if ($recents)
+    <div class="container my-5">
+        <h3>Recently Decoded VINs</h3>
+
+        @include('nhtsa.partials.recent')
+    </div>
+@endif
 @endsection
 
 @section('scripts')

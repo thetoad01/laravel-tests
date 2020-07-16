@@ -9,12 +9,20 @@ use Illuminate\Support\Str;
 
 use GuzzleHttp\Client;
 use App\Repositories\NhtsaDecodeRepository;
+use App\Models\NhtsaDecoded;
 
 class NhtsaController extends Controller
 {
     public function index()
     {
-        return view('nhtsa.index');
+        $recents = NhtsaDecoded::whereNotNull('VIN')
+            ->take(10)
+            ->latest()
+            ->get();
+
+        return view('nhtsa.index', [
+            'recents' => $recents,
+        ]);
     }
 
     public function show($id)
@@ -46,7 +54,7 @@ class NhtsaController extends Controller
         $vehicle = collect($data['Results'])->first();
 
         try {
-            \App\Models\NhtsaDecoded::create([
+            NhtsaDecoded::create([
                 'clientIP' => $clientIP,
                 'VIN' => $vehicle['VIN'] ?? '',
                 'BodyCabType' => $vehicle['BodyCabType'] ?? '',
@@ -86,7 +94,6 @@ class NhtsaController extends Controller
         }
 
         $output = [
-            'clientIP' => $clientIP,
             'message' => $data['Message'],
             'errorCodes' => Str::of($vehicle['ErrorCode'])->split('/(,)+/'),
             'errorMessages' => Str::of($vehicle['ErrorText'])->split('/(; )+/'),
