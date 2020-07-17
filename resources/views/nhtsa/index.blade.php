@@ -3,7 +3,7 @@
 @section('title', 'Decode Vehicle VIN using NHTSA')
 
 @section('heads')
-<meta name="description" content="Decode a VIN number free. Get information about any vehicle using the VIN and year." />
+<meta name="description" content="Decode a VIN number free. Get information about US vehicle using the VIN and year." />
 @endsection
 
 @section('content')
