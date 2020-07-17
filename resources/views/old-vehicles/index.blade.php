@@ -8,12 +8,12 @@
 @section('content')
     <h1 class="text-center mt-3">Oldest Vehicles Scraped from CDK Websites</h1>
 
-    @if ($message = Session::get('message'))
+    {{-- @if ($message = Session::get('message'))
         <div class="alert alert-success alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button>    
             <strong>{{ $message }}</strong>
         </div>
-    @endif
+    @endif --}}
 
     <table class="table table-sm table-hover">
         <thead>
@@ -49,8 +49,31 @@
         </tbody>
     </table>
 
-{{-- {{ dd($vehicles) }} --}}
+    <div role="alert" aria-live="polite" aria-atomic="true" class="toast mt-3 mr-3" style="position: absolute; top: 0; right: 0;" data-autohide="false">
+        <div class="toast-header default-color-dark text-white">
+            <strong class="mr-auto">URL Test Result</strong>
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            @if (session('message'))
+                {{ session('message') }}
+            @endif
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
+@if (Session::get('message'))
+<script>
+    $(function() {
+        $('.toast').toast('show');
+
+        $('.toast').click(function() {
+            $('.toast').toast('dispose');
+        });
+    });
+</script>
+@endif
 @endsection

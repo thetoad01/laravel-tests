@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="/css/mdb.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 {{-- JS --}}
-<script src="/js/app.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/app.js"></script>
 @yield('heads')
 </head>
 <body>
