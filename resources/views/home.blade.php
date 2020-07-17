@@ -22,6 +22,7 @@
                         <a class="list-group-item" href="{{ route('scrape.cdk-sitemap.index') }}">Sitemap(s)</a>
                         <a class="list-group-item" href="{{ route('scrape.cdk-vdp.index') }}">View Un-Scraped VDPs</a>
                         <a class="list-group-item" href="/vehicles">View Scraped Vehicles</a>
+                        <a class="list-group-item" href="/old-vehicles">View Oldest Scraped Vehicles</a>
                     </div>
         
                     <div class="list-group mt-4">

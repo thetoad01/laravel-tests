@@ -83,6 +83,9 @@ Route::resource('/vehicles', 'Scrape\VehicleController');
 Route::get('/vehicle/check-link', 'Vehicle\ActiveLinkController@check');
 // deleted vehicles
 Route::get('/deleted/vehicles', 'Scrape\DeletedVehicleController@index')->name('vehicles.deleted.index');
+// Old Vehicles
+Route::get('/old-vehicles', 'Scrape\OldVehicleController@index')->name('old-vehicles.index');
+Route::get('/old-vehicles/{id}', 'Scrape\OldVehicleController@show')->name('old-vehicles.show');
 
 
 /*******************************************************************
