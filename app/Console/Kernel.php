@@ -24,10 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
-        $schedule->job(new \App\Jobs\GetCdkSitemap, 'sitemaps')->everyTenMinutes();
-        $schedule->job(new \App\Jobs\CheckActiveLinks, 'sitemaps')->everyMinute();
+        // $schedule->command('inspire')->hourly();
+        $schedule->job(new \App\Jobs\GetCdkSitemap, 'sitemaps')->everyTenMinutes()->monitorName('get-cdk-sitemap');
+        $schedule->job(new \App\Jobs\CheckActiveLinks, 'sitemaps')->everyMinute()->monitorName('check-active-links');
+        // clean up old records
+        $schedule->command('schedule-monitor:clean')->daily();
     }
 
     /**
