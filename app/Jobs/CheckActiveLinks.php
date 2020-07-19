@@ -10,8 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Http;
 
 use Carbon\Carbon;
-// guzzle
-use GuzzleHttp\Client;
 // Models
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
@@ -42,7 +40,8 @@ class CheckActiveLinks implements ShouldQueue
         $link = CdkLink::where('visited', true)
             ->where('http_response_code', '200')
             ->whereDate('updated_at', '!=', $date)
-            ->inRandomOrder()
+            // ->inRandomOrder()
+            ->orderBy('updated_at')
             ->first();
 
         if (!$link->vdp_url) {
@@ -83,36 +82,5 @@ class CheckActiveLinks implements ShouldQueue
             'url' => $link->vdp_url,
             'created_at' => $link->created_at,
         ]);
-
-        // // Try using guzzle
-        // $client = new Client();
-
-        // // make try request and abort on exception
-        // try {
-        //     $response = $client->request('GET', $link->vdp_url, array('allow_redirects' => false));
-        //     // $response = $client->head($vehicle->url);
-        // } catch(RequestException $e) {
-        //     // dd( Psr7\str($e->getRequest()) );
-        //     abort(406, "Error while getting link.");
-        // }
-
-        // $http_response_code = $response->getStatusCode();
-
-        // // update model
-        // $link->http_response_code = $http_response_code;
-        // $link->updated_at = Carbon::now()->toDateTime();
-        // $link->save();
-
-        // // mark vehicle deleted_at
-        // if($http_response_code != 200) {
-        //     $vehicle = Vehicle::where('url', $link->vdp_url)->firstOrFail();
-        //     $vehicle->deleted_at = now()->toDateTimeString();
-        //     $vehicle->save();
-
-        //     return response()->json([
-        //         'link' => $link,
-        //         'vehicle' => $vehicle,
-        //     ]);
-        // }
     }
 }
