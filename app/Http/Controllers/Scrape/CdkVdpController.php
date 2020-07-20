@@ -66,6 +66,7 @@ class CdkVdpController extends Controller
             $vdp->visited = true;
             $vdp->save();
             
+            // Need a view
             return [
                 'response' => $data['response_code'],
                 'vehicle' => '',

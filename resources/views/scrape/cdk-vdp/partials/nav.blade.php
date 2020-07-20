@@ -9,5 +9,8 @@
         <li class="nav-link">
             <a href="{{ route('scrape.cdk-sitemap.index') }}" class="nav-link text-white">Sitemaps</a>
         </li>
+        <li class="nav-link">
+            <a href="{{ route('vehicles.index') }}" class="nav-link text-white">Vehicles</a>
+        </li>
     </ul>
 </div>

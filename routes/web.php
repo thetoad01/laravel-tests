@@ -86,6 +86,8 @@ Route::get('/deleted/vehicles', 'Scrape\DeletedVehicleController@index')->name('
 // Old Vehicles
 Route::get('/old-vehicles', 'Scrape\OldVehicleController@index')->name('old-vehicles.index');
 Route::get('/old-vehicles/{id}', 'Scrape\OldVehicleController@show')->name('old-vehicles.show');
+// vehicle stats
+Route::get('/vehicle/stats', 'Vehicle\VehicleStatsController@index')->name('vehicle.stats.index');
 
 
 /*******************************************************************

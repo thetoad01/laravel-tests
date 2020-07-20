@@ -47,7 +47,18 @@
 
     {{-- Pagination links --}}
     <div class="container-fluid mt-3">
-        {{ $vehicles->appends(Request::all())->links() }}
+        {{-- {{ $vehicles->appends(Request::all())->links() }} --}}
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                {{ $vehicles->appends(Request::all())->links() }}
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="text-right">
+                    <a href="{{ route('vehicle.stats.index') }}" class="btn btn-link">Stats</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container-fluid">
