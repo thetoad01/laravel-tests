@@ -20,6 +20,12 @@
         </div>
     </div>
 
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    
     <table class="table table-sm table-hover mb-4">
         <thead>
             <tr>

@@ -27,6 +27,6 @@
     "dependencies": {
         "in-viewport": "^3.6.0",
         "mdbootstrap": "^4.19.1",
-        "tailwindcss": "^1.4.6"
+        "tailwindcss": "^1.5.2"
     }
 }

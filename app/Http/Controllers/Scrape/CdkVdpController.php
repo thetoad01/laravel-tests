@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scrape;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Clients\CdkVdpLinkClient;
+use App\Exceptions\NoDataFromLinkException;
 // models
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
@@ -61,17 +62,7 @@ class CdkVdpController extends Controller
         $data = collect((new CdkVdpLinkClient)->handle($vdp->vdp_url));
 
         if (!$data['data']) {
-            // record the url status
-            $vdp->http_response_code = $data['response_code'];
-            $vdp->visited = true;
-            $vdp->save();
-            
-            // Need a view
-            return [
-                'response' => $data['response_code'],
-                'vehicle' => '',
-                'url' => $vdp->vdp_url,
-            ];
+            throw (new \App\Exceptions\CdkVdpLinkException())->withData($vdp->vdp_url, $data['response_code']);
         };
 
         $vehicle = (new \App\Helpers\ParseCdkVdpHelper)->handle($vdp->vdp_url, $data['data']);
