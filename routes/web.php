@@ -39,16 +39,6 @@ Route::middleware('auth')->namespace('Scrape')->prefix('scrape')->name('scrape.c
 /*******************************************************************
  * CDK Sitemaps
  *******************************************************************/
-// protected
-// Route::group(['middleware' => ['auth']], function () {
-//     Route::get('/scrape/cdk/create', 'Scrape\CdkController@create');
-//     Route::post('/scrape/cdk', 'Scrape\CdkController@store');
-//     Route::get('/sitemap/cdk/{id}', 'Scrape\CdkController@edit')->name('sitemap.cdk.edit');
-//     Route::put('/sitemap/cdk/{id}', 'Scrape\CdkController@update')->name('sitemap.cdk.update');
-
-//     Route::get('/test/sitemap/first', 'Tests\CdkSitemapTestController@first')->name('test.sitemap.first');
-// });
-
 Route::middleware(['auth'])->namespace('Scrape')->name('scrape.')->prefix('scrape')->group(function () {
     Route::get('/cdk-sitemap', 'CdkSitemapController@index')->name('cdk-sitemap.index');
     Route::get('/cdk-sitemap/create', 'CdkSitemapController@create')->name('cdk-sitemap.create');

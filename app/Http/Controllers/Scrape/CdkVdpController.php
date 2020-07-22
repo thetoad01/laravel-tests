@@ -61,14 +61,17 @@ class CdkVdpController extends Controller
 
         $data = collect((new CdkVdpLinkClient)->handle($vdp->vdp_url));
 
+        /******* move saving of the visited/response code to the CdkVdpLinkClient ******/
+
         if (!$data['data']) {
+            /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
             throw (new \App\Exceptions\CdkVdpLinkException())->withData($vdp->vdp_url, $data['response_code']);
         };
 
         $vehicle = (new \App\Helpers\ParseCdkVdpHelper)->handle($vdp->vdp_url, $data['data']);
 
         if (!$vehicle['vin']) {
-            // record the url status
+            /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
             $vdp->http_response_code = $data['response_code'];
             $vdp->visited = true;
             $vdp->save();
@@ -96,7 +99,7 @@ class CdkVdpController extends Controller
             ]
         );
 
-        // record the url status
+        /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
         $vdp->http_response_code = $data['response_code'];
         $vdp->visited = true;
         $vdp->save();
