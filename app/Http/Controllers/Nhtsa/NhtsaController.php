@@ -121,9 +121,10 @@ class NhtsaController extends Controller
 
         $response = \App\Clients\NhtsaClient::handle($vin, $year);
 
+        abort_if(!$response['successful'], 404);
+
         $nhtsaData = new NhtsaDecodeRepository(collect($response['data']['Results'])->first());
 
-        // return collect($data);
         return response()->json($nhtsaData->run());
     }
 }
