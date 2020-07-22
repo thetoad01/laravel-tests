@@ -119,24 +119,9 @@ class NhtsaController extends Controller
         abort_if(!$vin, 404);
         abort_if(!$year, 404);
 
-        // for more information about the NHTSA decode visit: https://vpic.nhtsa.dot.gov/api/
-        $url = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/'.$vin.'?format=json&modelyear='.$year;
+        $response = \App\Clients\NhtsaClient::handle($vin, $year);
 
-        // instantiate new Guzzle client
-        $client = new Client();
-        $response = $client->get($url);
-
-        if ($response->getStatusCode() == 200) {
-            $data = $response->getBody();
-        } else {
-            $data = 'Error getting data';
-        }
-
-        $data = json_decode($data);
-
-        dd(collect($data->Results)->first());
-
-        $nhtsaData = new NhtsaDecodeRepository($data);
+        $nhtsaData = new NhtsaDecodeRepository(collect($response['data']['Results'])->first());
 
         // return collect($data);
         return response()->json($nhtsaData->run());
