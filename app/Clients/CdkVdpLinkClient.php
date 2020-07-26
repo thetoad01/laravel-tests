@@ -15,14 +15,17 @@ class CdkVdpLinkClient
      */
     public function handle($endpoint)
     {
+        $response_status = 500;
+        $data = null;
+
         try {
             $response = Http::withOptions([
                 'allow_redirects' => false,
             ])->get($endpoint);
         } catch (\Throwable $e) {
             return [
-                'response_code' => 500,
-                'data' => null,
+                'response_code' => $response_status,
+                'data' => $data,
             ];
         }
 
