@@ -3,6 +3,7 @@
 namespace App\Services\Scrape;
 
 use App\Models\Scrape\CdkLink;
+use App\Models\Scrape\Vehicle;
 use App\Clients\CdkVdpLinkClient;
 use App\Helpers\ParseCdkVdpHelper;
 
@@ -37,6 +38,8 @@ class ProcessCdkVdp
 
         $this->updateLink($data['response_code']);
 
+        $this->saveVehicle($vehicle);
+
         return [
             'url' => $this->url,
             'http_response_code' => $data['response_code'],
@@ -58,6 +61,38 @@ class ProcessCdkVdp
         $link->save();
     }
 
+    /**
+     * Save vehicle
+     * 
+     * @param array $vehicle
+     * 
+     * @return collection
+     */
+    protected function saveVehicle($vehicle)
+    {
+        $result = Vehicle::firstOrCreate(
+            [
+                'url' => $this->url,
+                'vin' => $vehicle['vin'],
+            ],
+            [
+                'dealer' => $vehicle['dealer'],
+                'year' => $vehicle['year'],
+                'make' => $vehicle['make'],
+                'model' => $vehicle['model'],
+                'trim' => $vehicle['trim'],
+                'exterior_color' => $vehicle['exterior_color'],
+                'interior_color' => $vehicle['interior_color'],
+                'stock_number' => $vehicle['stock_number'],
+            ]
+        );
+
+        return $result;
+    }
+
+    /**
+     * Format error response
+     */
     protected function errorResponse($response)
     {
         return [

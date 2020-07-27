@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Scrape;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Clients\CdkVdpLinkClient;
-use App\Exceptions\NoDataFromLinkException;
 // models
 use App\Models\Scrape\CdkLink;
 use App\Models\Scrape\Vehicle;
@@ -61,7 +60,7 @@ class CdkVdpController extends Controller
 
         $data = new \App\Services\Scrape\ProcessCdkVdp($id, $vdp->vdp_url);
         $vehicle = $data->handle();
-        
+
         if (!$vehicle['data']) {
             return view('scrape.cdk-vdp.show', [
                 'url' => $vehicle['url'],
@@ -70,27 +69,10 @@ class CdkVdpController extends Controller
             ]);
         }
 
-        $result = Vehicle::firstOrCreate(
-            [
-                'url' => $vehicle['url'],
-                'vin' => $vehicle['data']['vin'],
-            ],
-            [
-                'dealer' => $vehicle['data']['dealer'],
-                'year' => $vehicle['data']['year'],
-                'make' => $vehicle['data']['make'],
-                'model' => $vehicle['data']['model'],
-                'trim' => $vehicle['data']['trim'],
-                'exterior_color' => $vehicle['data']['exterior_color'],
-                'interior_color' => $vehicle['data']['interior_color'],
-                'stock_number' => $vehicle['data']['stock_number'],
-            ]
-        );
-
         return view('scrape.cdk-vdp.show', [
             'url' => $vehicle['url'],
             'response' => $vehicle['http_response_code'],
-            'vehicle' => $result,
+            'vehicle' => $vehicle['data'],
         ]);
     }
 
