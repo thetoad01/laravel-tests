@@ -59,53 +59,37 @@ class CdkVdpController extends Controller
     {
         $vdp = CdkLink::find($id);
 
-        $data = collect((new CdkVdpLinkClient)->handle($vdp->vdp_url));
-
-        /******* move saving of the visited/response code to the CdkVdpLinkClient ******/
-
-        if (!$data['data']) {
-            /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
-            throw (new \App\Exceptions\CdkVdpLinkException())->withData($vdp->vdp_url, $data['response_code']);
-        };
-
-        $vehicle = (new \App\Helpers\ParseCdkVdpHelper)->handle($vdp->vdp_url, $data['data']);
-
-        if (!$vehicle['vin']) {
-            /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
-            $vdp->http_response_code = $data['response_code'];
-            $vdp->visited = true;
-            $vdp->save();
-
+        $data = new \App\Services\Scrape\ProcessCdkVdp($id, $vdp->vdp_url);
+        $vehicle = $data->handle();
+        
+        if (!$vehicle['data']) {
             return view('scrape.cdk-vdp.show', [
-                'response' => $data['response_code'],
-                'vehicle' => $vehicle,
+                'url' => $vehicle['url'],
+                'response' => $vehicle['http_response_code'],
+                'vehicle' => $vehicle['data'],
             ]);
         }
 
         $result = Vehicle::firstOrCreate(
             [
                 'url' => $vehicle['url'],
-                'vin' => $vehicle['vin'],
+                'vin' => $vehicle['data']['vin'],
             ],
             [
-                'dealer' => $vehicle['dealer'],
-                'year' => $vehicle['year'],
-                'make' => $vehicle['make'],
-                'model' => $vehicle['model'],
-                'trim' => $vehicle['trim'],
-                'exterior_color' => $vehicle['exterior_color'],
-                'interior_color' => $vehicle['interior_color'],
-                'stock_number' => $vehicle['stock_number'],
+                'dealer' => $vehicle['data']['dealer'],
+                'year' => $vehicle['data']['year'],
+                'make' => $vehicle['data']['make'],
+                'model' => $vehicle['data']['model'],
+                'trim' => $vehicle['data']['trim'],
+                'exterior_color' => $vehicle['data']['exterior_color'],
+                'interior_color' => $vehicle['data']['interior_color'],
+                'stock_number' => $vehicle['data']['stock_number'],
             ]
         );
 
-        /******* DELETE after moving saving of the visited/response code to the CdkVdpLinkClient ******/
-        $vdp->http_response_code = $data['response_code'];
-        $vdp->visited = true;
-        $vdp->save();
-
         return view('scrape.cdk-vdp.show', [
-            'response' => $data['response_code'],
+            'url' => $vehicle['url'],
+            'response' => $vehicle['http_response_code'],
             'vehicle' => $result,
         ]);
     }

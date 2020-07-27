@@ -8,6 +8,11 @@
 @section('content')
 @include('scrape.cdk-vdp.partials.nav')
 
+{{-- Livewire test --}}
+<div class="container mt-4">
+    <livewire:get-vdp />
+</div>
+
 <div class="container py-4">
     <div class="h5">Response Code:  {{ $response }}</div>
 
@@ -45,24 +50,24 @@
 
 @section('scripts')
 <script>
-    $(function() {
-        var counter = 8;
-        $('#countdown').text(counter + ' seconds!');
+    // $(function() {
+    //     var counter = 8;
+    //     $('#countdown').text(counter + ' seconds!');
     
-        setInterval(function() {
-            counter--;
+    //     setInterval(function() {
+    //         counter--;
     
-            if (counter >= 0) {
-                $('#countdown').text(counter + ' seconds!');
-            }
+    //         if (counter >= 0) {
+    //             $('#countdown').text(counter + ' seconds!');
+    //         }
 
-            if (counter === 0) {
-                clearInterval(counter);
-                $('#countdown').text('LOADING!!!');
-                window.location.reload();
-            }
+    //         if (counter === 0) {
+    //             clearInterval(counter);
+    //             $('#countdown').text('LOADING!!!');
+    //             window.location.reload();
+    //         }
     
-        }, 1000);
-    });
-    </script>
+    //     }, 1000);
+    // });
+</script>
 @endsection
