@@ -121,61 +121,21 @@ class CdkVdpController extends Controller
 
         abort_if(!$vdp, 404);
 
-        $data = collect((new CdkVdpLinkClient)->handle($vdp->vdp_url));
-    
+        $data = new \App\Services\Scrape\ProcessCdkVdp($vdp->id, $vdp->vdp_url);
+        $data = $data->handle();
+
         if (!$data['data']) {
-            // record the url status
-            $vdp->http_response_code = $data['response_code'];
-            $vdp->visited = true;
-            $vdp->save();
-            
             return view('scrape.cdk-vdp.process', [
-                'response' => $data['response_code'],
+                'response' => $data['http_response_code'],
                 'vehicle' => [
                     'url' => $vdp->vdp_url,
                 ],
             ]);
         };
-    
-        $vehicle = (new \App\Helpers\ParseCdkVdpHelper)->handle($vdp->vdp_url, $data['data']);
-    
-        if (!$vehicle['vin']) {
-            // record the url status
-            $vdp->http_response_code = $data['response_code'];
-            $vdp->visited = true;
-            $vdp->save();
-
-            return view('scrape.cdk-vdp.process', [
-                'response' => $data['response_code'],
-                'vehicle' => $vehicle,
-            ]);
-        }
-    
-        $result = Vehicle::firstOrCreate(
-            [
-                'url' => $vehicle['url'],
-                'vin' => $vehicle['vin'],
-            ],
-            [
-                'dealer' => $vehicle['dealer'],
-                'year' => $vehicle['year'],
-                'make' => $vehicle['make'],
-                'model' => $vehicle['model'],
-                'trim' => $vehicle['trim'],
-                'exterior_color' => $vehicle['exterior_color'],
-                'interior_color' => $vehicle['interior_color'],
-                'stock_number' => $vehicle['stock_number'],
-            ]
-        );
-
-        // record the url status
-        $vdp->http_response_code = $data['response_code'];
-        $vdp->visited = true;
-        $vdp->save();
 
         return view('scrape.cdk-vdp.process', [
-            'response' => $data['response_code'],
-            'vehicle' => $result,
+            'response' => $data['http_response_code'],
+            'vehicle' => $data['data'],
         ]);
     }
 }

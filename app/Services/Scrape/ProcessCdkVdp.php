@@ -38,7 +38,9 @@ class ProcessCdkVdp
 
         $this->updateLink($data['response_code']);
 
-        $this->saveVehicle($vehicle);
+        if ($vehicle['vin']) {
+            $this->saveVehicle($vehicle);
+        }
 
         return [
             'url' => $this->url,
