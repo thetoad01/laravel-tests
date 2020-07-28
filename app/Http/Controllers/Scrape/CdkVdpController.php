@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Scrape;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Clients\CdkVdpLinkClient;
 // models
 use App\Models\Scrape\CdkLink;
-use App\Models\Scrape\Vehicle;
 
 class CdkVdpController extends Controller
 {
@@ -114,28 +112,30 @@ class CdkVdpController extends Controller
      * Process VDPs
      */
     public function process()
-    {        
-        $vdp = CdkLink::where('visited', 0)
-            ->inRandomOrder()
-            ->first();
+    {
+        return view('scrape.cdk-vdp.process');
 
-        abort_if(!$vdp, 404);
+        // $vdp = CdkLink::where('visited', 0)
+        //     ->inRandomOrder()
+        //     ->first();
 
-        $data = new \App\Services\Scrape\ProcessCdkVdp($vdp->id, $vdp->vdp_url);
-        $data = $data->handle();
+        // abort_if(!$vdp, 404);
 
-        if (!$data['data']) {
-            return view('scrape.cdk-vdp.process', [
-                'response' => $data['http_response_code'],
-                'vehicle' => [
-                    'url' => $vdp->vdp_url,
-                ],
-            ]);
-        };
+        // $data = new \App\Services\Scrape\ProcessCdkVdp($vdp->id, $vdp->vdp_url);
+        // $data = $data->handle();
 
-        return view('scrape.cdk-vdp.process', [
-            'response' => $data['http_response_code'],
-            'vehicle' => $data['data'],
-        ]);
+        // if (!$data['data']) {
+        //     return view('scrape.cdk-vdp.process', [
+        //         'response' => $data['http_response_code'],
+        //         'vehicle' => [
+        //             'url' => $vdp->vdp_url,
+        //         ],
+        //     ]);
+        // };
+
+        // return view('scrape.cdk-vdp.process', [
+        //     'response' => $data['http_response_code'],
+        //     'vehicle' => $data['data'],
+        // ]);
     }
 }
