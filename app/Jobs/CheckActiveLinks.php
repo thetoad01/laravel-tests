@@ -37,13 +37,6 @@ class CheckActiveLinks implements ShouldQueue
     {
         $date = Carbon::now()->toDateString();
 
-        // $link = CdkLink::where('visited', true)
-        //     ->where('http_response_code', '200')
-        //     ->whereDate('updated_at', '!=', $date)
-        //     // ->inRandomOrder()
-        //     ->orderBy('updated_at')
-        //     ->first();
-
         $vehicle = Vehicle::whereNull('deleted_at')
             ->whereDate('updated_at', 'not like', $date)
             ->with('cdkLink')
@@ -51,7 +44,6 @@ class CheckActiveLinks implements ShouldQueue
             ->take(1)
             ->get();
 
-        // dd($link->cdkLink);
         $vehicle = $vehicle->first();
 
         if (!$vehicle->url) {
@@ -71,14 +63,12 @@ class CheckActiveLinks implements ShouldQueue
         }
 
         if ($vehicle->cdkLink) {
-            // update model
             $vehicle->cdkLink->http_response_code = $response->status();
             $vehicle->cdkLink->updated_at = Carbon::now()->toDateTime();
             $vehicle->cdkLink->save();
         }
 
         if ($response->status() !== 200) {
-            // $vehicle = Vehicle::where('url', $link->vdp_url)->firstOrFail();
             $vehicle->deleted_at = Carbon::now()->toDateTime();
             $vehicle->save();
 
@@ -91,8 +81,6 @@ class CheckActiveLinks implements ShouldQueue
             'ok' => $response->ok(),
             'response' => $response->status(),
             'vehicle' => $vehicle,
-            // 'url' => $link->vdp_url,
-            // 'created_at' => $link->created_at,
         ]);
     }
 }
