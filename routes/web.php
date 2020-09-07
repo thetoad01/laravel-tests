@@ -75,6 +75,7 @@ Route::get('/vehicle/check-link', 'Vehicle\ActiveLinkController@check');
 Route::get('/deleted/vehicles', 'Scrape\DeletedVehicleController@index')->name('vehicles.deleted.index');
 // Old Vehicles
 Route::get('/old-vehicles', 'Scrape\OldVehicleController@index')->name('old-vehicles.index');
+Route::get('/old-vehicles/queuetest', 'Scrape\OldVehicleController@queuetest')->name('old-vehicles.queuetest');
 Route::get('/old-vehicles/{id}', 'Scrape\OldVehicleController@show')->name('old-vehicles.show');
 // vehicle stats
 Route::get('/vehicle/stats', 'Vehicle\VehicleStatsController@index')->name('vehicle.stats.index');
