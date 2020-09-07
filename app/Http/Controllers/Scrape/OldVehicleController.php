@@ -23,6 +23,11 @@ class OldVehicleController extends Controller
 
     public function show($id)
     {
+
+        $vehicle = \App\Jobs\CheckActiveLinks::dispatchNow();
+
+        return response()->json($vehicle);
+
         $status = 200;
         $vehicle = Vehicle::where('id', $id)
             ->with('cdkLink')
