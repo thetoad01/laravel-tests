@@ -23,12 +23,15 @@ class OldVehicleController extends Controller
 
     public function show($id)
     {
+
+        $vehicle = \App\Jobs\CheckActiveLinks::dispatchNow();
+
+        return response()->json($vehicle);
+
         $status = 200;
         $vehicle = Vehicle::where('id', $id)
             ->with('cdkLink')
             ->first();
-
-        abort_if(!$vehicle, 404);
 
         // test VDP url
         $response = Http::withOptions([
@@ -53,5 +56,31 @@ class OldVehicleController extends Controller
         $vehicle->cdkLink->save();
 
         return back()->with('message','The URL for ' . $vehicle->vin . ' returned status ' . $status);
+    }
+
+    /**
+     * Test putting x number of urls on the queue to check http status
+     */
+    public function queuetest()
+    {
+        $vehicles = Vehicle::whereNull('deleted_at')
+            ->whereDate('updated_at', 'not like', now()->toDateString())
+            // ->with('cdkLink')
+            // ->oldest()
+            ->inRandomOrder()
+            ->take(15)
+            ->get();
+
+        // dd($vehicles);
+
+        $output = [];
+        foreach ($vehicles as $vehicle) {
+            // dd($vehicle->url);        
+            $output[] = dispatch(
+                new \App\Jobs\CheckLinkStatusJob($vehicle->url)
+            );
+        }
+
+        dd($output);
     }
 }
