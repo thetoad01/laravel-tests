@@ -127,4 +127,23 @@ class NhtsaController extends Controller
 
         return response()->json($nhtsaData->run());
     }
+
+    public function update()
+    {
+        $test_number = 7;
+
+        $watchs = ['BodyCabType', 'Doors'];
+
+        $data = NhtsaDecoded::updateOrCreate(
+            [
+                'vin' => 'KM8R34HE6LU051355',
+            ],
+            [
+                'BodyCabType' => 'test'.$test_number,
+                'Doors' => $test_number,
+            ],
+        );
+
+        dd($data);
+    }
 }

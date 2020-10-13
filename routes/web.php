@@ -84,6 +84,7 @@ Route::get('/vehicle/stats', 'Vehicle\VehicleStatsController@index')->name('vehi
  * NHTSA VIN Decode
  *******************************************************************/
 Route::get('/nhtsa', 'Nhtsa\NhtsaController@index')->name('nhtsa.index');
+Route::get('/nhtsa/update', 'Nhtsa\NhtsaController@update')->name('nhtsa.update');
 Route::get('/nhtsa/{id}', 'Nhtsa\NhtsaController@show')->name('nhtsa.show');
 Route::post('/nhtsa', 'Nhtsa\NhtsaController@store')->name('nhtsa.store');
 Route::get('/nhtsa/decode/{vin}/{year}', 'Nhtsa\NhtsaController@decode')->name('nhtsa.decode');

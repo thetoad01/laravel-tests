@@ -7,6 +7,7 @@
             <th>Model</th>
             <th>Series</th>
             <th>Trim</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -19,6 +20,9 @@
                 <td>{{ $recent->Model }}</td>
                 <td>{{ $recent->Series }}</td>
                 <td>{{ $recent->Trim }}</td>
+                <td>
+                    <a href="{{ route('nhtsa.update') }}" class="btn btn-sm btn-primary">Update</a>
+                </td>
             </tr>
         @endforeach
     </tbody>
