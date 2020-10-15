@@ -142,3 +142,20 @@ Route::namespace('Fitbit')->name('fitbit.')->prefix('fitbit')->group(function ()
 Route::name('collection-macros')->prefix('collection-macros')->group(function () {
     Route::get('/', 'CollectionMacrosController@index')->name('index');
 });
+
+
+
+
+/*******************************************************************
+ * Tailwind CSS
+ *******************************************************************/
+Route::view('/tailwind', 'tailwind.index')->name('tailwind.index');
+Route::view('/tailwind/tweet', 'tailwind.tweet')->name('tailwind.tweet');
+Route::view('/tailwind/github', 'tailwind.github')->name('tailwind.github');
+
+
+
+/*******************************************************************
+ * Forge of Empires
+ *******************************************************************/
+Route::get('/foe', '\App\Http\Controllers\Foe\FoeController@index');
