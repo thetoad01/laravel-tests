@@ -3,10 +3,15 @@
 @section('title', 'Github Clone using Tailwind CSS')
 
 @section('heads')
+<style>
+body {
+    background-color: #fff !important;
+}
+</style>
 @endsection
 
 @section('content')
-<div class="text-gray-900 text-sm bg-gray-100">
+<div class="text-gray-900 text-sm bg-white">
     {{-- navigation --}}
     <nav class="bg-gray-900 text-white px-8 py-3 flex items-center justify-between">
         <div class="flex">
@@ -56,6 +61,7 @@
             </a>
         </div>
     </nav>
+
     {{-- content --}}
     <div class="repo-stats flex items-center justify-between px-8 py-4">
         <div class="flex items-center">
@@ -104,6 +110,7 @@
         </div>
     </div><!-- ./repo-stats -->
 
+    {{-- repo-nav --}}
     <ul class="repo-nav flex items-center border-b border-gray-400 px-8 mt-3">
         <li class="font-semibold">
             <a href="#" class="flex items-center border-b-2 border-red-500 px-4 pb-3">
@@ -162,13 +169,96 @@
                 <span class="ml-2">Settings</span>
             </a>
         </li>
-    </ul>
-</div>
+    </ul><!-- ./repo-nav -->
 
-<div class="flex flex-fill bg-white h-fill px-8 py-16">
-    asdfoijsdf
-</div>
+    {{-- file explorer --}}
+    <div class="flex container mx-auto my-8 px-4 bg-white">
+        <div class="file-explorer-container w-3/4 text-sm mr-8">
+            <div class="branch-navigation flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <button class="flex items-center space-x-2 border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200">
+                        <svg class="w-4 h-4 fill-current text-gray-700" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>
+                        <div class="text-gray-700">master</div>
+                        <svg class="h-3 w-3 ml-1 fill-current text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
 
+                    <a href="#" class="flex items-center space-x-2 px-3 py-1 text-gray-700 hover:text-blue-600">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>
+                        <span>
+                            <span class="font-semibold">13 </span>
+                            <span>branches</span>
+                        </span>
+                    </a>
+
+                    <a href="#" class="flex items-center space-x-2 px-3 py-1 text-gray-700 hover:text-blue-600">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+                        <span>
+                            <span class="font-semibold">69 </span>
+                            <span>tags</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button class="flex items-center space-x-2 border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200">
+                        <div class="text-gray-700">Go to file</div>
+                    </button>
+
+                    <button class="flex items-center space-x-2 border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200">
+                        <div class="text-gray-700">Add file</div>
+                        <svg class="h-3 w-3 ml-1 fill-current text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <button class="flex items-center space-x-2 border border-green-800 rounded-md px-4 py-1 bg-green-600 hover:bg-green-700">
+                        <svg class="w-4 h-4 fill-current text-gray-200" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path></svg>
+                        <div class="text-gray-200">Code</div>
+                        <svg class="h-3 w-3 ml-1 fill-current text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+            </div><!-- ./branch-navigation -->
+
+            <div class="commits-container flex items-center bg-blue-100 rounded-md rounded-b-none border border-blue-200 border-b-0 justify-between px-4 py-4 mt-5">
+                <div class="flex items-center space-x-2">
+                    <a href="https://github.com/thetoad01" class="">
+                        <img class="rounded-full w-6 h-6" src="https://avatars3.githubusercontent.com/u/6390564?s=60&u=bcacd21ad92d5fca6aa0a4929d2fbd6a5ba2b572&v=4" alt="thetoad01">
+                    </a>
+                    <a href="#" class="font-semibold hover:underline">thetoad01</a>
+                    <a href="#" class="hover:underline hover:text-blue-600">1.3.2</a>
+                </div>
+                <div class="flex items-center space-x-3 text-gray-700">
+                    <a href="#" class="font-semibold text-green-600 hover:underline">
+                        <svg class="w-4 fill-current text-green-600" aria-label="5 / 5 checks OK" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
+                    </a>
+                    <a href="#" class="hover:underline hover:text-blue-600">da070bd</a>
+                    <a href="#" class="hover:underline hover:text-blue-600">2 days ago</a>
+                    <a href="#" class="flex items-center space-x-1 hover:text-blue-600">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path></svg>
+                        <span class="font-bold">974 </span>
+                        <span>commits</span>
+                    </a>
+                </div>
+            </div><!-- ./commits-container -->
+            <div class="file-explorer flex items-center rounded-md rounded-t-none border border-gray-400 justify-between">
+                <div class="flex items-center xpace-x-2 hover:bg-gray-100 w-full">
+                    <div class="flex items-center space-x-2 w-1/4 px-3 py-2">
+                        <svg class="w-4 h-4 fill-current text-blue-400" aria-label="Directory" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3h-6.5a.25.25 0 01-.2-.1l-.9-1.2c-.33-.44-.85-.7-1.4-.7h-3.5z"></path></svg>
+                        <a href="#" class="hover:underline hover:text-blue-600">app</a>
+                    </div>
+                    <div class="text-gray-700 w-1/2 py-2">
+                        <a href="#" class="hover:underline hover:text-blue-600">Upgraded to Laravel 8</a>
+                    </div>
+                    <div class="text-right text-gray-700 w-1/4 px-3 py-2">
+                        2 months ago
+                    </div>
+                </div>
+            </div><!-- ./file-explorer -->
+        </div><!-- ./file-explorer-container -->
+
+        <div class="file-explorer-sidebar w-1/4">
+            asdf
+        </div><!-- ./file-explorer-sidebar -->
+    </div>
+</div>
 {{-- footer --}}
 @endsection
 
