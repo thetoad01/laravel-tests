@@ -238,20 +238,66 @@ body {
                     </a>
                 </div>
             </div><!-- ./commits-container -->
-            <div class="file-explorer flex items-center rounded-md rounded-t-none border border-gray-400 justify-between">
-                <div class="flex items-center xpace-x-2 hover:bg-gray-100 w-full">
-                    <div class="flex items-center space-x-2 w-1/4 px-3 py-2">
+            <div class="file-explorer rounded-md rounded-t-none border border-gray-400 text-gray-700 divide-y divide-gray-400">
+                <div class="flex justify-between px-4 py-2 hover:bg-gray-100">
+                    <div class="w-4/12 flex items-center space-x-2">
                         <svg class="w-4 h-4 fill-current text-blue-400" aria-label="Directory" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3h-6.5a.25.25 0 01-.2-.1l-.9-1.2c-.33-.44-.85-.7-1.4-.7h-3.5z"></path></svg>
                         <a href="#" class="hover:underline hover:text-blue-600">app</a>
                     </div>
-                    <div class="text-gray-700 w-1/2 py-2">
+                    <div class="w-6/12">
                         <a href="#" class="hover:underline hover:text-blue-600">Upgraded to Laravel 8</a>
                     </div>
-                    <div class="text-right text-gray-700 w-1/4 px-3 py-2">
+                    <div class="w-2/12 text-right">
+                        2 months ago
+                    </div>
+                </div>
+
+                <div class="flex justify-between px-4 py-2 hover:bg-gray-100">
+                    <div class="w-4/12 flex items-center space-x-2">
+                        <svg class="w-4 h-4 fill-current text-blue-400" aria-label="Directory" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3h-6.5a.25.25 0 01-.2-.1l-.9-1.2c-.33-.44-.85-.7-1.4-.7h-3.5z"></path></svg>
+                        <a href="#" class="hover:underline hover:text-blue-600">__tests__</a>
+                    </div>
+                    <div class="w-6/12 truncate">
+                        <a href="#" class="hover:underline hover:text-blue-600">Remove stale test</a>
+                    </div>
+                    <div class="w-2/12 text-right">
+                        3 days ago
+                    </div>
+                </div>
+
+                <div class="flex justify-between px-4 py-2 hover:bg-gray-100">
+                    <div class="w-4/12 flex items-center space-x-2">
+                        <svg class="w-4 h-4 fill-current" aria-label="File" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path></svg>
+                        <a href="#" class="hover:underline hover:text-blue-600">.env.example</a>
+                    </div>
+                    <div class="w-6/12 truncate">
+                        <a href="#" class="hover:underline hover:text-blue-600">Initial commit</a>
+                    </div>
+                    <div class="w-2/12 text-right">
+                        13 months ago
+                    </div>
+                </div>
+
+                <div class="flex justify-between px-4 py-2 hover:bg-gray-100">
+                    <div class="w-4/12 flex items-center space-x-2">
+                        <svg class="w-4 h-4 fill-current" aria-label="File" viewBox="0 0 16 16" role="img"><path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path></svg>
+                        <a href="#" class="hover:underline hover:text-blue-600">composer.json</a>
+                    </div>
+                    <div class="w-6/12 truncate">
+                        <a href="#" class="hover:underline hover:text-blue-600">Upgraded to Laravel 8</a>
+                    </div>
+                    <div class="w-2/12 text-right">
                         2 months ago
                     </div>
                 </div>
             </div><!-- ./file-explorer -->
+
+            <div class="readme-container rounded-md border border-gray-400 px-4 py-4 mt-4">
+                <h4 class="font-semibold">README.md</h4>
+                <div>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus non assumenda ratione. Itaque nam labore neque! Quisquam, delectus exercitationem. Aliquid earum rerum corrupti? Quaerat provident accusamus sunt, quo inventore vitae.
+                </div>
+            </div><!-- ./readme-container -->
         </div><!-- ./file-explorer-container -->
 
         <div class="file-explorer-sidebar w-1/4">
@@ -260,6 +306,26 @@ body {
     </div>
 </div>
 {{-- footer --}}
+<footer class="container mx-auto flex item-center justify-between text-xs border-t border-gray-400 py-10">
+    <div class="flex items-center space-x-4">
+        <svg class="w-6 h-6 fill-current text-gray-400" viewBox="0 0 16 16"  aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        <span class="text-gray-600">&copy; 2020 GitHub, Inc.</span>
+    </div>
+
+    <ul class="flex items-center space-x-12 text-right">
+        <li><a href="#" class="text-blue-600 hover:underline">Terms</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Privacy</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Security</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Status</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Help</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Contact GitHub</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Pricing</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">API</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Training</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">Blog</a></li>
+        <li><a href="#" class="text-blue-600 hover:underline">About</a></li>
+    </ul>
+</footer>
 @endsection
 
 @section('scripts')
