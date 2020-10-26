@@ -16,7 +16,7 @@ body {
     <nav class="bg-gray-900 text-white px-8 py-3 flex items-center justify-between">
         <div class="flex">
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-white hover:text-gray-400">
+                <a href="{{ route('tailwind.index') }}" class="text-white hover:text-gray-400">
                     <svg class="w-8 fill-current" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
                 </a>
 
@@ -301,7 +301,133 @@ body {
         </div><!-- ./file-explorer-container -->
 
         <div class="file-explorer-sidebar w-1/4">
-            asdf
+            <div class="about">
+                <h4 class="text-base font-medium">About</h4>
+                <p class="text-base mt-4">This test is re-creating the GitHub repository page (as it looked Oct 2020) using Tailwind CSS.</p>
+                <div class="flex items-center space-x-2 mt-4">
+                    <svg class="h-4 w-4 fill-current text-gray-800" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+                    <a href="http://a4f5.com" class="text-blue-600 hover:underline font-semibold">a4f5.com</a>
+                </div>
+            </div><!-- ./about -->
+
+            <div class="tags text-xs flex items-center flex-wrap mt-2">
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">laravel</a>
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">tailwindcss</a>
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">php</a>
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">livewire</a>
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">vuejs</a>
+                <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full px-3 py-1 mt-2 mr-2">html</a>
+            </div><!-- ./tags -->
+
+            <a href="#" class="flex items-center space-x-2 mt-4 text-gray-600 hover:text-blue-600">
+                <svg class="h-4 w-4 fill-current hover:text-blue-600" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                <span class="hover:text-blue-600">Readme</span>
+            </a>
+
+            <div class="releases border-t border-gray-400 mt-6 pt-6">
+                <h4 class="text-base font-medium flex items-center">
+                    <span>Releases</span>
+                    <div class="text-xs rounded-lg text-gray-600 bg-gray-300 px-2 ml-1">79</div>
+                </h4>
+
+                <a href="#" class="flex items-start mt-4">
+                    <svg class="h-4 w-4 fill-current text-green-600 hover:text-blue-600 mt-1" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+                    <span class="ml-2 hover:text-blue-600">
+                        <span class="font-semibold hover:text-blue-600">v1.5.1</span>
+                        <span class="ml-1 text-xs border border-green-500 text-green-600 hover:bg-green-100 rounded-full font-semibold inline-block px-2">Latest</span>
+                        <span class="block text-xs">6 days ago</span>
+                    </span>
+                </a>
+
+                <div class="mt-3">
+                    <a href="#" class="text-blue-600 hover:underline text-xs text-gray-500">+ 78 releases</a>
+                </div>
+            </div><!-- ./releases -->
+
+            <div class="packages border-t border-gray-400 mt-6 pt-6">
+                <h4 class="text-base font-medium flex items-center">
+                    <span>Packages</span>
+                    <div class="text-xs rounded-lg text-gray-600 bg-gray-300 px-2 ml-1"></div>
+                </h4>
+                <p class="text-xs text-gray-600 pt-3">No packages published</p>
+            </div><!-- ./packages -->
+
+            <div class="used-by border-t border-gray-400 mt-6 pt-6">
+                <h4 class="text-base font-medium flex items-center">
+                    <span>Used by</span>
+                    <div class="text-xs rounded-lg text-gray-600 bg-gray-300 px-2 ml-1">3,000+</div>
+                </h4>
+
+                <div class="mt-4">
+                    <a href="#" class="flex items-center -space-x-2">
+                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/SULiik/128.jpg" alt="avatar" class="w-8 border-2 border-white rounded-full">
+                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/larrygerard/128.jpg" alt="avatar" class="w-8 border-2 border-white rounded-full">
+                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/guiiipontes/128.jpg" alt="avatar" class="w-8 border-2 border-white rounded-full">
+                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/guinslym/128.jpg" alt="avatar" class="w-8 border-2 border-white rounded-full">
+                        <span class="text-xs text-blue-600 font-semibold hover:underline pl-4">+ 13,414</span>
+                    </a>
+                </div>
+            </div><!-- ./used-by -->
+
+            <div class="contributors border-t border-gray-400 mt-6 pt-6">
+                <h4 class="text-base font-medium flex items-center">
+                    <span>Contributors</span>
+                    <div class="text-xs rounded-lg text-gray-600 bg-gray-300 px-2 ml-1">73</div>
+                </h4>
+
+                <div class="mt-4">
+                    <div class="flex flex-wrap">
+                        <a href="#">
+                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/SULiik/128.jpg" alt="avatar" class="w-8 rounded-full mr-3">
+                        </a>
+                        <a href="#">
+                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/larrygerard/128.jpg" alt="avatar" class="w-8 rounded-full mr-3">
+                        </a>
+                        <a href="#">
+                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/guiiipontes/128.jpg" alt="avatar" class="w-8 rounded-full mr-3">
+                        </a>
+                        <a href="#">
+                            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/guinslym/128.jpg" alt="avatar" class="w-8 rounded-full mr-3">
+                        </a>
+                    </div>
+
+                    <div class="mt-3">
+                        <a href="#" class="text-xs text-blue-600 font-medium hover:underline">+ 69 contributors</a>
+                    </div>
+                </div>
+            </div><!-- ./contributors -->
+
+            <div class="languages border-t border-gray-400 mt-6 pt-6">
+                <h4 class="text-base font-medium flex items-center">
+                    <span>Languages</span>
+                </h4>
+
+                <div class="flex mt-4">
+                    <div class="w-8/12 h-2 rounded rounded-r-none bg-purple-600"></div>
+                    <div class="w-3/12 h-2 bg-orange-700 border-l-2 border-gray-300"></div>
+                    <div class="w-1/12 h-2 rounded rounded-l-none bg-green-600 border-l-2 border-gray-300"></div>
+                </div>
+
+                <ul class="mt-2 flex space-x-8 items-center text-xs">
+                    <li class="flex items-center space-x-2">
+                        <span class="h-2 w-2 bg-purple-600 rounded-full"></span>
+                        <span class="font-semibold">PHP</span>
+                        <span class="text-gray-600">65.4%</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="h-2 w-2 bg-orange-700 rounded-full"></span>
+                        <span class="font-semibold">Blade</span>
+                        <span class="text-gray-600">30.1%</span>
+                    </li>
+                </ul>
+                <ul class="mt-2 flex space-x-8 items-center text-xs">
+                    <li class="flex items-center space-x-2">
+                        <span class="h-2 w-2 bg-green-700 rounded-full"></span>
+                        <span class="font-semibold">Vue</span>
+                        <span class="text-gray-600">4.5%</span>
+                    </li>
+                </ul>
+            </div><!-- ./languages -->
         </div><!-- ./file-explorer-sidebar -->
     </div>
 </div>
