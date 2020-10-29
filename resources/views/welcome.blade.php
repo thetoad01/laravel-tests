@@ -35,10 +35,10 @@
     </header>
 
     <main role="main" class="inner cover text-center">
-        <h1 class="cover-heading">Welcome To Our Corner of the Web</h1>
-        <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum inventore mollitia aliquam molestias ipsam at, ea earum explicabo repellat quisquam quo numquam rem maxime nulla sit, molestiae voluptatum, facilis distinctio?</p>
+        <h1 class="cover-heading">Welcome To My Little Speck on the Web</h1>
+        <p class="lead">This is where I put stuff that I'm playing with and/or learning at the moment.</p>
         <p class="lead">
-            <a href="#" class="btn btn-lg btn-outline-warning waves-effect" title="This button doesn't go anywhere!">Learn more</a>
+            <a href="{{ route('tailwind.index') }}" class="btn btn-lg btn-outline-warning waves-effect" title="This button doesn't go anywhere!">Tailwind CSS</a>
         </p>
     </main>
 
