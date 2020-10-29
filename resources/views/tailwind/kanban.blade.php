@@ -121,11 +121,12 @@
         </div>
         {{-- Board Content --}}
         <div class="flex-1 overflow-auto">
-            <main class="flex p-3">
+            <main class="p-3 inline-flex h-full overflow-hidden">
                 {{-- col 1 --}}
-                <div class="flex-shrink-0 p-3 bg-gray-200 rounded-md" style="width: 384px">
-                    <h3 class="text-sm font-medium text-gray-900">Backlog</h3>
-                    <ul class="mt-2">
+                <div class="ml-3 flex-shrink-0 flex flex-col bg-gray-200 rounded-md" style="width: 384px">
+                    <h3 class="flex-shrink-0 pt-3 px-3 text-sm font-medium text-gray-700">Backlog</h3>
+                    <div class="flex-1 min-h-0 overflow-y-auto">
+                    <ul class="pt-2 pb-3 px-3">
                         <li>
                             <a href="#" class="block p-5 rounded-md shadow bg-white">
                                 <div class="flex justify-between items-baseline">
@@ -151,21 +152,13 @@
                         <li class="mt-3">
                             <a href="#" class="block p-5 rounded-md shadow bg-white">
                                 <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <p class="text-sm text-gray-900 font-medium">Provide documentation on integrations</p>
                                     <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar04.jpg" alt="">
                                     </span>
                                 </div>
                                 <div class="mt-2 flex justify-between">
                                     <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
-                                        </span>
-                                    </div>
                                 </div>
                             </a>
                         </li>
@@ -173,19 +166,19 @@
                         <li class="mt-3">
                             <a href="#" class="block p-5 rounded-md shadow bg-white">
                                 <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <p class="text-sm text-gray-900 font-medium">Design shopping cart dropdown</p>
                                     <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar02.jpg" alt="">
                                     </span>
                                 </div>
                                 <div class="mt-2 flex justify-between">
                                     <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
                                     <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                        <span class="inline-flex items-center leading-tight bg-purple-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-purple-500" viewBox="0 0 8 8" fill="currentColor">
                                                 <circle cx="4" cy="4" r="3"/>
                                             </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            <span class="text-xs font-medium text-purple-800 ml-2">Design</span>
                                         </span>
                                     </div>
                                 </div>
@@ -214,11 +207,13 @@
                             </a>
                         </li>
                     </ul>
+                    </div>
                 </div>
                 {{-- col 2 --}}
-                <div class="flex-shrink-0 ml-3 p-3 bg-gray-200 rounded-md" style="width: 384px">
-                    <h3 class="text-sm font-medium text-gray-900">In Progress</h3>
-                    <ul class="mt-2">
+                <div class="ml-3 flex-shrink-0 flex flex-col bg-gray-200 rounded-md" style="width: 384px">
+                    <h3 class="flex-shrink-0 pt-3 px-3 text-sm font-medium text-gray-700">In Progress</h3>
+                    <div class="flex-1 min-h-0 overflow-y-auto">
+                    <ul class="pt-2 pb-3 px-3">
                         <li>
                             <a href="#" class="block p-5 rounded-md shadow bg-white">
                                 <div class="flex justify-between items-baseline">
@@ -284,12 +279,212 @@
                                 </div>
                             </a>
                         </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                <div class="flex justify-between items-baseline">
+                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                    <span>
+                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
+                                    </span>
+                                </div>
+                                <div class="mt-2 flex justify-between">
+                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                    <div class="">
+                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                <circle cx="4" cy="4" r="3"/>
+                                            </svg>
+                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
+                    </div>
                 </div>
                 {{-- col 3 --}}
-                <div class="flex-shrink-0 ml-3 p-3 bg-gray-200 rounded-md" style="width: 384px">
-                    <h3 class="text-sm font-medium text-gray-900">Backlog</h3>
-                    <ul class="mt-2">
+                <div class="ml-3 flex-shrink-0 flex flex-col bg-gray-200 rounded-md" style="width: 384px">
+                    <h3 class="flex-shrink-0 pt-3 px-3 text-sm font-medium text-gray-700">Ready For Review</h3>
+                    <div class="flex-1 min-h-0 overflow-y-auto">
+                    <ul class="pt-2 pb-3 px-3">
                         <li>
                             <a href="#" class="block p-5 rounded-md shadow bg-white">
                                 <div class="flex justify-between items-baseline">
@@ -355,210 +550,191 @@
                                 </div>
                             </a>
                         </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                     </ul>
+                    </div>
                 </div>
                 {{-- col 4 --}}
-                <div class="flex-shrink-0 ml-3 p-3 bg-gray-200 rounded-md" style="width: 384px">
-                    <h3 class="text-sm font-medium text-gray-900">Backlog</h3>
-                    <ul class="mt-2">
-                        <li>
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                <div class="ml-3 flex-shrink-0 flex flex-col bg-gray-200 rounded-md" style="width: 384px">
+                    <h3 class="flex-shrink-0 pt-3 px-3 text-sm font-medium text-gray-700">Done</h3>
+                    <div class="flex-1 min-h-0 overflow-y-auto">
+                        <ul class="pt-2 pb-3 px-3">
+                            <li>
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mt-3">
-                            <a href="#" class="block p-5 rounded-md shadow bg-white">
-                                <div class="flex justify-between items-baseline">
-                                    <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
-                                    <span>
-                                        <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
-                                    </span>
-                                </div>
-                                <div class="mt-2 flex justify-between">
-                                    <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
-                                    <div class="">
-                                        <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
-                                            <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                                                <circle cx="4" cy="4" r="3"/>
-                                            </svg>
-                                            <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+    
+                            <li class="mt-3">
+                                <a href="#" class="block p-5 rounded-md shadow bg-white">
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm text-gray-900 font-medium">Add discount code to checkout page</p>
+                                        <span>
+                                            <img class="rounded-full h-6 w-6" src="/images/avitar03.jpg" alt="">
                                         </span>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                                    <div class="mt-2 flex justify-between">
+                                        <time class="text-sm text-gray-600" datetime="2020-09-14">Sep 13</time>
+                                        <div class="">
+                                            <span class="inline-flex items-center leading-tight bg-teal-100 rounded-md px-2 py-1">
+                                                <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+                                                    <circle cx="4" cy="4" r="3"/>
+                                                </svg>
+                                                <span class="text-xs font-medium text-teal-800 ml-2">Feature Request</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </main>
         </div>
