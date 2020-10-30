@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body>
 <div class="h-screen flex">
@@ -63,8 +64,15 @@
         <div class="flex-shrink-0 border-b-2 border-gray-200">
             <header class="px-6">
                 <div class="flex justify-between items-center border-b border-gray-200 py-3">
-                    <div class="flex-1">
-                        <div class="relative w-64">
+                    <div class="flex-1 flex">
+                        {{-- sm screen hamburger --}}
+                        <button class="text-gray-600 lg:hidden">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                        </button>
+                        {{-- search --}}
+                        <div class="ml-3 relative w-64 lg:ml-0">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                                 <svg class="h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
