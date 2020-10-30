@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->job(new \App\Jobs\GetCdkSitemap, 'default')->everyTenMinutes();
         $schedule->job(new \App\Jobs\CheckActiveLinks, 'default')->everyMinute();
+        $schedule->command('scrape:cdkvdp')->everyMinute();
     }
 
     /**

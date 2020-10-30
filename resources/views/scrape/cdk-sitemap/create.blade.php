@@ -11,10 +11,11 @@
 @endsection
 
 @section('content')
+{{ dd('it works') }}
 <div class="row teal lighten-5 py-4 h-100">
     <div class="container">
         <h1 class="text-center mt-2 mb-4">Add New CDK Sitemap</h1>
-    
+        
         @include('scrape.cdk-sitemap.nav')
 
         <div class="card">
