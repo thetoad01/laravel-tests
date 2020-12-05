@@ -132,12 +132,6 @@ class CdkSitemapController extends Controller
      */
     public function scrape($id)
     {
-        $data = (new \App\Clients\CdkSitemapClient)->handle('https://www.ujchevy.com/sitemap-inventory-sincro.xml');
-
-        if (!$data['data']) {
-            dd('no data');
-        }
-
         $sitemap = CdkSitemap::find($id);
 
         $data = (new \App\Clients\CdkSitemapClient)->handle($sitemap->sitemap_url);
