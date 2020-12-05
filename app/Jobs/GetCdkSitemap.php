@@ -48,12 +48,14 @@ class GetCdkSitemap implements ShouldQueue
         
         $data = (new \App\Clients\CdkSitemapClient)->handle($sitemap->sitemap_url);
 
-        abort_if(!$data['data'], 404);
-
         // update CdkSitemap
         $sitemap->http_response_code = $data['status'];
         $sitemap->updated_at = now()->toDateTimeString();
         $sitemap->save();
+
+        if (!$data['data']) {
+            return;
+        }
 
         // need to update or create vdp links to CdkLink model
         $output = [];
