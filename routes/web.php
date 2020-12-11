@@ -161,3 +161,9 @@ Route::view('/tailwind/dashboard', 'tailwind.dashboard')->name('tailwind.dashboa
  * Forge of Empires
  *******************************************************************/
 Route::get('/foe', '\App\Http\Controllers\Foe\FoeController@index');
+
+
+/*******************************************************************
+ * Laravel Job Batching
+ *******************************************************************/
+Route::resource('csvbatch', 'Csv\CsvBatchController')->middleware('auth');
