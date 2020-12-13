@@ -166,4 +166,5 @@ Route::get('/foe', '\App\Http\Controllers\Foe\FoeController@index');
 /*******************************************************************
  * Laravel Job Batching
  *******************************************************************/
-Route::resource('csvbatch', 'Csv\CsvBatchController')->middleware('auth');
+Route::get('/csvbatch', 'Csv\CsvBatchController@index')->middleware('auth');
+Route::get('/batch', 'Csv\CsvBatchController@batch')->middleware('auth');
