@@ -49,4 +49,10 @@ return [
         ],
     ],
 
+    'population' => [
+        'endpoint' => env('POPULATION_ENDPOINT'),
+        'key' => env('POPULATION_KEY'),
+        'host' => env('POPULATION_HOST'),
+    ],
+
 ];

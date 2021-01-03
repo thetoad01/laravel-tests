@@ -168,3 +168,10 @@ Route::get('/foe', '\App\Http\Controllers\Foe\FoeController@index');
  *******************************************************************/
 Route::get('/csvbatch', 'Csv\CsvBatchController@index')->middleware('auth');
 Route::get('/batch', 'Csv\CsvBatchController@batch')->middleware('auth');
+
+
+/*******************************************************************
+ * Covid19 Data
+ *******************************************************************/
+Route::get('/covid19', 'Covid19Controller@index')->name('covid19.index');
+Route::get('/covid19/create', 'Covid19Controller@create')->name('covid19.create');
