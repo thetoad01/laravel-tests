@@ -38,7 +38,10 @@
         <h1 class="cover-heading">Welcome To My Little Speck on the Web</h1>
         <p class="lead">This is where I put stuff that I'm playing with and/or learning at the moment.</p>
         <p class="lead">
-            <a href="{{ route('tailwind.index') }}" class="btn btn-lg btn-outline-warning waves-effect" title="This button doesn't go anywhere!">Tailwind CSS</a>
+            <a href="{{ route('tailwind.index') }}" class="btn btn-lg btn-outline-warning waves-effect" title="Tailwind CSS Creations">Tailwind CSS</a>
+        </p>
+        <p class="lead">
+            <a href="{{ route('covid19.index') }}" class="btn btn-lg btn-outline-danger waves-effect">Covid 19 Stats</a>
         </p>
     </main>
 

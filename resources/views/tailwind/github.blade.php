@@ -55,7 +55,7 @@ body {
                 <svg class="h-3 w-3 ml-1 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </a>
 
-            <a href="#" class="flex items-center hover:text-gray-400">
+            <a href="/" class="flex items-center hover:text-gray-400">
                 <img class="h-6 w-6 rounded-full" src="https://avatars3.githubusercontent.com/u/6390564?s=60&amp;v=4" alt="@thetoad01">
                 <svg class="h-3 w-3 ml-1 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </a>
