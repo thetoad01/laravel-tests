@@ -41,7 +41,7 @@ class Covid19Controller extends Controller
             }
 
             return [
-                $item->newConfirmed = $newConfirmed ?? null,
+                $item->newConfirmed = $newConfirmed,
                 $item->newDeaths = $newDeaths ?? null,
                 $item->avgConfirmedPerPop = $item->confirmed / $us_population * 100,
                 $item->avgDeathsPerPop = $item->deaths / $us_population * 100,

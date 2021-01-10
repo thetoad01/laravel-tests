@@ -11,7 +11,7 @@
 @yield('heads')
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
-<body class="bg-gray-300">
+<body class="bg-gray-500">
 
 @yield('content')
     
