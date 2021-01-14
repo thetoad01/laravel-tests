@@ -12,6 +12,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('/w2', 'welcome-old')->name('w2');
+
 Route::view('/home', 'home')->name('home');
 
 

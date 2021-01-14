@@ -1,6 +1,6 @@
 # Laravel Tests
 
-Built with Laravel, Bootstrap, MDBootstrap and VueJS
+Built with Laravel, Bootstrap, MDBootstrap, Tailwind CSS and VueJS
 
 ## Testing website
 http://a4f5.com
@@ -10,8 +10,8 @@ http://a4f5.com
 2. Add the database to the .env file.
 3. Then run ```php artisan migrate```
   
-## Dealership Vehicle Scraper (for CDK websites)
-Google "sitemap-inventory-cdk.xml" to get urls to add to the scraper.  
+## Dealership Vehicle Scraper for CDK websites (now Sincro)
+Google "sitemap-inventory-sincro.xml" to get urls to add to the scraper.  
 
 ## Weather using Openweather API
 I saw a tutorial on using Dark Sky API to build a weather app.  When I went to Dark Sky they had been purchased by Apple and were no longer allowing new sign-ups.
