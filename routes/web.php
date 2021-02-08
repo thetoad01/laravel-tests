@@ -155,6 +155,7 @@ Route::view('/tailwind', 'tailwind.index')->name('tailwind.index');
 Route::view('/tailwind/tweet', 'tailwind.tweet')->name('tailwind.tweet');
 Route::view('/tailwind/github', 'tailwind.github')->name('tailwind.github');
 Route::view('/tailwind/kanban', 'tailwind.kanban')->name('tailwind.kanban');
+Route::view('/tailwind/homepage', 'tailwind.homepage')->name('tailwind.homepage');
 Route::view('/tailwind/dashboard', 'tailwind.dashboard')->name('tailwind.dashboard');
 
 
