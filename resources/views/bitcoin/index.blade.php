@@ -18,7 +18,7 @@
     </div>
 </header>
 
-<section class="container mx-auto bg-white p-4">
+<section class="container mx-auto bg-white p-4 mb-6">
     <div class="grid grid-cols-3 gap-4">
         <div>
             <h2 class="text-center">
@@ -132,13 +132,12 @@
                 }
             },
             xAxis: {
-                categories: {!! $history->pluck('created_at') !!},
-                // categories: [1,2,3,4,5,6,7,8],
+                categories: {!! $history->pluck('day_time') !!}.reverse(),
                 crosshair: true
             },
             series: [{
                 name: 'Price',
-                data: {{ $history->pluck('amount') }}
+                data: {{ $history->pluck('amount') }}.reverse()
             }]
         });
     });

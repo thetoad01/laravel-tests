@@ -22,6 +22,10 @@ class CoinbasePriceController extends Controller
 
         $history = Coinbase::latest()->take(25)->get();
 
+        $history = $history->each(function($item, $key) {
+            return $item->day_time =  $item['created_at']->setTimezone('America/Detroit')->format('l g:i a');
+        });
+
         $twentyfour_average = $history->pluck('amount')->average();
         $twentyfour_high = $history->pluck('amount')->max();
         $twentyfour_low = $history->pluck('amount')->min();
