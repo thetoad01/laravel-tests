@@ -178,3 +178,10 @@ Route::get('/batch', 'Csv\CsvBatchController@batch')->middleware('auth');
  *******************************************************************/
 Route::get('/covid19', 'Covid19Controller@index')->name('covid19.index');
 Route::get('/covid19/create', 'Covid19Controller@create')->name('covid19.create');
+
+
+/*******************************************************************
+ * Covid19 Data
+ *******************************************************************/
+Route::get('/bitcoin-price', 'Bitcoin\CoinbasePriceController@index')->name('bitcoin-price.index');
+Route::get('/bitcoin-price/current', 'Bitcoin\CoinbasePriceController@storeCurrentPrice');  // DELETE THIS
