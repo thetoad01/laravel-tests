@@ -185,3 +185,12 @@ Route::get('/covid19/create', 'Covid19Controller@create')->name('covid19.create'
  *******************************************************************/
 Route::get('/bitcoin-price', 'Bitcoin\CoinbasePriceController@index')->name('bitcoin-price.index');
 Route::get('/bitcoin-price/current', 'Bitcoin\CoinbasePriceController@storeCurrentPrice');  // DELETE THIS
+
+
+/*******************************************************************
+ * AWS Storage Test
+ *******************************************************************/
+Route::get('/s3', 'S3\S3Controller@index')->name('s3.index');
+Route::get('/s3/create', 'S3\S3Controller@create')->name('s3.create');
+Route::get('/s3/{id}', 'S3\S3Controller@show')->name('s3.show');
+Route::post('/s3', 'S3\S3Controller@store')->name('s3.store');
