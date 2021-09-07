@@ -50,8 +50,11 @@ class Covid19Controller extends Controller
             ];
         });
 
+        $trend = $this->getTrendLineData($data->pluck('newConfirmed'));
+
         return view('covid19.index',[
             'data' => $data->whereNotNull('newConfirmed'),
+            'trend' => $trend,
             'population' => $population->only('body')->first(),
         ]);
     }
@@ -112,5 +115,62 @@ class Covid19Controller extends Controller
         }
 
         return $result->json();
+    }
+
+    /**
+     * Calcuate the linear regression
+     * Used to calculate the Trend Line
+     */
+    protected function linearRegression($x, $y)
+    {
+        $n = count($x);
+        $x_sum = array_sum($x);
+        $y_sum = array_sum($y);
+        $xy_sum = 0;
+        $xx_sum = 0;
+
+        for ($i = 0; $i < $n; $i++) {
+            $xy_sum += ( $x[$i] * $y[$i] );
+            $xx_sum += ( $x[$i] * $x[$i] );
+        }
+
+        $slope = (($n * $xy_sum) - ($x_sum * $y_sum)) / (($n * $xx_sum) - ($x_sum * $x_sum));
+        
+        $intercept = ($y_sum - ($slope * $x_sum)) / $n;
+
+        return [
+            'slope' => $slope,
+            'intercept' => $intercept,
+        ];
+    }
+
+    /**
+     * Caclulate the trend line
+     * 
+     * @param array $totals
+     * 
+     * @return Illuminate\Support\Collection
+     */
+    protected function getTrendLineData($totals)
+    {
+        $x = [];
+        $y = [];
+
+        foreach ($totals as $key => $value) {
+            $x[] = $key;
+            $y[] = $value;
+        }
+
+        $arr = $this->linearRegression($x, $y);
+
+        $trendLineData = [];
+        foreach ($x as $item) {
+            $number = ($arr['slope'] * $item) + $arr['intercept'];
+            $number = ($number <= 0) ? 0 : $number;
+
+            $trendLineData[] = $number;
+        }
+
+        return collect($trendLineData);
     }
 }

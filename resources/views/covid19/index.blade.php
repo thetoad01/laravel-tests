@@ -75,6 +75,12 @@
 @section('scripts')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
+    var trendData = {!! $trend !!};
+
+    Highcharts.setOptions({
+        lang: { thousandsSep: ',' }
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         const chart = Highcharts.chart('container', {
             chart: {
@@ -103,8 +109,25 @@
             series: [{
                 name: 'Cases',
                 data: {{ collect($data)->pluck('newConfirmed') }}.reverse()
+            },{
+                name: "Trend",
+                showInLegend: true  ,
+                visible: true,
+                className: 'trend-line',
+                lineWidth: 2,
+                color: '#c7c7c7',
+                marker: {
+                    enabled: false,
+                },
+                label: {
+                    text: "Daily Trend",
+                    align: 'left',
+                    // x: -55,
+                }
             }]
         });
+
+        chart.series[1].setData(trendData);
     });
 </script>
 @endsection
