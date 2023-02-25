@@ -14,6 +14,7 @@ class Covid19Controller extends Controller
     {
         $days = 32;
 
+        // we have having a DB connection error
         $data = Covid19::whereDate('date', '>', Carbon::now()->subDays($days))
             ->orderByDesc('date')
             ->get();
@@ -52,7 +53,7 @@ class Covid19Controller extends Controller
 
         $trend = $this->getTrendLineData($data->pluck('newConfirmed'));
 
-        return view('covid19.index',[
+        return view('covid19.index', [
             'data' => $data->whereNotNull('newConfirmed'),
             'trend' => $trend,
             'population' => $population->only('body')->first(),
@@ -67,14 +68,14 @@ class Covid19Controller extends Controller
         $now = now()->setTimezone('America/Detroit')->format('Ymd');
         $date = now()->setTimezone('America/Detroit')->toDateString();
 
-        if (Cache::has('covid19'.$now)) {
-            $data = Cache::get('covid-'.$now);
+        if (Cache::has('covid19' . $now)) {
+            $data = Cache::get('covid-' . $now);
         } else {
             $data = $this->getCovidApi();
 
-            Cache::put('covid-'.$now, $data, 7200);
+            Cache::put('covid-' . $now, $data, 7200);
         }
-        
+
         $data = collect($data);
 
         $output = [];
@@ -130,12 +131,12 @@ class Covid19Controller extends Controller
         $xx_sum = 0;
 
         for ($i = 0; $i < $n; $i++) {
-            $xy_sum += ( $x[$i] * $y[$i] );
-            $xx_sum += ( $x[$i] * $x[$i] );
+            $xy_sum += ($x[$i] * $y[$i]);
+            $xx_sum += ($x[$i] * $x[$i]);
         }
 
         $slope = (($n * $xy_sum) - ($x_sum * $y_sum)) / (($n * $xx_sum) - ($x_sum * $x_sum));
-        
+
         $intercept = ($y_sum - ($slope * $x_sum)) / $n;
 
         return [

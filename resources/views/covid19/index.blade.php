@@ -17,16 +17,16 @@
     </header>
 
     <div class="container mx-auto bg-gray-100 p-8">
-        <h1 class="my-6 text-center text-4xl font-bolder">{{ $population['country_name'] }} Covid 19 Data</h1>
+        <h1 class="my-6 text-center text-4xl font-bolder">{{ isset($population['country_name']) ? $population['country_name'] : '' }} Covid 19 Data</h1>
 
         {{-- Charts --}}
         <div id="container" class="w-100" style="height:400px;"></div>
 
         {{-- Population --}}
         <div class="flex mt-4 space-x-6 text-xl">
-            <span>{{ $population['country_name'] }} Population:</span>
+            <span>{{ isset($population['country_name']) ? $population['country_name'] : '' }} Population:</span>
             <span>
-                {{ number_format($population['population'], 0) }}
+                {{ isset($population['population']) ? number_format($population['population'], 0) : '' }}
             </span>
         </div>
 

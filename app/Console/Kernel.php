@@ -24,8 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
         $schedule->job(new \App\Jobs\GetCdkSitemap, 'default')->everyTenMinutes();
         $schedule->job(new \App\Jobs\CheckActiveLinks, 'default')->everyMinute();
         $schedule->job(new \App\Jobs\CoinbasePricejob, 'default')->hourly();
@@ -39,7 +37,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

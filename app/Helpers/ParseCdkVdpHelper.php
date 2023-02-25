@@ -26,7 +26,7 @@ class ParseCdkVdpHelper
 
         return [
             'url' => $endpoint,
-            'dealer' => trim($dom->find('meta[itemprop=name]')->content) ?? '',
+            'dealer' => $dom->find('meta[itemprop=name]') ? trim($dom->find('meta[itemprop=name]')->content) : '',
             'vin' => $dom->find('span[itemprop=vehicleIdentificationNumber]')->count() != 0 ? $dom->find('span[itemprop=vehicleIdentificationNumber]')->text : '',
             'year' => $dom->find('span[itemprop=vehicleModelDate]')->count() != 0 ? $dom->find('span[itemprop=vehicleModelDate]')->text : '',
             'make' => $dom->find('span[itemprop=manufacturer]')->count() != 0 ? $dom->find('span[itemprop=manufacturer]')->text : '',
