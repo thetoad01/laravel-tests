@@ -87,7 +87,7 @@
 
     <div class="p-4">
         {{-- Chart --}}
-        <div id="container" class="w-100" style="height:400px;"></div>
+        <div id="chart" class="w-100" style="height:400px;"></div>
     </div>
 
     <div class="mt-6 p-4">
@@ -117,28 +117,66 @@
 
 @section('scripts')
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const chart = Highcharts.chart('container', {
-            chart: {
-                type: 'spline'
-            },
+    const average = {{ $twentyfour_average }};
+
+    Highcharts.setOptions({
+        lang: {thousandsSep: ','},
+        time: { timezone: 'America/Detroit' }
+    });
+
+    const chart = Highcharts.chart('chart', {
+        chart: { type: 'spline' },
+        title: { text: 'Price in USD' },
+        yAxis: {
             title: {
-                text: 'Price in USD'
+                text: 'Amount'
+            }
+        },
+        xAxis: {
+            categories: {!! $history->pluck('timestamp') !!}.reverse(),
+            crosshair: true,
+            type: 'datetime',
+            labels: {
+                formatter: function() { return Highcharts.dateFormat('%b %e, %Y %H:%M', this.value) }
+            }
+        },
+        series: [{
+            name: 'Price',
+            data: {{ $history->pluck('amount') }}.reverse()
+        }],
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            padding: 0,
+            outside: false,
+            pointFormatter: function() {
+                return '<tr>' +
+                        '<td class="text-start px-2 py-1">' + this.series.name + ':</td>' + 
+                        '<td class="text-end">$ ' + this.y.toLocaleString() + ' </td>' + 
+                        '<td class="px-4">' + (this.y - average).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</td>' +
+                        '</tr>'
             },
-            yAxis: {
-                title: {
-                    text: 'Amount'
-                }
-            },
-            xAxis: {
-                categories: {!! $history->pluck('day_time') !!}.reverse(),
-                crosshair: true
-            },
-            series: [{
-                name: 'Price',
-                data: {{ $history->pluck('amount') }}.reverse()
-            }]
+            headerFormat: '<table class="table-auto"><thead class="bg-blue-600 text-white"><tr>' +
+                '<th class="px-2" colspan="2">{point.key:%b %e, %Y %H:%M} EST</th>' + 
+                '<th class="px-4">+/- 24 hr avg</th>' +
+                '</tr></thead><tbody>',
+            footerFormat: '</tbody></table>'
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        chart.yAxis[0].addPlotLine({
+            value: average,
+            color: '#e9967a',
+            width: 2,
+            dashStyle: 'dash',
+            id: 'avg',
+            label: {
+                text: '24 Hr Avg: ' + average.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            }
         });
     });
 </script>
