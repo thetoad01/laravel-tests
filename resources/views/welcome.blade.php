@@ -48,11 +48,6 @@
 
                 <div class="mt-4 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                     <div class="rounded-md shadow">
-                        <a href="{{ route('covid19.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-500 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
-                            Covid19 Stats
-                        </a>
-                    </div>
-                    <div class="mt-3 sm:mt-0 sm:ml-3">
                         <a href="{{ route('bitcoin-price.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 md:py-4 md:text-lg md:px-10">
                             Bitcoin Price
                         </a>

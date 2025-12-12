@@ -103,13 +103,6 @@ Route::view('/vue-components/modal', 'practical-vue-components.modal');
 
 
 /*******************************************************************
- * Security Test Routes
- *******************************************************************/
-Route::get('/security/generate-uuid', 'Security\UuidController@generate');
-
-
-
-/*******************************************************************
  * TESTS
  *******************************************************************/
 Route::view('/something.php', 'Tests.something');
@@ -123,17 +116,6 @@ Route::get('/test/move', 'Tests\MysqlVehicleController@move');
 Route::get('/test/move/cdklink', 'Tests\MysqlVehicleController@moveCdkLink')->middleware('auth');
 Route::get('/test/move/cdksitemap', 'Tests\MysqlVehicleController@moveCdkSitemap')->middleware('auth');
 
-
-
-
-/*******************************************************************
- * Fitbit
- *******************************************************************/
-Route::namespace('Fitbit')->name('fitbit.')->prefix('fitbit')->group(function () {
-    Route::get('/activity', 'ActivityController@index')->name('activity.index');
-    Route::get('/activity/create', 'ActivityController@create')->name('activity.create');
-    Route::post('/activity/store', 'ActivityController@store')->name('activity.store');
-});
 
 
 
@@ -162,12 +144,6 @@ Route::view('/tailwind/blog', 'tailwind.blog')->name('tailwind.blog');
 
 
 /*******************************************************************
- * Forge of Empires
- *******************************************************************/
-Route::get('/foe', '\App\Http\Controllers\Foe\FoeController@index');
-
-
-/*******************************************************************
  * Laravel Job Batching
  *******************************************************************/
 Route::get('/csvbatch', 'Csv\CsvBatchController@index')->middleware('auth');
@@ -175,14 +151,7 @@ Route::get('/batch', 'Csv\CsvBatchController@batch')->middleware('auth');
 
 
 /*******************************************************************
- * Covid19 Data
- *******************************************************************/
-Route::get('/covid19', 'Covid19Controller@index')->name('covid19.index');
-Route::get('/covid19/create', 'Covid19Controller@create')->name('covid19.create');
-
-
-/*******************************************************************
- * Covid19 Data
+ * Bitcoin Price
  *******************************************************************/
 Route::get('/bitcoin-price', 'Bitcoin\CoinbasePriceController@index')->name('bitcoin-price.index');
 Route::get('/bitcoin-price/current', 'Bitcoin\CoinbasePriceController@storeCurrentPrice');  // DELETE THIS
