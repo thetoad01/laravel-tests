@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Weather;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
 
 class OpenweatherController extends Controller
 {
+    private const CACHE_TTL = 3600; // 1 hour in seconds
+    private const DEFAULT_ZIP = '49503';
+
     /**
      * Display a listing of the resource.
      *
@@ -17,103 +18,86 @@ class OpenweatherController extends Controller
      */
     public function index()
     {
-        $zip = request()->zip ?? '48706';
+        $zip = $this->validateZip(request()->zip ?? self::DEFAULT_ZIP);
         $endpoint = config('services.openweather.endpoint');
         $key = config('services.openweather.key');
 
-        $data = Cache::remember('owapi_' . $zip, 3600, function () use ($endpoint, &$key, &$zip) {
-            // Get current weather
-            $weather_result = Http::get($endpoint . 'weather', [
-                'zip' => $zip . ',us',
-                'units' => 'imperial',
-                'appid' => $key,
+        // Validate configuration
+        if (empty($endpoint) || empty($key)) {
+            return view('weather.index', [
+                'zip' => $zip,
+                'weather' => collect([]),
+                'forcast' => collect([]),
+                'error' => 'OpenWeather API configuration is missing. Please set OPENWEATHER_ENDPOINT and OPENWEATHER_KEY in your .env file.',
             ]);
+        }
 
-            // Get forcast data
-            $forcast_result = Http::get($endpoint . 'forecast', [
-                'zip' => $zip . ',us',
-                'units' => 'imperial',
-                'appid' => $key,
-            ]);
+        // Ensure endpoint ends with a slash
+        $endpoint = rtrim($endpoint, '/') . '/';
 
-            $output = [
-                'weather' => $weather_result->status() === 200 ? $weather_result->json() : '',
-                'forcast' => $forcast_result->status() === 200 ? $forcast_result->json() : '',
+        $cacheKey = 'owapi_' . $zip;
+        
+        // Check if cached data exists and is valid
+        $cachedData = Cache::get($cacheKey);
+        if ($cachedData && !empty($cachedData['weather']) && !empty($cachedData['forcast'])) {
+            $data = $cachedData;
+        } else {
+            // Clear invalid cache
+            Cache::forget($cacheKey);
+            
+            // Fetch weather data from API
+            $weatherData = $this->fetchWeatherData($endpoint, $key, $zip, 'weather');
+            $forcastData = $this->fetchWeatherData($endpoint, $key, $zip, 'forecast');
+
+            $data = [
+                'weather' => $weatherData,
+                'forcast' => $forcastData,
             ];
 
-            return $output;
-        });
+            // Only cache if we have valid data
+            if ($weatherData && $forcastData) {
+                Cache::put($cacheKey, $data, self::CACHE_TTL);
+            }
+        }
 
         return view('weather.index', [
             'zip' => $zip,
-            'weather' => collect($data['weather']),
-            'forcast' => collect($data['forcast']),
+            'weather' => collect($data['weather'] ?? []),
+            'forcast' => collect($data['forcast'] ?? []),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Fetch weather data from OpenWeather API
      *
-     * @return \Illuminate\Http\Response
+     * @param string $endpoint
+     * @param string $key
+     * @param string $zip
+     * @param string $type
+     * @return array|null
      */
-    public function create()
+    private function fetchWeatherData(string $endpoint, string $key, string $zip, string $type): ?array
     {
-        //
+        $response = Http::get($endpoint . $type, [
+            'zip' => $zip . ',us',
+            'units' => 'imperial',
+            'appid' => $key,
+        ]);
+
+        return ($response->successful() && $response->json()) ? $response->json() : null;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Validate and sanitize zip code
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param string $zip
+     * @return string
      */
-    public function store(Request $request)
+    private function validateZip(string $zip): string
     {
-        //
+        // Remove any non-numeric characters and limit to 5 digits
+        $zip = preg_replace('/\D/', '', $zip);
+        return substr($zip, 0, 5) ?: self::DEFAULT_ZIP;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

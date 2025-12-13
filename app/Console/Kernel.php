@@ -24,10 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new \App\Jobs\GetCdkSitemap, 'default')->everyTenMinutes();
-        $schedule->job(new \App\Jobs\CheckActiveLinks, 'default')->everyMinute();
         $schedule->job(new \App\Jobs\CoinbasePricejob, 'default')->hourly();
-        $schedule->command('scrape:cdkvdp')->everyMinute();
     }
 
     /**

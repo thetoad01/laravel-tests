@@ -28,7 +28,6 @@
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link active" href="{{ route('home') }}">Home</a>
                 <a class="nav-link" href="{{ route('weather.index') }}">Weather</a>
-                <a class="nav-link" href="{{ route('vehicles.index') }}">Vehicles</a>
                 <a class="nav-link" href="{{ route('nhtsa.index') }}">Decode VIN</a>
             </nav>
         </div>

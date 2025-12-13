@@ -15,7 +15,15 @@
 
         <div class="card">
             <div class="card-body">
-                @if ($weather->count() < 2)
+                @if (isset($error))
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Configuration Error:</strong> {{ $error }}
+                        <br><br>
+                        <small>Please add the following to your <code>.env</code> file:</small>
+                        <pre class="mt-2 mb-0"><code>OPENWEATHER_ENDPOINT=https://api.openweathermap.org/data/2.5/
+OPENWEATHER_KEY=your_api_key_here</code></pre>
+                    </div>
+                @elseif ($weather->count() < 2)
                     @include('weather.partials.no-weather')
                 @else
                     @include('weather.partials.weather')
