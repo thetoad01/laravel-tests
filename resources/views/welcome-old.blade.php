@@ -39,9 +39,6 @@
         <p class="lead">
             <a href="{{ route('tailwind.index') }}" class="btn btn-lg btn-outline-warning waves-effect" title="Tailwind CSS Creations">Tailwind CSS</a>
         </p>
-        <p class="lead">
-            <a href="{{ route('covid19.index') }}" class="btn btn-lg btn-outline-danger waves-effect">Covid 19 Stats</a>
-        </p>
     </main>
 
     <footer class="mastfoot mt-auto text-center">

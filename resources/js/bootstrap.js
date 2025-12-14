@@ -7,11 +7,15 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
+    // Bootstrap 5 uses @popperjs/core instead of popper.js
+    // Note: Bootstrap 5 no longer requires jQuery, but we're keeping it for compatibility
+    window.Popper = require('@popperjs/core');
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) {
+    console.error('Error loading Bootstrap dependencies:', e);
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -53,3 +57,4 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+// Note: If migrating to Vite (Laravel 11 default), use import.meta.env.VITE_PUSHER_APP_KEY instead

@@ -39,8 +39,8 @@
         </div>
         
         <div class="form-group">
-            <label for="year">Vehicle Year</label>
-            <input type="number" name="year" id="year" class="form-control" value="{{ old('year') }}">
+            <label for="year">Vehicle Year <span class="small text-muted">(Optional - will be extracted from VIN if not provided)</span></label>
+            <input type="number" name="year" id="year" class="form-control" value="{{ old('year') }}" placeholder="Auto-detect from VIN">
 
             @error('year')
                 <div class="text-danger">{{ $message }}</div>

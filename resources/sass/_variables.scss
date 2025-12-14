@@ -1,3 +1,6 @@
+// Bootstrap 5 Variable Overrides
+// Bootstrap 5 uses CSS custom properties, but SCSS variables are still available for customization
+
 // Body
 $body-bg: #f8fafc;
 
@@ -7,13 +10,20 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
+// Bootstrap 5 uses semantic color names (primary, secondary, etc.)
+// These map to the theme colors
+$primary: #3490dc;    // Maps to blue
+$secondary: #6c757d;  // Gray
+$success: #38c172;    // Maps to green
+$info: #6cb2eb;        // Maps to cyan
+$warning: #ffed4a;    // Maps to yellow
+$danger: #e3342f;      // Maps to red
+$light: #f8f9fa;
+$dark: #343a40;
+
+// Additional theme colors (Bootstrap 5 supports custom colors)
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
-$red: #e3342f;
 $orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
 $teal: #4dc0b5;
-$cyan: #6cb2eb;

@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\NhtsaDecoded;
-use App\Observers\NhtsaDecodeObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        NhtsaDecoded::observe(NhtsaDecodeObserver::class);
         Paginator::useBootstrap();
     }
 }

@@ -1,13 +1,20 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Using @import for Google Fonts (works with Laravel Mix)
+// Note: For better performance, consider using <link> in your Blade template instead
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 // Variables
+// Import custom Bootstrap variables before Bootstrap itself
 @import 'variables';
 
-// Bootstrap
+// Bootstrap 5
+// The ~ syntax is webpack-specific and works with Laravel Mix
+// If migrating to Vite (Laravel 11 default), change to: @import 'bootstrap/scss/bootstrap';
 @import '~bootstrap/scss/bootstrap';
 
 // Fontawesome
+// The ~ syntax is webpack-specific and works with Laravel Mix
+// If migrating to Vite, change to: @import '@fortawesome/fontawesome-free/scss/...';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';

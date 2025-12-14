@@ -20,7 +20,6 @@ class CoinbaseClient
 
             return $result->json();
         } catch (\Throwable $e) {
-            // dd($e->getMessage());
             return null;
         }
     }

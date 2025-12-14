@@ -48,11 +48,4 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
-
-    'population' => [
-        'endpoint' => env('POPULATION_ENDPOINT'),
-        'key' => env('POPULATION_KEY'),
-        'host' => env('POPULATION_HOST'),
-    ],
-
 ];

@@ -13,3 +13,6 @@ yarn-error.log
 
 # Ignore shell scripts for security
 *.sh
+
+# Migration guides (temporary)
+MIGRATION_GUIDE.md
