@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Nhtsa;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-
-use GuzzleHttp\Client;
 use App\Repositories\NhtsaDecodeRepository;
 use App\Models\NhtsaDecoded;
+use Throwable;
 
 class NhtsaController extends Controller
 {
@@ -24,7 +22,7 @@ class NhtsaController extends Controller
      * @param string $vin
      * @return int|null
      */
-    private function extractYearFromVin($vin)
+    private function extractYearFromVin(string $vin): ?int
     {
         if (strlen($vin) < 10) {
             return null;
@@ -73,6 +71,52 @@ class NhtsaController extends Controller
         return $year1980;
     }
 
+    /**
+     * Build Eloquent attributes from decoded vehicle data.
+     *
+     * @param array<string, mixed> $vehicle
+     * @param string $clientIp
+     * @return array<string, mixed>
+     */
+    private function decodedAttributes(array $vehicle, string $clientIp): array
+    {
+        return [
+            'clientIP' => $clientIp,
+            'VIN' => $vehicle['VIN'] ?? '',
+            'BodyCabType' => $vehicle['BodyCabType'] ?? '',
+            'BodyClass' => $vehicle['BodyClass'] ?? '',
+            'DisplacementL' => $vehicle['DisplacementL'] ?? '',
+            'Doors' => $vehicle['Doors'] ?? '',
+            'DriveType' => $vehicle['DriveType'] ?? '',
+            'EngineConfiguration' => $vehicle['EngineConfiguration'] ?? '',
+            'EngineCylinders' => $vehicle['EngineCylinders'] ?? '',
+            'EngineHP' => $vehicle['EngineHP'] ?? '',
+            'EngineModel' => $vehicle['EngineModel'] ?? '',
+            'FuelTypePrimary' => $vehicle['FuelTypePrimary'] ?? '',
+            'FuelTypeSecondary' => $vehicle['FuelTypeSecondary'] ?? '',
+            'GVWR' => $vehicle['GVWR'] ?? '',
+            'Make' => $vehicle['Make'] ?? '',
+            'Manufacturer' => $vehicle['Manufacturer'] ?? '',
+            'ManufacturerId' => $vehicle['ManufacturerId'] ?? '',
+            'Model' => $vehicle['Model'] ?? '',
+            'ModelYear' => $vehicle['ModelYear'] ?? '',
+            'NCSABodyType' => $vehicle['NCSABodyType'] ?? '',
+            'NCSAMake' => $vehicle['NCSAMake'] ?? '',
+            'NCSAModel' => $vehicle['NCSAModel'] ?? '',
+            'PlantCity' => $vehicle['PlantCity'] ?? '',
+            'PlantCountry' => $vehicle['PlantCountry'] ?? '',
+            'PlantState' => $vehicle['PlantState'] ?? '',
+            'Series' => $vehicle['Series'] ?? '',
+            'Series2' => $vehicle['Series2'] ?? '',
+            'TransmissionSpeeds' => $vehicle['TransmissionSpeeds'] ?? '',
+            'TransmissionStyle' => $vehicle['TransmissionStyle'] ?? '',
+            'Trim' => $vehicle['Trim'] ?? '',
+            'Trim2' => $vehicle['Trim2'] ?? '',
+            'Turbo' => $vehicle['Turbo'] ?? '',
+            'VehicleType' => $vehicle['VehicleType'] ?? '',
+        ];
+    }
+
     public function index()
     {
         $recents = NhtsaDecoded::whereNotNull('VIN')
@@ -85,7 +129,7 @@ class NhtsaController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(string $id)
     {
         return response()->json([
             'vin' => $id,
@@ -97,77 +141,45 @@ class NhtsaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'vin' => 'required|size:17',
-            'year' => 'nullable|digits:4',
+            'vin' => ['required', 'string', 'size:17'],
+            'year' => ['nullable', 'integer', 'digits:4'],
         ]);
 
         $clientIP = $request->ip() ?? '';
+        $vin = strtoupper(trim($validated['vin']));
 
         // Extract year from VIN if not provided
-        $year = $validated['year'] ?? $this->extractYearFromVin($validated['vin']);
+        $year = isset($validated['year']) ? (int) $validated['year'] : $this->extractYearFromVin($vin);
         
         if (!$year) {
             return back()->withErrors(['vin' => 'Unable to determine model year from VIN. Please provide the year manually.'])->withInput();
         }
 
-        $url = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/'.$validated['vin'].'?format=json&modelyear='.$year;
+        $response = \App\Clients\NhtsaClient::handle($vin, $year);
+        if (!$response['successful']) {
+            return back()->withErrors(['vin' => 'NHTSA lookup failed. Please try again.'])->withInput();
+        }
 
-        $response = Http::get($url);
+        $data = is_array($response['data'] ?? null) ? $response['data'] : [];
+        $vehicle = collect($data['Results'] ?? [])->first();
 
-        abort_if($response->failed(), 404);
-        
-        $data = $response->json();
-
-        $vehicle = collect($data['Results'])->first();
+        if (!is_array($vehicle) || empty($vehicle)) {
+            return back()->withErrors(['vin' => 'No vehicle data returned for that VIN/year.'])->withInput();
+        }
 
         try {
-            NhtsaDecoded::create([
-                'clientIP' => $clientIP,
-                'VIN' => $vehicle['VIN'] ?? '',
-                'BodyCabType' => $vehicle['BodyCabType'] ?? '',
-                'BodyClass' => $vehicle['BodyClass'] ?? '',
-                'DisplacementL' => $vehicle['DisplacementL'] ?? '',
-                'Doors' => $vehicle['Doors'] ?? '',
-                'DriveType' => $vehicle['DriveType'] ?? '',
-                'EngineConfiguration' => $vehicle['EngineConfiguration'] ?? '',
-                'EngineCylinders' => $vehicle['EngineCylinders'] ?? '',
-                'EngineHP' => $vehicle['EngineHP'] ?? '',
-                'EngineModel' => $vehicle['EngineModel'] ?? '',
-                'FuelTypePrimary' => $vehicle['FuelTypePrimary'] ?? '',
-                'FuelTypeSecondary' => $vehicle['FuelTypeSecondary'] ?? '',
-                'GVWR' => $vehicle['GVWR'] ?? '',
-                'Make' => $vehicle['Make'] ?? '',
-                'Manufacturer' => $vehicle['Manufacturer'] ?? '',
-                'ManufacturerId' => $vehicle['ManufacturerId'] ?? '',
-                'Model' => $vehicle['Model'] ?? '',
-                'ModelYear' => $vehicle['ModelYear'] ?? '',
-                'NCSABodyType' => $vehicle['NCSABodyType'] ?? '',
-                'NCSAMake' => $vehicle['NCSAMake'] ?? '',
-                'NCSAModel' => $vehicle['NCSAModel'] ?? '',
-                'PlantCity' => $vehicle['PlantCity'] ?? '',
-                'PlantCountry' => $vehicle['PlantCountry'] ?? '',
-                'PlantState' => $vehicle['PlantState'] ?? '',
-                'Series' => $vehicle['Series'] ?? '',
-                'Series2' => $vehicle['Series2'] ?? '',
-                'TransmissionSpeeds' => $vehicle['TransmissionSpeeds'] ?? '',
-                'TransmissionStyle' => $vehicle['TransmissionStyle'] ?? '',
-                'Trim' => $vehicle['Trim'] ?? '',
-                'Trim2' => $vehicle['Trim2'] ?? '',
-                'Turbo' => $vehicle['Turbo'] ?? '',
-                'VehicleType' => $vehicle['VehicleType'] ?? '',
-            ]);
-        } catch (\Throwable $th) {
-            dd($th);
+            NhtsaDecoded::create($this->decodedAttributes($vehicle, $clientIP));
+        } catch (Throwable $exception) {
+            report($exception);
+            return back()->withErrors(['vin' => 'Vehicle was decoded but could not be saved.'])->withInput();
         }
 
         $output = [
-            'message' => $data['Message'],
-            'errorCodes' => Str::of($vehicle['ErrorCode'])->split('/(,)+/'),
-            'errorMessages' => Str::of($vehicle['ErrorText'])->split('/(; )+/'),
+            'message' => (string) ($data['Message'] ?? ''),
+            'errorCodes' => Str::of((string) ($vehicle['ErrorCode'] ?? ''))->split('/(,)+/')->filter()->values(),
+            'errorMessages' => Str::of((string) ($vehicle['ErrorText'] ?? ''))->split('/(; )+/')->filter()->values(),
             'vehicle' => $vehicle,
         ];
-
-        // return $output;
 
         return view('nhtsa.decoded', $output);
     }
@@ -180,42 +192,45 @@ class NhtsaController extends Controller
      *
      * @return object json
      */
-    public function decode($vin, $year = null)
+    public function decode(string $vin, ?int $year = null)
     {
-        // need to do something here to validate the params
-        abort_if(!$vin, 404);
+        $vin = strtoupper(trim($vin));
+        abort_if(strlen($vin) !== 17, 422, 'VIN must be 17 characters.');
         
         // Extract year from VIN if not provided
-        if (!$year) {
+        if ($year === null) {
             $year = $this->extractYearFromVin($vin);
-            abort_if(!$year, 404, 'Unable to determine model year from VIN');
+            abort_if(!$year, 422, 'Unable to determine model year from VIN');
         }
 
         $response = \App\Clients\NhtsaClient::handle($vin, $year);
 
-        abort_if(!$response['successful'], 404);
+        abort_if(!$response['successful'], 502, 'NHTSA lookup failed.');
 
-        $nhtsaData = new NhtsaDecodeRepository(collect($response['data']['Results'])->first());
+        $vehicle = collect($response['data']['Results'] ?? [])->first();
+        abort_if(!is_array($vehicle) || empty($vehicle), 422, 'No vehicle data returned for VIN/year.');
+
+        $nhtsaData = new NhtsaDecodeRepository($vehicle);
 
         return response()->json($nhtsaData->run());
     }
 
     public function update()
     {
-        $test_number = 7;
-
-        $watchs = ['BodyCabType', 'Doors'];
+        $testNumber = 7;
 
         $data = NhtsaDecoded::updateOrCreate(
+            ['VIN' => 'KM8R34HE6LU051355'],
+            
             [
-                'VIN' => 'KM8R34HE6LU051355',
-            ],
-            [
-                'BodyCabType' => 'test'.$test_number,
-                'Doors' => $test_number,
+                'BodyCabType' => 'test' . $testNumber,
+                'Doors' => $testNumber,
             ],
         );
 
-        dd($data);
+        return response()->json([
+            'message' => 'Updated test record.',
+            'data' => $data,
+        ]);
     }
 }

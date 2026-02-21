@@ -1,21 +1,31 @@
+// Local variable overrides use modern Sass modules syntax.
+@use 'variables' as *;
+
 // Fonts
-// Using @import for Google Fonts (works with Laravel Mix)
-// Note: For better performance, consider using <link> in your Blade template instead
+// Consider moving Google Fonts to a <link> tag for performance.
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
-// Variables
-// Import custom Bootstrap variables before Bootstrap itself
-@import 'variables';
-
 // Bootstrap 5
-// The ~ syntax is webpack-specific and works with Laravel Mix
-// If migrating to Vite (Laravel 11 default), change to: @import 'bootstrap/scss/bootstrap';
-@import '~bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
 
-// Fontawesome
-// The ~ syntax is webpack-specific and works with Laravel Mix
-// If migrating to Vite, change to: @import '@fortawesome/fontawesome-free/scss/...';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+// Use prebuilt CSS to avoid legacy SCSS deprecation warnings.
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+:root { color-scheme: dark; }
+
+body {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.scanlines {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 100% 18px;
+}
+
+.terminal-border { border: 1px solid rgba(255, 255, 255, 0.15) !important; }
+
+.cursor { animation: blink 1s steps(2, start) infinite; }
+
+@keyframes blink {
+    to { visibility: hidden; }
+}

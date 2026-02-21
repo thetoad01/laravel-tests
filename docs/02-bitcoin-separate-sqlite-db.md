@@ -40,9 +40,6 @@ This document outlines the plan to separate Bitcoin price data into its own SQLi
 - [ ] If data exists, note the record count for verification after migration
 
 **Backup Commands:**
-```bash
-# If using MySQL/PostgreSQL
-php artisan db:backup  # or use your preferred backup method
 
 # If using SQLite
 cp database/database.sqlite database/database.sqlite.backup

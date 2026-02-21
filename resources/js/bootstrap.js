@@ -1,4 +1,12 @@
-window._ = require('lodash');
+import _ from 'lodash';
+import axios from 'axios';
+import * as Popper from '@popperjs/core';
+import $ from 'jquery';
+import 'bootstrap';
+
+window._ = _;
+window.Popper = Popper;
+window.$ = window.jQuery = $;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -6,16 +14,8 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-try {
-    // Bootstrap 5 uses @popperjs/core instead of popper.js
-    // Note: Bootstrap 5 no longer requires jQuery, but we're keeping it for compatibility
-    window.Popper = require('@popperjs/core');
-    window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-} catch (e) {
-    console.error('Error loading Bootstrap dependencies:', e);
-}
+// Bootstrap 5 no longer requires jQuery, but we keep it globally
+// for compatibility with any legacy scripts.
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -23,7 +23,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -53,8 +53,7 @@ if (token) {
 
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-// Note: If migrating to Vite (Laravel 11 default), use import.meta.env.VITE_PUSHER_APP_KEY instead

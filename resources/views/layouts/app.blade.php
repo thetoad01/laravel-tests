@@ -6,12 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>@yield('title')</title>
-{{-- CSS --}}
-<link rel="stylesheet" href="/css/app.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-{{-- JS --}}
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/app.js"></script>
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 @yield('heads')
 </head>
 <body>

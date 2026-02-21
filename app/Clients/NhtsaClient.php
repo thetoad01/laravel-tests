@@ -8,32 +8,41 @@ class NhtsaClient
 {
     /**
      * Request NHTSA endpoint for more information about the NHTSA decode visit: https://vpic.nhtsa.dot.gov/api/
-     * 
-     * @param string $vin
-     * @param int|null $year
+     *
+     * @return array{successful: bool, status: int, data: array}
      */
-    public static function handle($vin, $year = null)
+    public static function handle(string $vin, ?int $year = null): array
     {
-        $url = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/'.$vin.'?format=json';
-        
-        if ($year) {
-            $url .= '&modelyear='.$year;
+        $endpoint = 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/' . rawurlencode(trim($vin));
+        $params = ['format' => 'json'];
+
+        if ($year !== null) {
+            $params['modelyear'] = $year;
         }
 
         try {
-            $response = Http::get($url);
-        } catch (\Throwable $th) {
+            $response = Http::timeout(15)->get($endpoint, $params);
+        } catch (\Throwable $exception) {
             return [
                 'successful' => false,
-                'status' => 500,
-                'data' => '',
+                'status' => 503,
+                'data' => ['Results' => []],
             ];
+        }
+
+        $data = $response->json();
+        if (!is_array($data)) {
+            $data = [];
+        }
+
+        if (!isset($data['Results']) || !is_array($data['Results'])) {
+            $data['Results'] = [];
         }
 
         return [
             'successful' => $response->successful(),
             'status' => $response->status(),
-            'data' => $response->json(),
+            'data' => $data,
         ];
     }
 }

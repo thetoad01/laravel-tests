@@ -1,74 +1,189 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="This is a website for Michigan developer David Defoe used for testing Laravel.">
-<title>A4F5.com | Laravel Tests by David Defoe</title>
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'Terminal') }}</title>
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
-<body class="bg-gray-600">
 
-    <div class="w-full h-screen bg-center bg-no-repeat bg-cover" style="background-image: url('https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="flex justify-center items-center w-full h-screen bg-opacity-50 bg-black">
+<body class="bg-dark text-light scanlines">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+    <div class="container py-2">
+        <a class="navbar-brand fw-semibold" href="#">
+            <span class="text-success">root</span><span class="text-secondary">@</span>{{ config('app.name', 'terminal') }}<span class="text-secondary">:</span><span class="text-info">~</span><span class="text-secondary">$</span>
+        </a>
 
-            <div class="mx-4 text-center text-white">
-                <h1 class="font-bold text-6xl mb-4">A4F5.com</h1>
-                <h2 class="font-bold text-3xl mb-12">These are my tests!</h2>
-
-                <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                    <div class="rounded-md shadow w-60">
-                        <a href="{{ route('bitcoin-price.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 md:py-4 md:text-lg md:px-10">
-                            <svg class="h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Bitcoin Price
-                        </a>
-                    </div>
-                    <div class="mt-3 sm:mt-0 sm:ml-3 rounded-md shadow w-60">
-                        <a href="{{ route('weather.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-                            <svg class="h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                            </svg>
-                            Weather
-                        </a>
-                    </div>
-                </div>
-
-                <div class="mt-4 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                    <div class="rounded-md shadow w-60">
-                        <a href="{{ route('nhtsa.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 md:py-4 md:text-lg md:px-10">
-                            <svg class="h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Decode A VIN
-                        </a>
-                    </div>
-                    <div class="mt-3 sm:mt-0 sm:ml-3 rounded-md shadow w-60">
-                        <a href="{{ route('tailwind.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 md:py-4 md:text-lg md:px-10">
-                            <svg class="h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                            </svg>
-                            Tailwind CSS
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="ms-auto d-flex gap-2">
+            @auth
+                <a href="{{ url('/dashboard') }}" class="btn btn-outline-success btn-sm">enter</a>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">login</a>
+                <a href="{{ route('register') }}" class="btn btn-success btn-sm text-black fw-bold">request_access</a>
+            @endauth
         </div>
+    </div>
+</nav>
 
-        <div class="flex items-center justify-between bg-gray-900 px-16 py-4 text-sm">
-            <div class="text-gray-300">
-                <a href="https://github.com/thetoad01">GitHub</a>
+<header class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-7">
+                <div class="mb-3">
+                    <span class="badge text-bg-success me-2">LIVE</span>
+                    <span class="badge text-bg-dark border border-secondary">build: v0.0.x</span>
+                    <span class="badge text-bg-dark border border-secondary">mode: testing</span>
+                </div>
+
+                <h1 class="display-5 fw-bold lh-1">
+                    <span class="text-success">[</span> new system online <span class="text-success">]</span>
+                </h1>
+
+                <p class="lead text-secondary mt-3 mb-4">
+                    No marketing pages. No noise.<br class="d-none d-md-block">
+                    Just a clean interface for people who ship.
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#access" class="btn btn-success text-black fw-bold">
+                        get_access
+                    </a>
+                    <a href="#preview" class="btn btn-outline-info">
+                        view_preview
+                    </a>
+                    <a href="#notes" class="btn btn-outline-secondary">
+                        read_notes
+                    </a>
+                </div>
+
+                <div class="row g-3 mt-4" id="notes">
+                    <div class="col-md-4">
+                        <div class="p-3 rounded bg-black terminal-border">
+                            <div class="text-secondary small">module</div>
+                            <div class="fw-semibold text-success">focus</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded bg-black terminal-border">
+                            <div class="text-secondary small">module</div>
+                            <div class="fw-semibold text-success">ops</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded bg-black terminal-border">
+                            <div class="text-secondary small">module</div>
+                            <div class="fw-semibold text-success">vault</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="text-gray-300">
-                Created by <a href="http://defoenet.com/">David Defoe</a> &copy; {{ now()->year }}
-            </div>
-            <div class="text-gray-300">
-                <a href="{{ route('login') }}" class="btn btn-link ml-5">login</a>
+
+            {{-- “Terminal window” preview --}}
+            <div class="col-lg-5" id="preview">
+                <div class="rounded bg-black terminal-border overflow-hidden shadow">
+                    <div class="d-flex align-items-center gap-2 px-3 py-2 border-bottom border-secondary">
+                        <span class="badge rounded-pill text-bg-danger"> </span>
+                        <span class="badge rounded-pill text-bg-warning"> </span>
+                        <span class="badge rounded-pill text-bg-success"> </span>
+                        <div class="ms-2 small text-secondary">/var/www/{{ Str::slug(config('app.name', 'app')) }}/preview</div>
+                    </div>
+
+                    <div class="p-3">
+                        <div class="text-secondary small mb-2">boot sequence</div>
+
+                        <pre class="mb-0 text-light small">
+<span class="text-success">✓</span> loading modules...
+<span class="text-success">✓</span> hardening surface...
+<span class="text-success">✓</span> warming cache...
+<span class="text-success">✓</span> opening channel: <span class="text-info">early-access</span>
+—
+type <span class="text-warning">request_access</span> to get an invite<span class="cursor">█</span>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="mt-3 small text-secondary">
+                    tip: keep it minimal. ship it sharp.
+                </div>
             </div>
         </div>
     </div>
+</header>
+
+<section class="py-5" id="access">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="h4 fw-bold mb-2">
+                    <span class="text-success">$</span> request_access
+                </h2>
+                <p class="text-secondary mb-0">
+                    Drop an email. You’ll get a single message when invites open.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <form class="row g-2" action="#" method="post">
+                    {{-- Wire later: action="{{ route('waitlist.store') }}" --}}
+                    {{-- @csrf --}}
+                    <div class="col-12 col-md">
+                        <input type="email" class="form-control bg-black text-light border-secondary"
+                               placeholder="you@domain.com" required>
+                    </div>
+                    <div class="col-12 col-md-auto">
+                        <button type="submit" class="btn btn-success text-black fw-bold w-100">
+                            submit
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-text text-secondary">
+                            no spam. no drip. one ping.
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr class="my-5 border-secondary">
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="p-4 rounded bg-black terminal-border h-100">
+                    <div class="text-secondary small mb-1">signal</div>
+                    <div class="fw-semibold">high</div>
+                    <div class="text-secondary small mt-2">less UI. more intent.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded bg-black terminal-border h-100">
+                    <div class="text-secondary small mb-1">latency</div>
+                    <div class="fw-semibold">low</div>
+                    <div class="text-secondary small mt-2">fast paths only.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded bg-black terminal-border h-100">
+                    <div class="text-secondary small mb-1">noise</div>
+                    <div class="fw-semibold">none</div>
+                    <div class="text-secondary small mt-2">no feeds. no fluff.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-4 border-top border-secondary">
+    <div class="container d-flex flex-wrap justify-content-between gap-2 small text-secondary">
+        <div>&copy; {{ date('Y') }} {{ config('app.name', 'Terminal') }}</div>
+        <div class="d-flex gap-3">
+            <a class="link-secondary text-decoration-none" href="#oldstuff">old-stuff</a>
+            <a class="link-secondary text-decoration-none" href="#access">access</a>
+            <a class="link-secondary text-decoration-none" href="#notes">notes</a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
