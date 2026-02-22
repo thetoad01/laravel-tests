@@ -18,7 +18,7 @@
 
                 <p class="lead text-secondary mt-3 mb-4">
                     No marketing pages. No noise.<br class="d-none d-md-block">
-                    Just a clean interface for people who ship.
+                    tip: build less. think more. commit carefully.
                 </p>
 
                 <div class="d-flex flex-wrap gap-2">
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="mt-3 small text-secondary">
-                    tip: keep it minimal. ship it sharp.
+                    tip: ship small. refactor later. deny everything.
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                         <span class="text-success">$</span> request_access
                     </h2>
                     <p class="text-secondary mb-0">
-                        Drop an email. You’ll get a single message when invites open.
+                        enter your email. we’ll notify you once. not twice. not weekly.
                     </p>
                 </div>
 
