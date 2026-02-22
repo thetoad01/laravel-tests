@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/waitlist', 'Waitlist\WaitlistController@store')->name('waitlist.store');
 
 Route::view('/w2', 'welcome-old')->name('w2');
 
@@ -32,6 +33,12 @@ Route::get('/nhtsa/update', 'Nhtsa\NhtsaController@update')->name('nhtsa.update'
 Route::get('/nhtsa/{id}', 'Nhtsa\NhtsaController@show')->name('nhtsa.show');
 Route::post('/nhtsa', 'Nhtsa\NhtsaController@store')->name('nhtsa.store');
 Route::get('/nhtsa/decode/{vin}/{year?}', 'Nhtsa\NhtsaController@decode')->name('nhtsa.decode');
+
+
+/*******************************************************************
+ * Generic Pages
+ *******************************************************************/
+Route::view('/success', 'pages.success')->name('success');
 
 
 /*******************************************************************

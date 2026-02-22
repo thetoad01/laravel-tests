@@ -9,7 +9,7 @@
 
 </head>
 
-<body class="bg-dark text-light scanlines">
+<body class="bg-dark text-light scanlines d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
     <div class="container py-2">
         <a class="navbar-brand fw-semibold" href="#">
@@ -21,13 +21,12 @@
                 <a href="{{ url('/dashboard') }}" class="btn btn-outline-success btn-sm">enter</a>
             @else
                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">login</a>
-                <a href="{{ route('register') }}" class="btn btn-success btn-sm text-black fw-bold">request_access</a>
             @endauth
         </div>
     </div>
 </nav>
 
-<header class="py-5">
+<main class="flex-grow-1 py-5">
     <div class="container">
         <div class="row g-4 align-items-center">
             <div class="col-lg-7">
@@ -47,14 +46,14 @@
                 </p>
 
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="#access" class="btn btn-success text-black fw-bold">
-                        get_access
-                    </a>
-                    <a href="#preview" class="btn btn-outline-info">
+                    <a href="#preview" class="btn btn-outline-success">
                         view_preview
                     </a>
-                    <a href="#notes" class="btn btn-outline-secondary">
+                    <a href="#notes" class="btn btn-outline-info">
                         read_notes
+                    </a>
+                    <a href="#oldstuff" class="btn btn-secondary text-black fw-bold">
+                        old_stuff
                     </a>
                 </div>
 
@@ -79,28 +78,44 @@
                     </div>
                 </div>
             </div>
-
-            {{-- “Terminal window” preview --}}
+            <!-- Terminal window preview -->
             <div class="col-lg-5" id="preview">
                 <div class="rounded bg-black terminal-border overflow-hidden shadow">
                     <div class="d-flex align-items-center gap-2 px-3 py-2 border-bottom border-secondary">
                         <span class="badge rounded-pill text-bg-danger"> </span>
                         <span class="badge rounded-pill text-bg-warning"> </span>
                         <span class="badge rounded-pill text-bg-success"> </span>
-                        <div class="ms-2 small text-secondary">/var/www/{{ Str::slug(config('app.name', 'app')) }}/preview</div>
+                        <div class="ms-2 small text-secondary">{{ Str::slug(config('app.name', 'app')) }}/welcome</div>
                     </div>
 
                     <div class="p-3">
                         <div class="text-secondary small mb-2">boot sequence</div>
 
-                        <pre class="mb-0 text-light small">
-<span class="text-success">✓</span> loading modules...
-<span class="text-success">✓</span> hardening surface...
-<span class="text-success">✓</span> warming cache...
-<span class="text-success">✓</span> opening channel: <span class="text-info">early-access</span>
-—
-type <span class="text-warning">request_access</span> to get an invite<span class="cursor">█</span>
-                        </pre>
+                        <div class="mb-0 text-light small lh-sm font-monospace">
+                            <div>
+                                <span class="text-success">✓</span> loading modules...
+                            </div>
+
+                            <div>
+                                <span class="text-success">✓</span> hardening surface...
+                            </div>
+
+                            <div>
+                                <span class="text-success">✓</span> warming cache...
+                            </div>
+
+                            <div>
+                                <span class="text-success">✓</span> opening channel:
+                                <span class="text-info">early-access</span>
+                            </div>
+
+                            <div class="my-2 text-secondary">—</div>
+
+                            <div>
+                                type <span class="text-warning">request_access</span> to get an invite
+                                <span class="cursor">█</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -125,12 +140,13 @@ type <span class="text-warning">request_access</span> to get an invite<span clas
             </div>
 
             <div class="col-lg-6">
-                <form class="row g-2" action="#" method="post">
-                    {{-- Wire later: action="{{ route('waitlist.store') }}" --}}
-                    {{-- @csrf --}}
+                <form class="row g-2" action="{{ route('waitlist.store') }}" method="post">
+                    @csrf
                     <div class="col-12 col-md">
-                        <input type="email" class="form-control bg-black text-light border-secondary"
-                               placeholder="you@domain.com" required>
+                        @error('email')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+                        <input type="email" class="form-control bg-black text-light border-secondary" name="email" placeholder="you@domain.com" value="{{ old('email') }}" required>
                     </div>
                     <div class="col-12 col-md-auto">
                         <button type="submit" class="btn btn-success text-black fw-bold w-100">
@@ -173,12 +189,13 @@ type <span class="text-warning">request_access</span> to get an invite<span clas
         </div>
     </div>
 </section>
+</main>
 
 <footer class="py-4 border-top border-secondary">
     <div class="container d-flex flex-wrap justify-content-between gap-2 small text-secondary">
         <div>&copy; {{ date('Y') }} {{ config('app.name', 'Terminal') }}</div>
         <div class="d-flex gap-3">
-            <a class="link-secondary text-decoration-none" href="#oldstuff">old-stuff</a>
+            <a class="link-secondary text-decoration-none" href="#oldstuff">old_stuff</a>
             <a class="link-secondary text-decoration-none" href="#access">access</a>
             <a class="link-secondary text-decoration-none" href="#notes">notes</a>
         </div>
