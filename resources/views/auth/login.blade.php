@@ -109,11 +109,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 small text-secondary d-flex flex-wrap justify-content-between gap-2">
-                <div>mode: <span class="text-warning">auth</span></div>
-                <div>access: <span class="text-info">restricted</span></div>
-            </div>
-
+            <x-terminal.module-status module="auth" status="restricted" module-class="text-info" status-class="text-warning" />
         </div>
     </div>
 </div>

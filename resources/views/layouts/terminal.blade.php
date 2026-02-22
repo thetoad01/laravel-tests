@@ -18,8 +18,8 @@
 </main>
 
 <x-terminal.footer>
-    <a class="link-secondary text-decoration-none" href="#oldstuff">old_stuff</a>
-    <a class="link-secondary text-decoration-none" href="#access">access</a>
+    <a class="link-secondary text-decoration-none" href="{{ route('old-stuff') }}">old_stuff</a>
+    <a class="link-secondary text-decoration-none" href="{{ route('register') }}">access</a>
     <a class="link-secondary text-decoration-none" href="#notes">notes</a>
 </x-terminal.footer>
 

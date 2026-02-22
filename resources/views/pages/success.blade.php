@@ -68,10 +68,7 @@
                     </div>
                 </div>
 
-                <div class="mt-3 small text-secondary d-flex flex-wrap justify-content-between gap-2">
-                    <div>status: <span class="text-success">200 OK</span></div>
-                    <div>session: <span class="text-success">flashed</span></div>
-                </div>
+                <x-terminal.module-status module="waitlist" status="200 OK" module-class="text-info" status-class="text-success" />
             </div>
         </div>
     </div>

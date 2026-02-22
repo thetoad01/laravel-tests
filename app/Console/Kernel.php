@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new \App\Jobs\CoinbasePricejob, 'default')->hourly();
+        // $schedule->job(new \App\Jobs\CoinbasePricejob, 'default')->hourly();
     }
 
     /**

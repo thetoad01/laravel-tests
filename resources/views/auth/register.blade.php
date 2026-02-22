@@ -38,10 +38,7 @@
 
                 </div>
 
-                <div class="mt-3 small text-secondary d-flex flex-wrap justify-content-between gap-2">
-                    <div>mode: <span class="text-warning">sandbox</span></div>
-                    <div>users: <span class="text-danger">restricted</span></div>
-                </div>
+                <x-terminal.module-status module="auth" status="sandbox" module-class="text-info" status-class="text-warning" />
             </div>
         </div>
     </div>

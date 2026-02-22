@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/bitcoin-price', 'bitcoin.index')->name('bitcoin-price.index');
 Route::post('/waitlist', 'Waitlist\WaitlistController@store')->name('waitlist.store');
 
-Route::view('/w2', 'welcome-old')->name('w2');
+Route::view('/old-stuff', 'old-stuff')->name('old-stuff');
 
 Auth::routes();
 
@@ -51,10 +53,3 @@ Route::view('/tailwind/kanban', 'tailwind.kanban')->name('tailwind.kanban');
 Route::view('/tailwind/homepage', 'tailwind.homepage')->name('tailwind.homepage');
 Route::view('/tailwind/dashboard', 'tailwind.dashboard')->name('tailwind.dashboard');
 Route::view('/tailwind/blog', 'tailwind.blog')->name('tailwind.blog');
-
-
-/*******************************************************************
- * Bitcoin Price
- *******************************************************************/
-Route::get('/bitcoin-price', 'Bitcoin\CoinbasePriceController@index')->name('bitcoin-price.index');
-Route::get('/bitcoin-price/current', 'Bitcoin\CoinbasePriceController@storeCurrentPrice');  // DELETE THIS

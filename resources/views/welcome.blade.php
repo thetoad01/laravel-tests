@@ -28,7 +28,7 @@
                     <a href="#notes" class="btn btn-outline-info">
                         read_notes
                     </a>
-                    <a href="#oldstuff" class="btn btn-secondary text-black fw-bold">
+                    <a href="{{ route('old-stuff') }}" class="btn btn-secondary text-black fw-bold">
                         old_stuff
                     </a>
                 </div>
