@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Nhtsa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use App\Clients\NhtsaClient;
 use App\Repositories\NhtsaDecodeRepository;
 use App\Models\NhtsaDecoded;
 use Throwable;
@@ -131,10 +132,19 @@ class NhtsaController extends Controller
 
     public function show(string $id)
     {
-        return response()->json([
-            'vin' => $id,
-            'data' => '',
-        ]);
+        $vehicle = NhtsaDecoded::where('VIN', $id)->first();
+        if (!$vehicle) {
+            return redirect()->route('nhtsa.index')->withErrors(['vin' => 'Vehicle not found.']);
+        }
+
+        $output = [
+            'message' => (string) ($data['Message'] ?? ''),
+            'errorCodes' => Str::of((string) ($vehicle['ErrorCode'] ?? ''))->split('/(,)+/')->filter()->values(),
+            'errorMessages' => Str::of((string) ($vehicle['ErrorText'] ?? ''))->split('/(; )+/')->filter()->values(),
+            'vehicle' => $vehicle,
+        ];
+
+        return view('nhtsa.decoded', $output);
     }
 
     
@@ -148,6 +158,11 @@ class NhtsaController extends Controller
         $clientIP = $request->ip() ?? '';
         $vin = strtoupper(trim($validated['vin']));
 
+        $vehicle = NhtsaDecoded::where('VIN', $vin)->first();
+        if ($vehicle) {
+            return redirect()->route('nhtsa.show', $vin);
+        }
+
         // Extract year from VIN if not provided
         $year = isset($validated['year']) ? (int) $validated['year'] : $this->extractYearFromVin($vin);
         
@@ -155,7 +170,7 @@ class NhtsaController extends Controller
             return back()->withErrors(['vin' => 'Unable to determine model year from VIN. Please provide the year manually.'])->withInput();
         }
 
-        $response = \App\Clients\NhtsaClient::handle($vin, $year);
+        $response = NhtsaClient::handle($vin, $year);
         if (!$response['successful']) {
             return back()->withErrors(['vin' => 'NHTSA lookup failed. Please try again.'])->withInput();
         }
@@ -203,7 +218,7 @@ class NhtsaController extends Controller
             abort_if(!$year, 422, 'Unable to determine model year from VIN');
         }
 
-        $response = \App\Clients\NhtsaClient::handle($vin, $year);
+        $response = NhtsaClient::handle($vin, $year);
 
         abort_if(!$response['successful'], 502, 'NHTSA lookup failed.');
 

@@ -21,19 +21,15 @@
                     tip: build less. think more. commit carefully.
                 </p>
 
-                <div class="d-flex flex-wrap gap-2">
-                    <a href="#preview" class="btn btn-outline-success">
-                        view_preview
-                    </a>
-                    <a href="#notes" class="btn btn-outline-info">
-                        read_notes
-                    </a>
-                    <a href="{{ route('old-stuff') }}" class="btn btn-secondary text-black fw-bold">
-                        old_stuff
-                    </a>
-                </div>
-
-                <div class="row g-3 mt-4" id="notes">
+                <div class="row g-3" id="notes">
+                    <div class="col-md-4">
+                        <a href="{{ route('old-stuff') }}" class="text-decoration-none text-light">
+                            <div class="p-3 rounded bg-black terminal-border">
+                                <div class="text-secondary small">module</div>
+                                <div class="fw-semibold text-success">vault</div>
+                            </div>
+                        </a>
+                    </div>
                     <div class="col-md-4">
                         <div class="p-3 rounded bg-black terminal-border">
                             <div class="text-secondary small">module</div>
@@ -44,12 +40,6 @@
                         <div class="p-3 rounded bg-black terminal-border">
                             <div class="text-secondary small">module</div>
                             <div class="fw-semibold text-success">ops</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="p-3 rounded bg-black terminal-border">
-                            <div class="text-secondary small">module</div>
-                            <div class="fw-semibold text-success">vault</div>
                         </div>
                     </div>
                 </div>
