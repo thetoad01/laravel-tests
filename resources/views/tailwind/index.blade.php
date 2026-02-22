@@ -1,48 +1,122 @@
-@extends('layouts.tailwind')
+@extends('layouts.terminal')
 
-@section('title', 'Tailwind CSS Re-Creations')
-
-@section('heads')
-@endsection
+@section('title', config('app.name', 'Terminal').' — tailwind_recreations')
 
 @section('content')
-{{-- navigation --}}
-<header class="container mx-auto pt-4 pb-2">
-    <div class="flex items-center justify-between">
-        <a class="text-left pl-4 hover:text-blue-700" href="/" title="home">
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-        </a>
-        <h1 class="text-2xl text-center">Tailwind CSS Re-Creations & Tests</h1>
-        <div class="text-right px-4"></div>
+<div class="container">
+    <div class="row g-4">
+
+        {{-- Header --}}
+        <div class="col-12">
+            <div class="mb-3">
+                <div class="text-secondary small">directory</div>
+                <h1 class="h4 mb-0">
+                    <span class="text-success">$</span> ls -la /tailwind_recreations
+                </h1>
+                <div class="text-secondary small mt-1">
+                    re-creations & tests. because reinventing UIs is how we cope.
+                </div>
+            </div>
+            <hr class="border-secondary">
+        </div>
+
+        {{-- Tweet clone --}}
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ route('tailwind.tweet') }}" class="text-decoration-none text-light">
+                <div class="p-4 rounded bg-black terminal-border h-100 shadow-sm">
+                    <div class="text-secondary small mb-1">module</div>
+                    <div class="fw-semibold text-success mb-2">single_tweet_clone</div>
+                    <div class="small text-secondary">
+                        because building one tweet is easier than building a personality.<br>
+                        feature set: like, reply, existential dread.
+                    </div>
+                    <div class="small mt-3 text-info">open →</div>
+                </div>
+            </a>
+        </div>
+
+        {{-- Github clone --}}
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ route('tailwind.github') }}" class="text-decoration-none text-light">
+                <div class="p-4 rounded bg-black terminal-border h-100 shadow-sm">
+                    <div class="text-secondary small mb-1">module</div>
+                    <div class="fw-semibold text-success mb-2">github_clone</div>
+                    <div class="small text-secondary">
+                        the classic: clone GitHub to prove you can… clone GitHub.<br>
+                        stars not included.
+                    </div>
+                    <div class="small mt-3 text-info">open →</div>
+                </div>
+            </a>
+        </div>
+
+        {{-- Kanban --}}
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ route('tailwind.kanban') }}" class="text-decoration-none text-light">
+                <div class="p-4 rounded bg-black terminal-border h-100 shadow-sm">
+                    <div class="text-secondary small mb-1">module</div>
+                    <div class="fw-semibold text-success mb-2">kanban_board</div>
+                    <div class="small text-secondary">
+                        todo → doing → done → repeat forever.<br>
+                        productivity cosplay, now in columns.
+                    </div>
+                    <div class="small mt-3 text-info">open →</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Blog layout -->
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ route('tailwind.blog') }}" class="text-decoration-none text-light">
+                <div class="p-4 rounded bg-black terminal-border h-100 shadow-sm">
+                    <div class="text-secondary small mb-1">module</div>
+                    <div class="fw-semibold text-success mb-2">blog_layout</div>
+                    <div class="small text-secondary">
+                        every framework demo ends here eventually.<br>
+                        “hello world” but with a hero section.
+                    </div>
+                    <div class="small mt-3 text-info">open →</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ route('tailwind.dashboard') }}" class="text-decoration-none text-light">
+                <div class="p-4 rounded bg-black terminal-border h-100 shadow-sm">
+                    <div class="text-secondary small mb-1">module</div>
+                    <div class="fw-semibold text-success mb-2">admin_dashboard</div>
+
+                    <div class="small text-secondary">
+                        charts, stats, and boxes with numbers.<br>
+                        because every project eventually becomes a dashboard.
+                    </div>
+
+                    <div class="small mt-3 text-info">
+                        open →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        {{-- Optional extra card: index meta / disclaimer --}}
+        <div class="col-md-6 col-lg-4">
+            <div class="p-4 rounded bg-black terminal-border h-100">
+                <div class="text-secondary small mb-1">notes</div>
+                <div class="small text-secondary lh-sm">
+                    these pages exist to test layout, spacing, and component discipline.<br>
+                    yes, they&#039;re cliché. that&#039;s the point. known inputs make bugs easier to catch.
+                    <div class="mt-2">
+                        <span class="cursor">█</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</header>
-{{-- content --}}
-<section class="container mx-auto p-4 bg-gray-100 rounded-lg shadow-md">
-    <a href="{{ route('tailwind.tweet') }}" class="flex text-center hover:bg-gray-200">
-        <img class="w-10 h-10 mr-2" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDggNDg7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0OCA0OCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGcgaWQ9Ikljb25zIj48ZyBpZD0iSWNvbnNfMTVfIj48Zz48cGF0aCBkPSJNMjMuNTU4MjEsMjUuNDkyOTZjMCwwLDEuNDMwNCwwLjMyNTEsNC4xNjEyLTAuODQ1MnMyLjczMDgtMy4wNTU5LDIuNzMwOC0zLjA1NTkgICAgIGMtMS40MzA0LDAuNTg1Mi0yLjY2NTgtMC4zMjUxLTIuNjY1OC0wLjMyNTFsMS4xNzAzLTAuNTg1MWMyLjIxMDctMC40NTUyLDQuNjgxNC0yLjczMDgsNS4xMzY1LTMuMTIwOSAgICAgczEuMTA1My0xLjYyNTUtMC4xOTUxLTEuMTcwNGMtMS4zMDAzLDAuNDU1Mi0yLjc5NTgsMC4xMzAxLTIuNzk1OCwwLjEzMDFsMC43ODAzLTAuNjUwMiAgICAgYzMuODM2MS0yLjM0MDcsNC40ODYyLTQuNjE2MywzLjgzNjEtNS4wMDY0Yy0wLjY1MDItMC4zOTAxLTIuMTkwNiwxLTIuMTkwNiwxYy0xNy4xMjEyLDEwLjQ4NDQtMTguOTc2NiwyNC42ODE5LTE4Ljk3NjYsMjQuNjgxOSAgICAgcy0wLjExOTMsMC43MTU1LDAuNzc1MSwwLjY1NTlDMTYuMjE4OTEsMzcuMTQxOTYsMTUuMzkyMTEsMzEuNTc3MzYsMjMuNTU4MjEsMjUuNDkyOTZ6IiBzdHlsZT0iZmlsbDojNEFBMEVDOyIvPjxnPjxwYXRoIGQ9Ik0xMi40MTMxMSwyNC41Nzc5NmMtMC4xOTM0LDAtMC4zNTAxLTAuMTU2My0wLjM1MDEtMC4zNDk3di01LjE4ODQgICAgICBjMC0xLjc1MSwxLjQyNDMtMy4xNzQ4LDMuMTc1My0zLjE3NDhoNS4xNTkxYzAuMTkzNCwwLDAuMzUwMSwwLjE1NjIsMC4zNTAxLDAuMzQ5NmMwLDAuMTkzMy0wLjE1NjcsMC4zNDk2LTAuMzUwMSwwLjM0OTYgICAgICBoLTUuMTU5MWMtMS4zNjQ4LDAtMi40NzUxLDEuMTEwMy0yLjQ3NTEsMi40NzU2djUuMTg4NEMxMi43NjMyMSwyNC40MjE2NiwxMi42MDY0MSwyNC41Nzc5NiwxMi40MTMxMSwyNC41Nzc5NnoiIHN0eWxlPSJmaWxsOiM0QUEwRUM7Ii8+PC9nPjxnPjxwYXRoIGQ9Ik0zMS4zNTQ1MSwzNS40MDk5NmgtNS40ODM0Yy0wLjE5MzQsMC0wLjM1MDEtMC4xNTYzLTAuMzUwMS0wLjM0OTYgICAgICBjMC0wLjE5MzQsMC4xNTY3LTAuMzQ5NiwwLjM1MDEtMC4zNDk2aDUuNDgzNGMxLjM2NDcsMCwyLjQ3NTEtMS4xMTA0LDIuNDc1MS0yLjQ3NTZ2LTUuMTYwMiAgICAgIGMwLTAuMTkzMywwLjE1NjctMC4zNDk2LDAuMzUwMS0wLjM0OTZjMC4xOTMzLDAsMC4zNTAxLDAuMTU2MywwLjM1MDEsMC4zNDk2djUuMTYwMiAgICAgIEMzNC41Mjk4MSwzMy45ODYxNiwzMy4xMDU0MSwzNS40MDk5NiwzMS4zNTQ1MSwzNS40MDk5NnoiIHN0eWxlPSJmaWxsOiM0QUEwRUM7Ii8+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==">
-        <span class="pt-2 text-lg">A single tweet clone</span>
-    </a>
 
-    <a href="{{ route('tailwind.github') }}" class="flex text-center hover:bg-gray-200">
-        <img class="w-10 h-10 mr-2" src="data:image/png;base64,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">
-        <span class="pt-2 text-lg">Github clone</span>
-    </a>
-
-    <a href="{{ route('tailwind.kanban') }}" class="flex text-center hover:bg-gray-200">
-        <img class="w-10 h-10 mr-2" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaWQ9IkxhZ2VyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEyOCAxMjg7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiMwMDc5QkY7fQoJLnN0MXtmaWxsOiNGRkZGRkY7fQo8L3N0eWxlPjxnPjxnPjxnPjxnPjxjaXJjbGUgY2xhc3M9InN0MCIgY3g9IjY0IiBjeT0iNjQiIHI9IjUwIi8+PC9nPjwvZz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik04Mi40LDM5LjVINDUuNmMtMy40LDAtNi4xLDIuNy02LjEsNi4xdjM2LjdjMCwzLjQsMi43LDYuMSw2LjEsNi4xaDM2LjdjMy40LDAsNi4xLTIuNyw2LjEtNi4xVjQ1LjYgIEM4OC41LDQyLjIsODUuOCwzOS41LDgyLjQsMzkuNXogTTYwLjgsNzcuOWMwLDEuNi0xLjMsMi45LTIuOSwyLjloLTkuMWMtMS42LDAtMi45LTEuMy0yLjktMi45VjUwLjFjMC0xLjYsMS4zLTIuOSwyLjktMi45aDkuMSAgYzEuNiwwLDIuOSwxLjMsMi45LDIuOVY3Ny45eiBNODIuMSw2NS43YzAsMS42LTEuMywyLjktMi45LDIuOWgtOS4xYy0xLjYsMC0yLjktMS4zLTIuOS0yLjlWNTAuMWMwLTEuNiwxLjMtMi45LDIuOS0yLjloOS4xICBjMS42LDAsMi45LDEuMywyLjksMi45VjY1Ljd6Ii8+PC9zdmc+">
-        <span class="pt-2 text-lg">Kanban Board</span>
-    </a>
-
-
-    <a href="{{ route('tailwind.blog') }}" class="flex text-center hover:bg-gray-200">
-        <svg class="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-        <span class="pl-2 pt-2 text-lg">Blog Layout</span>
-    </a>
-</section>
-{{-- footer --}}
-@endsection
-
-@section('scripts')
+    <div class="mt-4 small text-secondary d-flex flex-wrap justify-content-between gap-2">
+        <div>theme: <span class="text-info">terminal</span></div>
+        <div>originality: <span class="text-warning">deprecated</span> <span class="cursor">█</span></div>
+    </div>
+</div>
 @endsection
